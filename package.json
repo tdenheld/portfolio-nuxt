@@ -1,0 +1,27 @@
+{
+  "name": "portfolio-nuxt",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@nuxt/content": "^3.6.3",
+    "@tailwindcss/vite": "^4.1.12",
+    "better-sqlite3": "^12.2.0",
+    "gsap": "^3.13.0",
+    "nuxt": "^4.0.3",
+    "vite-svg-loader": "^5.1.0",
+    "vue": "latest",
+    "vue-router": "latest"
+  },
+  "devDependencies": {
+    "markdown-it": "^14.1.0",
+    "prettier": "^3.6.2",
+    "tailwindcss": "^4.1.12"
+  }
+}

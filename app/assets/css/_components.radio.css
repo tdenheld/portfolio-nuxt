@@ -1,0 +1,76 @@
+/*/  ========================================================================
+//   #RADIO
+//   ======================================================================== */
+
+.radio {
+  @apply inline-flex
+  items-center
+  gap-3
+  font-medium;
+
+  .is-card & {
+    @apply justify-between;
+  }
+}
+
+.radio__label {
+  @apply py-2.5
+  cursor-pointer
+  select-none
+  touch-manipulation;
+
+  &.is-card {
+    @apply grid
+    grid-rows-[max-content_1fr]
+    gap-1
+    h-full
+    bg-surface-pale
+    px-4
+    py-3
+    border-b
+    border-front-pale
+    rounded-lg
+    transition;
+
+    &:has(.radio__input:checked) {
+      @apply border-transparent;
+      box-shadow: inset 0 0 0 2px var(--color-primary);
+    }
+  }
+}
+
+.radio__input {
+  @apply relative
+  appearance-none
+  inline-block
+  size-5
+  border
+  border-front-pale
+  rounded-full
+  transition
+  cursor-pointer
+
+  focus-visible:outline-2
+  focus-visible:outline-primary
+  focus-visible:outline-offset-2
+  
+  before:absolute
+  before:size-2
+  before:rounded-full
+  before:bg-back
+  before:top-1/2
+  before:left-1/2
+  before:-translate-x-1/2
+  before:-translate-y-1/2
+  before:scale-0
+  before:transition
+
+  checked:bg-primary
+  checked:border-transparent
+  checked:before:scale-100;
+
+  .is-card & {
+    @apply order-last
+    -right-1;
+  }
+}

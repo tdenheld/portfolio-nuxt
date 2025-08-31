@@ -1,0 +1,44 @@
+/*/  ========================================================================
+//   #REVEAL
+//   ======================================================================== */
+
+@utility reveal {
+  @apply opacity-0
+  transition
+  ease-in-out;
+
+  &.is-active {
+    @apply transform-none
+    translate-none
+    filter-none
+    opacity-100
+    ease-out;
+  }
+}
+
+@utility reveal--stag {
+  &:nth-child(1) {
+    transition-delay: 0ms;
+  }
+  &:nth-child(2) {
+    transition-delay: 75ms;
+  }
+  &:nth-child(3) {
+    transition-delay: 150ms;
+  }
+  &:nth-child(4) {
+    transition-delay: 225ms;
+  }
+  &:nth-child(5) {
+    transition-delay: 300ms;
+  }
+  &:nth-child(6) {
+    transition-delay: 375ms;
+  }
+  &:nth-child(7) {
+    transition-delay: 450ms;
+  }
+  &:nth-child(8) {
+    transition-delay: 525ms;
+  }
+}

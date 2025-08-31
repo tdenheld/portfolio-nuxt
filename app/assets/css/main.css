@@ -1,0 +1,24 @@
+/*/  ========================================================================
+//   #MAIN
+//   ======================================================================== */
+
+@import 'tailwindcss';
+@import '~/assets/css/_theme.css';
+
+/* Import utils first, otherwise nested elements won't get styled */
+@import '~/assets/css/_utilities.custom.css';
+@import '~/assets/css/_utilities.animate.css';
+@import '~/assets/css/_utilities.reveal.css';
+
+@import '~/assets/css/_base.fonts.css' layer(base);
+@import '~/assets/css/_base.page.css' layer(base);
+@import '~/assets/css/_base.layout.css' layer(base);
+@import '~/assets/css/_base.transition.css' layer(base);
+
+@import '~/assets/css/_components.button.css' layer(components);
+@import '~/assets/css/_components.checkbox.css' layer(components);
+@import '~/assets/css/_components.radio.css' layer(components);
+@import '~/assets/css/_components.content.css' layer(components);
+@import '~/assets/css/_components.form-control.css' layer(components);
+@import '~/assets/css/_components.hamburger.css' layer(components);
+@import '~/assets/css/_components.nav.css' layer(components);

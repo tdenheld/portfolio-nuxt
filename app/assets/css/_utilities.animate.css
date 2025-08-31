@@ -1,0 +1,43 @@
+/*/  ========================================================================
+//   #ANIMATE
+//   ======================================================================== */
+
+@utility a {
+  opacity: 0;
+  animation-duration: 1500ms;
+  animation-fill-mode: both;
+  animation-timing-function: theme('transitionTimingFunction.DEFAULT');
+}
+
+/* Variants */
+/* ---------------------------- */
+@keyframes fade-in {
+  to {
+    opacity: 1;
+    transform: none;
+    translate: none;
+    filter: none;
+  }
+}
+
+@utility a-fi {
+  animation-name: fade-in;
+}
+
+/* ---------------------------- */
+
+@keyframes fade-in-50 {
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+    translate: none;
+    filter: none;
+  }
+}
+
+@utility a-fi-50 {
+  animation-name: fade-in-50;
+}

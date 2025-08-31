@@ -1,0 +1,54 @@
+/*/  ========================================================================
+//   #HAMBURGER
+//   ======================================================================== */
+
+.hamburger {
+  @apply grid
+  gap-1.5
+  place-content-center
+  size-8
+  relative
+  select-none
+  touch-manipulation
+  rounded
+  before:absolute
+  before:-inset-2;
+}
+
+.hamburger__line {
+  @apply transition
+  delay-100
+  duration-200;
+
+  div {
+    @apply w-6
+    bg-primary
+    transition
+    rounded-full
+    h-0.5;
+  }
+
+  .hamburger.is-active & {
+    @apply delay-0;
+
+    div {
+      @apply delay-[60ms];
+    }
+
+    &:nth-child(1) {
+      @apply translate-y-1;
+
+      div {
+        @apply rotate-45;
+      }
+    }
+
+    &:nth-child(2) {
+      @apply -translate-y-1;
+
+      div {
+        @apply -rotate-45;
+      }
+    }
+  }
+}

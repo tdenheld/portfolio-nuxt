@@ -1,0 +1,67 @@
+/*/  ========================================================================
+//   #BUTTON
+//   ======================================================================== */
+
+.button {
+  @apply inline-flex
+  items-center
+  justify-center
+  touch-manipulation
+  select-none
+  pb-0.5
+  h-11
+  px-6
+  bg-primary
+  text-back
+  text-center
+  rounded-full
+  font-semibold
+  leading-tight
+  text-base
+  transition;
+
+  &:hover:not(:disabled) {
+    @apply hover-inverse;
+  }
+
+  &:disabled:not(.is-loading) {
+    @apply opacity-30
+    cursor-not-allowed;
+  }
+
+  &.is-loading {
+    @apply opacity-30
+    cursor-wait;
+  }
+}
+
+.button--ghost {
+  @apply bg-transparent
+  text-front
+  border
+  border-surface-subdued;
+
+  &:hover:not(:disabled) {
+    @apply bg-surface-subtle;
+  }
+}
+
+.button--text {
+  @apply bg-transparent
+  text-front
+  px-3;
+
+  &:hover:not(:disabled) {
+    @apply text-front-subtle;
+  }
+}
+
+/* ----------------------------------------------------------------- */
+/* Button Group */
+/* ----------------------------------------------------------------- */
+
+.button-group {
+  @apply flex
+  gap-x-3
+  gap-y-1;
+}
