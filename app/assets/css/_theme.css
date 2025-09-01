@@ -21,13 +21,13 @@
   /* ------------------------------------------- */
   --color-*: initial;
 
-  --color-primary-front: #CDD388;
-  --color-secondary-front: #F5F2E3;
-  --color-tertiary-front: #F5F2E3;
+  --color-fg-primary: #CDD388;
+  --color-fg-secondary: #F5F2E3;
+  --color-fg-tertiary: #F5F2E3;
 
-  --color-primary-back: #3C796B;
-  --color-secondary-back: #437182;
-  --color-tertiary-back: #51793C;
+  --color-bg-primary: #3C796B;
+  --color-bg-secondary: #437182;
+  --color-bg-tertiary: #51793C;
 
   /* Motion */
   /* ------------------------------------------- */

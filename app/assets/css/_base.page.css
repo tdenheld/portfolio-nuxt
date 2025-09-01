@@ -3,8 +3,8 @@
 //   ======================================================================== */
 
 html {
-  @apply bg-primary-back
-  text-primary-front
+  @apply bg-bg-primary
+  text-fg-primary
   font-sans
   font-normal
   text-base
@@ -20,7 +20,7 @@ button {
   @apply cursor-pointer
   focus-visible:outline-2
   focus-visible:outline-offset-2
-  focus-visible:outline-primary-front;
+  focus-visible:outline-fg-primary;
   -webkit-tap-highlight-color: transparent;
 
   /* :where is less specific than :not and can be
@@ -32,15 +32,15 @@ button {
 }
 
 hr {
-  @apply border-secondary-front;
+  @apply border-fg-secondary;
 }
 
 ::-moz-selection {
-  @apply bg-secondary-back;
+  @apply bg-bg-secondary;
 }
 
 ::selection {
-  @apply bg-secondary-back;
+  @apply bg-bg-secondary;
 }
 
 /* Resets */

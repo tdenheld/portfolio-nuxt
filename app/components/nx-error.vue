@@ -9,7 +9,7 @@
 
           <p class="mt-6 intro">We couldn't find the page you were looking for</p>
 
-          <p class="text-sm text-primary-front mt-2">Error code: 404</p>
+          <p class="text-sm text-fg-primary mt-2">Error code: 404</p>
 
           <p class="mt-8">
             <nuxt-link to="/" class="button">Go home</nuxt-link>
