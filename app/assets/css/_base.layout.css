@@ -29,17 +29,3 @@
 .section--tight {
   @apply pt-16;
 }
-
-/*  ------------------------------------------ //
-    Grid
-//  ------------------------------------------ */
-
-.card-grid {
-  @apply grid
-  gap-x-3
-  sm:gap-x-6
-  md:gap-x-8
-  gap-y-12
-  grid-cols-2
-  lg:grid-cols-3;
-}

@@ -2,6 +2,36 @@
 //   #FONTS
 //   ======================================================================== */
 
+/* Display */
+/* ------------------------ */
+@font-face {
+  font-family: 'tk-display';
+  src: url('@/assets/fonts/display-var.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Mono */
+/* ------------------------ */
+@font-face {
+  font-family: 'tk-display';
+  src: url('@/assets/fonts/mono-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Serif */
+/* ------------------------ */
+@font-face {
+  font-family: 'tk-serif';
+  src: url('@/assets/fonts/serif-400-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
 /* Sans */
 /* ------------------------ */
 @font-face {

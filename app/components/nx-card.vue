@@ -15,12 +15,12 @@ const props = defineProps({
           {{ data.title }}
         </h2>
         
-        <p class="hidden mt-3 text-front-subtle text-sm @2xs:block">
+        <p class="hidden mt-3 text-primary-front text-sm @2xs:block">
           {{ data.description }}
         </p>
 
         <div
-          class="mt-1 text-sm text-primary link-group-hover @2xs:mt-3 @2xs:text-base"
+          class="mt-1 text-sm text-primary-front link-group-hover @2xs:mt-3 @2xs:text-base"
         >
           Read more →
         </div>

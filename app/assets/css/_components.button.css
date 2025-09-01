@@ -11,8 +11,8 @@
   pb-0.5
   h-11
   px-6
-  bg-primary
-  text-back
+  bg-primary-front
+  text-primary-back
   text-center
   rounded-full
   font-semibold
@@ -37,22 +37,22 @@
 
 .button--ghost {
   @apply bg-transparent
-  text-front
+  text-primary-front
   border
-  border-surface-subdued;
+  border-primary-front/20;
 
   &:hover:not(:disabled) {
-    @apply bg-surface-subtle;
+    @apply bg-primary-front/10;
   }
 }
 
 .button--text {
   @apply bg-transparent
-  text-front
+  text-primary-front
   px-3;
 
   &:hover:not(:disabled) {
-    @apply text-front-subtle;
+    @apply text-primary-front;
   }
 }
 
