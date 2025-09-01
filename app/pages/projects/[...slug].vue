@@ -1,7 +1,7 @@
 <script setup>
 const route = useRoute();
 const { data: page } = await useAsyncData(route.path, () => {
-  return queryCollection('products').path(route.path).first();
+  return queryCollection('projects').path(route.path).first();
 });
 </script>
 
@@ -14,7 +14,7 @@ const { data: page } = await useAsyncData(route.path, () => {
         :image="page.meta.image.src"
       ></nx-meta-tags>
 
-      <nx-hero :data="page" image-position="bottom"></nx-hero>
+      <nx-hero :data="page"></nx-hero>
 
       <section class="section-y">
         <div class="contain">

@@ -1,16 +1,16 @@
 <script setup>
-const { data: products } = await useAsyncData('products', () =>
-  queryCollection('products').all()
+const { data: projects } = await useAsyncData('projects', () =>
+  queryCollection('projects').all()
 );
 </script>
 
 <template>
   <div>
-    <nx-meta-tags title="Products"></nx-meta-tags>
+    <nx-meta-tags title="Projects"></nx-meta-tags>
 
     <nx-hero
       :data="{
-        title: 'Products',
+        title: 'Projects',
         description:
           'You can create server-rendered applications that are optimized for search engines and social media platforms.',
       }"
@@ -18,11 +18,7 @@ const { data: products } = await useAsyncData('products', () =>
 
     <section class="section-y section--tight">
       <div class="contain">
-        <ul class="card-grid">
-          <li v-for="entry in products" :key="entry.path">
-            <nx-card :data="entry"></nx-card>
-          </li>
-        </ul>
+       
       </div>
     </section>
   </div>

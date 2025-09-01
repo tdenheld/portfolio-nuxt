@@ -12,8 +12,8 @@ cta:
   secondary:
     name: Learn more
     url: '#'
-products:
-  title: Products
+projects:
+  title: Projects
   description: >-
     This description field is fully **markdown** and can be coupled intro a what you see is what you get markdown field for this type of string data.
 ---
