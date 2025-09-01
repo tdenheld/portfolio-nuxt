@@ -7,25 +7,5 @@
 //  ------------------------------------------ */
 
 .contain {
-  @apply mx-auto max-w-[1600px] px-6 sm:px-8 md:px-16;
-}
-
-.contain--narrow {
-  @apply max-w-7xl;
-}
-
-/*  ------------------------------------------ //
-    Section
-//  ------------------------------------------ */
-
-.section {
-  @apply pt-16 sm:pt-20 md:pt-24 lg:pt-28 xl:pt-32;
-}
-
-.section-y {
-  @apply py-16 sm:py-20 md:py-24 lg:py-28 xl:py-32;
-}
-
-.section--tight {
-  @apply pt-16;
+  @apply p-6 md:p-8 xl:p-16;
 }

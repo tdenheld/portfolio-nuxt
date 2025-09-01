@@ -10,10 +10,6 @@ const { data: projects } = await useAsyncData('projects', () =>
   <div>
     <nx-meta-tags></nx-meta-tags>
 
-    <section class="section-y">
-      <div class="contain">
-        <nx-hero :data="page"></nx-hero>
-      </div>
-    </section>
+    <nx-hero :data="page"></nx-hero>
   </div>
 </template>

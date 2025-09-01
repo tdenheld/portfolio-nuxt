@@ -8,6 +8,10 @@ export default defineNuxtConfig({
     host: '0.0.0.0',
   },
 
+  devtools: {
+    enabled: false,
+  },
+
   app: {
     pageTransition: { name: 'page' },
 
@@ -15,7 +19,13 @@ export default defineNuxtConfig({
       link: [
         {
           rel: 'apple-touch-icon',
+          type: 'image/png',
           href: 'favicon-touch.png',
+        },
+        {
+          rel: 'icon',
+          type: 'image/png',
+          href: 'favicon.ico',
         },
       ],
     },

@@ -8,60 +8,17 @@
   justify-center
   touch-manipulation
   select-none
-  pb-0.5
-  h-11
+  pb-1.5
+  h-7
   px-6
-  bg-fg-primary
-  text-bg-primary
   text-center
   rounded-full
+  font-mono
   font-semibold
   leading-tight
   text-base
-  transition;
-
-  &:hover:not(:disabled) {
-    @apply hover-inverse;
-  }
-
-  &:disabled:not(.is-loading) {
-    @apply opacity-30
-    cursor-not-allowed;
-  }
-
-  &.is-loading {
-    @apply opacity-30
-    cursor-wait;
-  }
-}
-
-.button--ghost {
-  @apply bg-transparent
+  transition
   text-fg-primary
   border
   border-fg-primary/20;
-
-  &:hover:not(:disabled) {
-    @apply bg-fg-primary/10;
-  }
-}
-
-.button--text {
-  @apply bg-transparent
-  text-fg-primary
-  px-3;
-
-  &:hover:not(:disabled) {
-    @apply text-fg-primary;
-  }
-}
-
-/* ----------------------------------------------------------------- */
-/* Button Group */
-/* ----------------------------------------------------------------- */
-
-.button-group {
-  @apply flex
-  gap-x-3
-  gap-y-1;
 }

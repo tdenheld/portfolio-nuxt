@@ -16,27 +16,4 @@ nav:
       url: '#'
     - name: Contact
       url: '#'
-  # Secondary navigation
-  - title: Legal
-    items:
-    - name: Privacy Policy
-      url: '#'
-    - name: Terms of Service
-      url: '#'
-    - name: Disclaimer
-      url: '#'
-  - title: Social
-    items:
-    - name: Facebook
-      url: '#'
-      external: true
-    - name: LinkedIn
-      url: '#'
-      external: true
-    - name: Instagram
-      url: '#'
-      external: true
-    - name: YouTube
-      url: '#'
-      external: true
 ---

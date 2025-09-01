@@ -18,9 +18,7 @@ const { data: page } = await useAsyncData(route.path, () => {
 
       <section class="section-y">
         <div class="contain">
-          <article class="content">
-            <content-renderer v-if="page" :value="page"></content-renderer>
-          </article>
+
         </div>
       </section>
     </div>
