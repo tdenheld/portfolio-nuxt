@@ -60,7 +60,7 @@
 }
 
 @utility intro {
-  @apply text-fg-primary
+  @apply text-fg-secondary
   text-lg
   md:text-xl
   max-w-[48ch]
