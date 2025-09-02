@@ -5,17 +5,23 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="p-contain fixed inset-0 main-grid">
+  <div class="lg:main-grid fixed p-contain inset-0">
+    <div class="col-start-2 h-full grid grid-rows-[max-content_1fr_max-content]">
+      <div class="invisible lg:visible relative top-3.5 font-mono text-[10px] text-fg-secondary tracking-wider">
+        Netherlands, <nx-time></nx-time>
+      </div>
 
-    <div class="col-start-2 pb-4">
-      <h1 class="font-semibold text-[calc(24px+4.5vw)] leading-[1.1] font-display max-w-[18ch]">
-        {{ props.data.title }}
-      </h1>
+      <div class="grid items-center">
+        <h1
+          class="font-semibold text-[calc(24px+4.5vw)] leading-[1.1] font-display max-w-[18ch]"
+        >
+          {{ props.data.title }}
+        </h1>
+      </div>
+
+      <p class="text-sm w-[280px] text-fg-secondary">
+        {{ props.data.description }}
+      </p>
     </div>
-
-  </div>
-
-  <div class="p-contain fixed bottom-0 inset-x-0 main-grid">
-    <p class="col-start-2 text-sm w-[280px] text-fg-secondary">{{ props.data.description }}</p>
   </div>
 </template>
