@@ -6,8 +6,8 @@ const props = defineProps({
 
 <template>
   <div class="contain fixed inset-0 grid items-center ml-[16vw]">
-    <div class="pb-4 max-w-4xl">
-      <h1 class="font-semibold text-3xl md:text-5xl xl:text-8xl font-display">
+    <div class="pb-4">
+      <h1 class="font-semibold text-[calc(16px+5vw)] leading-[1.1] font-display max-w-[18ch]">
         {{ props.data.title }}
       </h1>
     </div>
