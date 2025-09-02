@@ -12,7 +12,6 @@
 
 @import '~/assets/css/_base.fonts.css' layer(base);
 @import '~/assets/css/_base.page.css' layer(base);
-@import '~/assets/css/_base.layout.css' layer(base);
 @import '~/assets/css/_base.transition.css' layer(base);
 
 @import '~/assets/css/_components.button.css' layer(components);

@@ -38,6 +38,7 @@ onMounted(() => {
     time.value = getCentralEuropeanTime();
   }, 1000 * 60); // update every minute
 });
+
 onUnmounted(() => {
   if (interval) clearInterval(interval);
 });

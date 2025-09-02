@@ -10,24 +10,29 @@
   --breakpoint-lg: 61.25rem;
   --breakpoint-xl: 81.25rem;
 
+  /* Spacing */
+  /* ------------------------------------------- */
+  --spacing-contain: 1.5rem;
+
   /* Font */
   /* ------------------------------------------- */
   --font-sans: 'tk-sans', Helvetica, Arial, sans-serif;
   --font-display: 'tk-display', Helvetica, Arial, sans-serif;
   --font-serif: 'tk-serif', ui-serif, Georgia, Cambria, Times New Roman, Times, serif;
-  --font-mono: 'tk-mono', ui-monospace, SFMono-Regular, Menlo, Monaco, 'Courier New', monospace;
+  --font-mono:
+    'tk-mono', ui-monospace, SFMono-Regular, Menlo, Monaco, 'Courier New', monospace;
 
   /* Color */
   /* ------------------------------------------- */
   --color-*: initial;
 
-  --color-fg-primary: #CDD388;
-  --color-fg-secondary: #F5F2E3;
-  --color-fg-tertiary: #F5F2E3;
+  --color-fg-primary: #cdd388;
+  --color-fg-secondary: #f5f2e3;
+  --color-fg-tertiary: #f5f2e3;
 
-  --color-bg-primary: #3C796B;
+  --color-bg-primary: #3c796b;
   --color-bg-secondary: #437182;
-  --color-bg-tertiary: #51793C;
+  --color-bg-tertiary: #51793c;
 
   /* Motion */
   /* ------------------------------------------- */
@@ -46,4 +51,18 @@
   --z-index-messages: 50;
   --z-index-menu: 20;
   --z-index-raised: 10;
+}
+
+/* Responsive spacings */
+  /* ------------------------------------------- */
+@media (min-width: theme(--breakpoint-md)) {
+  :root {
+    --spacing-contain: 3rem;
+  }
+}
+
+@media (min-width: theme(--breakpoint-xl)) {
+  :root {
+    --spacing-contain: 4rem;
+  }
 }
