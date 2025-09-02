@@ -12,11 +12,17 @@ const props = defineProps({
       </div>
 
       <div class="grid items-center">
-        <h1
-          class="font-semibold text-[calc(24px+4.5vw)] leading-[1.1] font-display max-w-[18ch]"
-        >
-          {{ props.data.title }}
-        </h1>
+        <header>
+          <p class="font-serif text-xl md:text-[28px] text-fg-secondary">
+            {{ props.data.meta.name }}
+          </p>
+
+          <h1
+            class="mt-1 font-semibold text-[calc(24px+4.5vw)] leading-[1.1] font-display max-w-[18ch]"
+          >
+            {{ props.data.title }}
+          </h1>
+        </header>
       </div>
 
       <p class="text-sm w-[280px] text-fg-secondary">

@@ -1,8 +1,5 @@
 ---
-email: contact@yourcompany.nl
-street: 34 Capitol Way, Edgware Rd
-postalCode: London NW9 0AS
-country: United Kingdom
+email: hoi@tk305.com
 
 nav:
   # Main navigation
