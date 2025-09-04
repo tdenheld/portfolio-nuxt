@@ -6,13 +6,13 @@ const props = defineProps({
 
 <template>
   <div class="lg:main-grid fixed p-contain inset-0">
-    <div class="col-start-2 h-full grid grid-rows-[max-content_1fr_max-content]">
-      <div class="invisible lg:visible relative top-3.5 font-mono text-[10px] text-fg-secondary tracking-wider">
+    <div class="col-start-2 h-full">
+      <div class="invisible lg:visible absolute top-[calc(var(--spacing-contain)+14px)] font-mono text-[10px] text-fg-secondary tracking-wider">
         Netherlands, <nx-time></nx-time>
       </div>
 
-      <div class="grid items-center">
-        <header>
+      <div class="h-full grid items-center">
+        <div>
           <p class="font-serif text-xl md:text-[28px] text-fg-secondary">
             {{ props.data.meta.name }}
           </p>
@@ -22,10 +22,10 @@ const props = defineProps({
           >
             {{ props.data.title }}
           </h1>
-        </header>
+        </div>
       </div>
 
-      <p class="text-sm w-[280px] text-fg-secondary">
+      <p class="absolute bottom-contain text-sm w-[280px] text-fg-secondary">
         {{ props.data.description }}
       </p>
     </div>
