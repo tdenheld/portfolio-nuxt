@@ -10,8 +10,14 @@ descriptionLong: Ziris offers courses in the field of art history in combination
 image: zi/ziris-hero.jpg
 visit: https://ziris.nl
 color:
-  foreground: "#820186"
-  background: "#e0e0e0"
+  fg:
+    primary: "#820186"
+    secondary: "#820186"
+    tertiary: "#820186"
+  bg:
+    primary: "#e0e0e0"
+    secondary: "#e0e0e0"
+    tertiary: "#e0e0e0"
 items:
   - src: zi/ziris-01.jpg
   - src: zi/ziris-02.jpg

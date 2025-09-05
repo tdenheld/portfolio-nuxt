@@ -2,15 +2,10 @@
 email: hoi@tk305.com
 
 nav:
-  # Main navigation
-  - title: Company
-    items:
-    - name: About
-      url: /about
-    - name: Services
-      url: /services
-    - name: Team
-      url: '#'
-    - name: Contact
-      url: '#'
+- name: About
+  url: /about
+- name: Work
+  url: /work
+- name: Gallery
+  url: /gallery
 ---

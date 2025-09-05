@@ -13,5 +13,11 @@ items:
   - src: ns-04.jpg
 visit: https://design.ns.nl
 color:
-  foreground: "#003082"
-  background: "#ffc917"
+  fg:
+    primary: "#003082"
+    secondary: "#003082"
+    tertiary: "#003082"
+  bg:
+    primary: "#ffc917"
+    secondary: "#ffc917"
+    tertiary: "#ffc917"

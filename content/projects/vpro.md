@@ -9,8 +9,14 @@ descriptionLong: A micro website as an end-of-year membership gift from the VPRO
 image: vp/vp-hero.jpg
 visit: https://opgewekte-energie.nl
 color:
-  foreground: "#FFF"
-  background: "#35296B"
+  fg:
+    primary: "#FFF"
+    secondary: "#FFF"
+    tertiary: "#FFF"
+  bg:
+    primary: "#35296B"
+    secondary: "#35296B"
+    tertiary: "#35296B"
 items:
   - src: vp/vp-01.jpg
   - src: vp/vp-02.jpg
