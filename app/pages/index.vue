@@ -15,7 +15,7 @@ const page = await queryCollection('content').path('/').first();
         </div>
 
         <div class="h-full grid items-center">
-          <div>
+          <div class="pb-8">
             <p class="font-serif text-xl md:text-[28px] text-fg-secondary">
               {{ page.meta.name }}
             </p>
