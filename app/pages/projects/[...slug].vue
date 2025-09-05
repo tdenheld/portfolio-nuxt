@@ -13,14 +13,6 @@ const { data: page } = await useAsyncData(route.path, () => {
         :description="page.description"
         :image="page.meta.image.src"
       ></nx-meta-tags>
-
-      <nx-hero :data="page"></nx-hero>
-
-      <section class="section-y">
-        <div class="contain">
-
-        </div>
-      </section>
     </div>
 
     <div v-else>

@@ -15,7 +15,7 @@ const page = await queryCollection('content').path('/').first();
         </div>
 
         <div class="h-full grid items-center">
-          <div class="pb-8">
+          <div class="pb-12">
             <p class="font-serif text-xl md:text-[28px] text-fg-secondary">
               {{ page.meta.name }}
             </p>
@@ -25,6 +25,14 @@ const page = await queryCollection('content').path('/').first();
             >
               {{ page.title }}
             </h1>
+
+            <p class="mt-5 text-fg-secondary text-lg max-w-[32ch] leading-[1.4]">
+              NS is the leading railway company of the Netherlands.
+            </p>
+
+            <div class="mt-8">
+              <nuxt-link to="/projects" class="button">Explore</nuxt-link>
+            </div>
           </div>
         </div>
 

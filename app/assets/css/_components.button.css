@@ -8,17 +8,15 @@
   justify-center
   touch-manipulation
   select-none
-  pb-1.5
   h-7
   px-6
   text-center
   rounded-full
   font-mono
-  font-semibold
   leading-tight
-  text-base
+  text-[11px]
   transition
   text-fg-primary
   border
-  border-fg-primary/20;
+  border-fg-primary/40;
 }
