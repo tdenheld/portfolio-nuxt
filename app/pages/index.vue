@@ -1,5 +1,15 @@
 <script setup>
 const page = await queryCollection('content').path('/').first();
+
+const { data: projects } = await useAsyncData('projects', () =>
+  queryCollection('projects').all()
+);
+
+const newPage = Object.fromEntries(
+  Object.entries(page).filter(([key]) => key !== 'description')
+);
+
+const mergedData = [newPage, ...(projects.value || [])];
 </script>
 
 <template>
@@ -16,23 +26,11 @@ const page = await queryCollection('content').path('/').first();
 
         <div class="h-full grid items-center">
           <div class="pb-12">
-            <p class="font-serif text-xl md:text-[28px] text-fg-secondary">
-              {{ page.meta.name }}
-            </p>
-
-            <h1
-              class="mt-1 font-semibold text-[calc(24px+4.5vw)] leading-[1.1] font-display max-w-[18ch]"
-            >
-              {{ page.title }}
-            </h1>
-
-            <p class="mt-5 text-fg-secondary text-lg max-w-[32ch] leading-[1.4]">
-              NS is the leading railway company of the Netherlands.
-            </p>
-
-            <div class="mt-8">
-              <nuxt-link to="/projects" class="button">Explore</nuxt-link>
-            </div>
+            <nx-carousel
+              v-for="(entry, index) in mergedData"
+              :key="index"
+              :data="entry"
+            ></nx-carousel>
           </div>
         </div>
 

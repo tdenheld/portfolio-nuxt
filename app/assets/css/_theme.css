@@ -19,8 +19,7 @@
   --font-sans: 'tk-sans', Helvetica, Arial, sans-serif;
   --font-display: 'tk-display', Helvetica, Arial, sans-serif;
   --font-serif: 'tk-serif', ui-serif, Georgia, Cambria, Times New Roman, Times, serif;
-  --font-mono:
-    'tk-mono', ui-monospace, SFMono-Regular, Menlo, Monaco, 'Courier New', monospace;
+  --font-mono: 'tk-mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
 
   /* Color */
   /* ------------------------------------------- */
@@ -54,7 +53,7 @@
 }
 
 /* Responsive spacings */
-  /* ------------------------------------------- */
+/* ------------------------------------------- */
 @media (min-width: theme(--breakpoint-md)) {
   :root {
     --spacing-contain: 3rem;
