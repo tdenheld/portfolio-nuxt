@@ -1,13 +1,13 @@
-<script setup>
+<script setup lang="ts">
 const page = await queryCollection('content').path('/').first();
 
 const { data: projects } = await useAsyncData('projects', () =>
   queryCollection('projects').all()
 );
 
-const newPage = Object.fromEntries(
+const newPage = page ? Object.fromEntries(
   Object.entries(page).filter(([key]) => key !== 'description')
-);
+) : {};
 
 const mergedData = [newPage, ...(projects.value || [])];
 </script>
@@ -35,7 +35,7 @@ const mergedData = [newPage, ...(projects.value || [])];
         </div>
 
         <p class="absolute bottom-contain text-sm w-[280px] text-fg-secondary">
-          {{ page.description }}
+          {{ page?.description }}
         </p>
       </div>
     </div>
