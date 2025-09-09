@@ -5,11 +5,23 @@ const { data: projects } = await useAsyncData('projects', () =>
   queryCollection('projects').all()
 );
 
-const newPage = page ? Object.fromEntries(
-  Object.entries(page).filter(([key]) => key !== 'description')
-) : {};
+const newPage = page
+  ? {
+      ...Object.fromEntries(
+        Object.entries(page).filter(
+          ([key]) => key !== 'path'
+        )
+      ),
+      meta: {}, // Ensure `meta` exists
+      title: page.title || 'Untitled', // Provide a default title
+    }
+  : null;
 
-const mergedData = [newPage, ...(projects.value || [])];
+const sortedProjects = projects.value?.sort(
+  (a, b) => (Number(a.meta.sort) || 0) - (Number(b.meta.sort) || 0)
+);
+
+const mergedData = [...(newPage ? [newPage] : []), ...(sortedProjects || [])];
 </script>
 
 <template>
@@ -26,11 +38,7 @@ const mergedData = [newPage, ...(projects.value || [])];
 
         <div class="h-full grid items-center">
           <div class="pb-12">
-            <nx-carousel
-              v-for="(entry, index) in mergedData"
-              :key="index"
-              :data="entry"
-            ></nx-carousel>
+            <nx-carousel :data="mergedData"></nx-carousel>
           </div>
         </div>
 

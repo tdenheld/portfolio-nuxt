@@ -1,12 +1,13 @@
 ---
 title: VPRO
-sort: 3
+sort: 2
 role:
   - Fullstack Dev
   - Motion
 period: 2022
 description: A micro website as an end-of-year membership gift from the VPRO. Built within a few weeks in collaboration with Headline Interactive.
 descriptionLong: A micro website as an end-of-year membership gift from the VPRO. Built within a few weeks in collaboration with Headline Interactive. Using Nuxt, GSAP and the Web Animations API.
+descriptionShort: A micro website as an end-of-year membership gift from the VPRO.
 image: vp/vp-hero.jpg
 visit: https://opgewekte-energie.nl
 color:
