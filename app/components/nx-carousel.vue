@@ -55,7 +55,6 @@ const handleDirection = (direction: 'up' | 'down') => {
 };
 
 const handleWheel = (e: WheelEvent) => {
-  console.log(e.deltaY);
   if (!listening.value) return;
 
   const direction = e.deltaY < 0 ? 'up' : 'down';
