@@ -28,6 +28,8 @@ const mergedData = [...(newPage ? [newPage] : []), ...(sortedProjects || [])];
   <div>
     <nx-meta-tags></nx-meta-tags>
 
+    <div class="h-[9999999999vh]"></div>
+
     <div class="lg:main-grid fixed p-contain inset-0">
       <div class="col-start-2 h-full">
         <div
