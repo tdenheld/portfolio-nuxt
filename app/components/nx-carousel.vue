@@ -25,10 +25,6 @@ const touch = reactive({
   dt: 0,
 });
 
-const wheelTimeout = ref<NodeJS.Timeout | null>(null);
-const wheelDelta = ref(0);
-const isScrolling = ref(false);
-
 const next = () => {
   if (currentIndex.value === props.data.length - 1) {
     currentIndex.value = 0;
@@ -56,7 +52,7 @@ const handleDirection = (direction: 'up' | 'down') => {
 
 const handleWheel = (e: WheelEvent) => {
   if (!listening.value) return;
-
+  
   const direction = e.deltaY < 0 ? 'up' : 'down';
   handleDirection(direction);
 };
