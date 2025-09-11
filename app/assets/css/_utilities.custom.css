@@ -13,6 +13,10 @@
   gap-6;
 }
 
+@utility no-scrollbar {
+  @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+}
+
 /* ----------------------------------------------- */
 /* Links */
 /* ----------------------------------------------- */

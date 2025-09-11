@@ -7,11 +7,7 @@ const { data: projects } = await useAsyncData('projects', () =>
 
 const newPage = page
   ? {
-      ...Object.fromEntries(
-        Object.entries(page).filter(
-          ([key]) => key !== 'path'
-        )
-      ),
+      ...Object.fromEntries(Object.entries(page).filter(([key]) => key !== 'path')),
       meta: {}, // Ensure `meta` exists
       title: page.title || 'Untitled', // Provide a default title
     }
@@ -38,11 +34,7 @@ const mergedData = [...(newPage ? [newPage] : []), ...(sortedProjects || [])];
           Netherlands, <nx-time></nx-time>
         </div>
 
-        <div class="h-full grid items-center">
-          <div class="pb-12">
-            <nx-carousel :data="mergedData"></nx-carousel>
-          </div>
-        </div>
+        <nx-carousel :data="mergedData"></nx-carousel>
 
         <p class="absolute bottom-contain text-sm w-[280px] text-fg-secondary">
           {{ page?.description }}
