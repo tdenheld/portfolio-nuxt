@@ -43,13 +43,21 @@ const handleScroll = () => {
         top: element.value.clientHeight * (props.data.length || 1),
         behavior: 'instant' as ScrollBehavior,
       });
-      index.value = props.data.length - 1;
     } else if (
       element.value.scrollTop >=
       element.value.scrollHeight - element.value.clientHeight
     ) {
       // If we're at the bottom, jump to the top (first real item)
       setInitScrollPos();
+    }
+
+    // Handle edge cases for smoother looping
+    if (element.value.scrollTop <= itemHeight * 0.4) {
+      index.value = props.data.length - 1;
+    } else if (
+      element.value.scrollTop >=
+      element.value.scrollHeight - element.value.clientHeight * 1.4
+    ) {
       index.value = 0;
     }
   });
