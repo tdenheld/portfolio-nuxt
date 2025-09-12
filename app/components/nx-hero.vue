@@ -1,13 +1,41 @@
 <script setup lang="ts">
 import type { CarouselEntry } from '~/interfaces';
 
+const element = ref<HTMLElement | null>(null);
+
 const props = defineProps<{
   data: CarouselEntry;
+  isRevealing?: boolean;
 }>();
+
+const reveal = () => {
+  if (!element.value) return;
+
+  const observer = new IntersectionObserver(
+    (entries, self) => {
+      entries.map((entry) => {
+        const target = entry.target;
+
+        if (entry.isIntersecting) {
+          target.classList.add('is-active');
+        } else {
+          target.classList.remove('is-active');
+        }
+      });
+    },
+    { rootMargin: '0px 0px -20%' }
+  );
+
+  observer.observe(element.value);
+};
+
+onMounted(() => {
+  reveal();
+});
 </script>
 
 <template>
-  <div>
+  <div ref="element" :class="{ 'reveal duration-1000 delay-100': isRevealing }">
     <p
       v-if="data.meta.name || data.meta.period"
       class="font-serif text-xl md:text-[28px] text-fg-secondary"

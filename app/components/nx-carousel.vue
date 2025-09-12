@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import type { CarouselEntry } from '~/interfaces';
 
-const element = ref<HTMLElement | null>(null);
-
 const props = defineProps<{
   data: CarouselEntry[];
 }>();
+
+const element = ref<HTMLElement | null>(null);
+const isRevealing = ref(true);
 
 // Create a new array with the last item at the start and the first item at the end
 const carouselData: CarouselEntry[] =
@@ -25,19 +26,23 @@ const handleScroll = () => {
   requestAnimationFrame(() => {
     if (!element.value) return;
 
-    // If we're at the top, jump to the bottom (last real item)
     if (element.value.scrollTop <= 0) {
+      // If we're at the top, jump to the bottom (last real item)
       element.value.scrollTo({
         top: element.value.clientHeight * (props.data.length || 1),
         behavior: 'instant' as ScrollBehavior,
       });
 
-      // If we're at the bottom, jump to the top (first real item)
+      isRevealing.value = false;
     } else if (
       element.value.scrollTop >=
       element.value.scrollHeight - element.value.clientHeight
     ) {
+      // If we're at the bottom, jump to the top (first real item)
       setInitScrollPos();
+      isRevealing.value = false;
+    } else {
+      isRevealing.value = true;
     }
   });
 };
@@ -59,7 +64,7 @@ onBeforeUnmount(() => {
   >
     <div v-for="entry in carouselData" class="lg:main-grid h-full snap-center">
       <div class="col-start-2 h-full grid items-center">
-        <nx-hero :data="entry"></nx-hero>
+        <nx-hero :data="entry" :is-revealing="isRevealing"></nx-hero>
       </div>
     </div>
   </div>
