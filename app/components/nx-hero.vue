@@ -5,7 +5,6 @@ const element = ref<HTMLElement | null>(null);
 
 const props = defineProps<{
   data: CarouselEntry;
-  isRevealing?: boolean;
 }>();
 
 const reveal = () => {
@@ -35,7 +34,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div ref="element" :class="{ 'reveal duration-1000 delay-100': isRevealing }">
+  <div ref="element">
     <p
       v-if="data.meta.name || data.meta.period"
       class="font-serif text-xl md:text-[28px] text-fg-secondary"

@@ -6,7 +6,6 @@ const props = defineProps<{
 }>();
 
 const element = ref<HTMLElement | null>(null);
-const isRevealing = ref(true);
 
 // Create a new array with the last item at the start and the first item at the end
 const carouselData: CarouselEntry[] =
@@ -32,17 +31,12 @@ const handleScroll = () => {
         top: element.value.clientHeight * (props.data.length || 1),
         behavior: 'instant' as ScrollBehavior,
       });
-
-      isRevealing.value = false;
     } else if (
       element.value.scrollTop >=
       element.value.scrollHeight - element.value.clientHeight
     ) {
       // If we're at the bottom, jump to the top (first real item)
       setInitScrollPos();
-      isRevealing.value = false;
-    } else {
-      isRevealing.value = true;
     }
   });
 };
@@ -64,7 +58,7 @@ onBeforeUnmount(() => {
   >
     <div v-for="entry in carouselData" class="lg:main-grid h-full snap-center">
       <div class="col-start-2 h-full grid items-center">
-        <nx-hero :data="entry" :is-revealing="isRevealing"></nx-hero>
+        <nx-hero :data="entry"></nx-hero>
       </div>
     </div>
   </div>
