@@ -6,31 +6,6 @@ const element = ref<HTMLElement | null>(null);
 const props = defineProps<{
   data: CarouselEntry;
 }>();
-
-const reveal = () => {
-  if (!element.value) return;
-
-  const observer = new IntersectionObserver(
-    (entries, self) => {
-      entries.map((entry) => {
-        const target = entry.target;
-
-        if (entry.isIntersecting) {
-          target.classList.add('is-active');
-        } else {
-          target.classList.remove('is-active');
-        }
-      });
-    },
-    { rootMargin: '0px 0px -20%' }
-  );
-
-  observer.observe(element.value);
-};
-
-onMounted(() => {
-  reveal();
-});
 </script>
 
 <template>
