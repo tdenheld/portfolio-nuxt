@@ -1,13 +1,5 @@
 <script setup lang="ts">
-interface CarouselEntry {
-  meta: {
-    name?: string;
-    period?: string;
-    descriptionShort?: string;
-  };
-  title: string;
-  path?: string;
-}
+import type { CarouselEntry } from '~/interfaces';
 
 const element = ref<HTMLElement | null>(null);
 
@@ -63,33 +55,11 @@ onBeforeUnmount(() => {
 <template>
   <div
     ref="element"
-    class="absolute pr-contain inset-y-0 overflow-y-scroll overflow-x-hidden snap-y snap-mandatory no-scrollbar"
+    class="fixed inset-0 overflow-y-scroll overflow-x-hidden snap-y snap-mandatory no-scrollbar"
   >
-    <div v-for="entry in carouselData" class="h-full grid items-center snap-center">
-      <div>
-        <p
-          v-if="entry.meta.name || entry.meta.period"
-          class="font-serif text-xl md:text-[28px] text-fg-secondary"
-        >
-          {{ entry.meta.name || entry.meta.period }}
-        </p>
-
-        <h1
-          class="mt-1 font-semibold text-[calc(24px+4.5vw)] leading-[1.1] font-display max-w-[18ch]"
-        >
-          {{ entry.title }}
-        </h1>
-
-        <p
-          v-if="entry.meta.descriptionShort"
-          class="mt-5 text-fg-secondary text-lg max-w-[40ch] leading-[1.4]"
-        >
-          {{ entry.meta.descriptionShort }}
-        </p>
-
-        <div class="mt-8" v-if="entry.path">
-          <nuxt-link :to="entry.path" class="button">Explore</nuxt-link>
-        </div>
+    <div v-for="entry in carouselData" class="lg:main-grid h-full snap-center">
+      <div class="col-start-2 h-full grid items-center">
+        <nx-hero :data="entry"></nx-hero>
       </div>
     </div>
   </div>

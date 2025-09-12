@@ -24,9 +24,7 @@ const mergedData = [...(newPage ? [newPage] : []), ...(sortedProjects || [])];
   <div>
     <nx-meta-tags></nx-meta-tags>
 
-    <div class="h-[9999999999vh]"></div>
-
-    <div class="lg:main-grid fixed p-contain inset-0">
+    <div class="fixed inset-0 pr-contain lg:main-grid">
       <div class="col-start-2 h-full">
         <div
           class="invisible lg:visible absolute top-[calc(var(--spacing-contain)+14px)] font-mono text-[10px] text-fg-secondary tracking-wider"
@@ -34,12 +32,14 @@ const mergedData = [...(newPage ? [newPage] : []), ...(sortedProjects || [])];
           Netherlands, <nx-time></nx-time>
         </div>
 
-        <nx-carousel :data="mergedData"></nx-carousel>
-
-        <p class="absolute bottom-contain text-sm w-[280px] text-fg-secondary">
+        <p
+          class="absolute bottom-contain text-xs md:text-sm w-[280px] text-fg-secondary"
+        >
           {{ page?.description }}
         </p>
       </div>
     </div>
+
+    <nx-carousel :data="mergedData"></nx-carousel>
   </div>
 </template>
