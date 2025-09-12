@@ -24,7 +24,7 @@ const mergedData = [...(newPage ? [newPage] : []), ...(sortedProjects || [])];
   <div>
     <nx-meta-tags></nx-meta-tags>
 
-    <div class="fixed inset-0 pr-contain lg:main-grid">
+    <div class="fixed inset-0 p-contain lg:main-grid">
       <div class="col-start-2 h-full">
         <div
           class="invisible lg:visible absolute top-[calc(var(--spacing-contain)+14px)] font-mono text-[10px] text-fg-secondary tracking-wider"
@@ -33,7 +33,7 @@ const mergedData = [...(newPage ? [newPage] : []), ...(sortedProjects || [])];
         </div>
 
         <p
-          class="absolute bottom-contain text-xs md:text-sm w-[280px] text-fg-secondary"
+          class="absolute bottom-contain text-xs md:text-sm w-[32ch] text-fg-secondary"
         >
           {{ page?.description }}
         </p>

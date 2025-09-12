@@ -55,7 +55,7 @@ onBeforeUnmount(() => {
 <template>
   <div
     ref="element"
-    class="fixed inset-0 overflow-y-scroll overflow-x-hidden snap-y snap-mandatory no-scrollbar"
+    class="fixed inset-0 p-contain overflow-y-scroll overflow-x-hidden snap-y snap-mandatory no-scrollbar"
   >
     <div v-for="entry in carouselData" class="lg:main-grid h-full snap-center">
       <div class="col-start-2 h-full grid items-center">
