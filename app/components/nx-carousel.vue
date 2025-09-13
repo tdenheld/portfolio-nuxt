@@ -78,9 +78,19 @@ onBeforeUnmount(() => {
     ref="element"
     class="fixed inset-0 p-contain overflow-y-scroll overflow-x-hidden snap-y snap-mandatory no-scrollbar"
   >
-    <div v-for="entry in carouselData" class="lg:main-grid h-full snap-center">
+    <div v-for="(entry, i) in carouselData" class="lg:main-grid h-full snap-center">
       <div class="col-start-2 h-full grid items-center">
-        <nx-hero :data="entry"></nx-hero>
+        <div
+          class="reveal duration-1000 delay-100"
+          :class="{
+            'is-active':
+              i === index + 1 ||
+              (i === 0 && index === props.data.length - 1) ||
+              (i === carouselData.length - 1 && index === 0),
+          }"
+        >
+          <nx-hero :data="entry"></nx-hero>
+        </div>
       </div>
     </div>
 
