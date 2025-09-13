@@ -29,7 +29,7 @@ const handleScroll = () => {
     // Calculate current index based on scroll position
     const scrollTop = element.value.scrollTop;
     const itemHeight = element.value.clientHeight;
-    const currentIndex = Math.round(scrollTop / itemHeight);
+    const currentIndex = Math.round(scrollTop / (itemHeight * 0.9));
 
     // Update index (subtract 1 because first item is duplicate of last, then subtract 1 more for 0-based)
     // Ensure index stays within bounds of actual data
@@ -81,7 +81,7 @@ onBeforeUnmount(() => {
     <div v-for="(entry, i) in carouselData" class="lg:main-grid h-full snap-center">
       <div class="col-start-2 h-full grid items-center">
         <div
-          class="reveal duration-1000"
+          class="reveal duration-[1500ms] delay-100"
           :class="{
             'is-active':
               i === index + 1 ||
