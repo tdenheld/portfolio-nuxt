@@ -1,15 +1,58 @@
 <script setup lang="ts">
 import type { CarouselEntry } from '~/interfaces';
-
-const element = ref<HTMLElement | null>(null);
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
 
 const props = defineProps<{
   data: CarouselEntry;
 }>();
+
+const el = ref<HTMLElement | null>(null);
+
+const createScrollAnimation = () => {
+  gsap.fromTo(
+    el.value,
+    { opacity: 1, filter: 'blur(0px)' },
+    {
+      opacity: 0,
+      filter: 'blur(8px)',
+      ease: 'none',
+      scrollTrigger: {
+        trigger: el.value,
+        scrub: true,
+        start: 'center 45%',
+        end: 'top top',
+        scroller: '[data-scroller-carousel]',
+      },
+    }
+  );
+
+  gsap.fromTo(
+    el.value,
+    { opacity: 0, filter: 'blur(8px)' },
+    {
+      opacity: 1,
+      filter: 'blur(0px)',
+      ease: 'none',
+      scrollTrigger: {
+        trigger: el.value,
+        scrub: true,
+        start: 'bottom bottom',
+        end: 'center 55%',
+        scroller: '[data-scroller-carousel]',
+      },
+    }
+  );
+};
+
+onMounted(() => {
+  createScrollAnimation();
+});
 </script>
 
 <template>
-  <div ref="element">
+  <div ref="el">
     <p
       v-if="data.meta.name || data.meta.period"
       class="font-serif text-xl md:text-[28px] text-fg-secondary"
@@ -27,7 +70,6 @@ const props = defineProps<{
     >
       {{ data.meta.descriptionShort }}
     </p>
-
     <div class="mt-8" v-if="data.path">
       <nuxt-link :to="data.path" class="button">Explore</nuxt-link>
     </div>

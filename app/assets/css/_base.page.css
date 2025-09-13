@@ -9,7 +9,8 @@ html {
   font-normal
   text-base
   leading-normal
-  overflow-x-hidden;
+  overflow-x-hidden
+  no-scrollbar;
   font-kerning: normal;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;

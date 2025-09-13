@@ -76,6 +76,7 @@ onBeforeUnmount(() => {
 <template>
   <div
     ref="element"
+    data-scroller-carousel
     class="fixed inset-0 p-contain overflow-y-scroll overflow-x-hidden snap-y snap-mandatory no-scrollbar"
   >
     <div v-for="(entry, i) in carouselData" class="lg:main-grid h-full snap-center">
