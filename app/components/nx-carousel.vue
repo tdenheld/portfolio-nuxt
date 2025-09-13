@@ -14,12 +14,25 @@ const carouselData: CarouselEntry[] =
     ? [props.data[props.data.length - 1]!, ...props.data, props.data[0]!]
     : [];
 
+// Calculate the actual height of one item in the carousel
+const getActualItemHeight = () => {
+  return element.value ? element.value.scrollHeight / carouselData.length : 0;
+};
+
 // Set initial scroll position to the first real item
 const setInitScrollPos = () => {
   element.value?.scrollTo({
-    top: element.value?.clientHeight || 0,
+    top: getActualItemHeight(),
     behavior: 'instant' as ScrollBehavior,
   });
+};
+
+const getActive = (i: number) => {
+  return (
+    i === index.value + 1 ||
+    (i === 0 && index.value === props.data.length - 1) ||
+    (i === carouselData.length - 1 && index.value === 0)
+  );
 };
 
 const handleScroll = () => {
@@ -39,10 +52,8 @@ const handleScroll = () => {
 
     if (element.value.scrollTop <= 0) {
       // If we're at the top, jump to the bottom (last real item)
-      const actualItemHeight = element.value.scrollHeight / carouselData.length;
-      
       element.value.scrollTo({
-        top: actualItemHeight * props.data.length,
+        top: getActualItemHeight() * props.data.length,
         behavior: 'instant' as ScrollBehavior,
       });
     } else if (
@@ -81,15 +92,15 @@ onBeforeUnmount(() => {
     data-scroller-carousel
     class="fixed inset-0 p-contain overflow-y-scroll overflow-x-hidden snap-y snap-mandatory no-scrollbar"
   >
-    <div v-for="(entry, i) in carouselData" class="lg:main-grid h-full snap-center">
+    <div
+      v-for="(entry, index) in carouselData"
+      class="lg:main-grid h-full snap-center"
+    >
       <div class="col-start-2 h-full grid items-center">
         <div
           class="reveal duration-[1500ms] delay-100"
           :class="{
-            'is-active':
-              i === index + 1 ||
-              (i === 0 && index === props.data.length - 1) ||
-              (i === carouselData.length - 1 && index === 0),
+            'is-active': getActive(index),
           }"
         >
           <nx-hero :data="entry"></nx-hero>

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { CarouselEntry } from '~/interfaces';
-// import gsap from 'gsap';
-// import { ScrollTrigger } from 'gsap/ScrollTrigger';
-// gsap.registerPlugin(ScrollTrigger);
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
 
 const props = defineProps<{
   data: CarouselEntry;
@@ -10,45 +10,61 @@ const props = defineProps<{
 
 const el = ref<HTMLElement | null>(null);
 
-// const createScrollAnimation = () => {
-//   gsap.fromTo(
-//     el.value,
-//     { opacity: 1, filter: 'blur(0px)' },
-//     {
-//       opacity: 0,
-//       filter: 'blur(8px)',
-//       ease: 'none',
-//       scrollTrigger: {
-//         trigger: el.value,
-//         scrub: true,
-//         start: 'center 45%',
-//         end: 'top top',
-//         scroller: '[data-scroller-carousel]',
-//       },
-//     }
-//   );
+const createScrollAnimation = () => {
+  if (!el.value) return;
 
-//   gsap.fromTo(
-//     el.value,
-//     { opacity: 0, filter: 'blur(8px)' },
-//     {
-//       opacity: 1,
-//       filter: 'blur(0px)',
-//       ease: 'none',
-//       scrollTrigger: {
-//         trigger: el.value,
-//         scrub: true,
-//         start: 'bottom bottom',
-//         end: 'center 55%',
-//         scroller: '[data-scroller-carousel]',
-//       },
-//     }
-//   );
-// };
+  gsap.fromTo(
+    el.value,
+    { opacity: 1, filter: 'blur(0px)' },
+    {
+      opacity: 0,
+      filter: 'blur(8px)',
+      ease: 'none',
+      scrollTrigger: {
+        trigger: el.value,
+        scrub: true,
+        start: 'center 45%',
+        end: 'top top',
+        scroller: '[data-scroller-carousel]',
+      },
+    }
+  );
 
-// onMounted(() => {
-//   createScrollAnimation();
-// });
+  gsap.fromTo(
+    el.value,
+    { opacity: 0, filter: 'blur(8px)' },
+    {
+      opacity: 1,
+      filter: 'blur(0px)',
+      ease: 'none',
+      scrollTrigger: {
+        trigger: el.value,
+        scrub: true,
+        start: 'bottom bottom',
+        end: 'center 55%',
+        scroller: '[data-scroller-carousel]',
+      },
+    }
+  );
+};
+
+const cleanupAnimations = () => {
+  if (el.value) {
+    ScrollTrigger.getAll().forEach((trigger) => {
+      if (trigger.trigger === el.value) {
+        trigger.kill();
+      }
+    });
+  }
+};
+
+onMounted(() => {
+  createScrollAnimation();
+});
+
+onBeforeUnmount(() => {
+  cleanupAnimations();
+});
 </script>
 
 <template>
