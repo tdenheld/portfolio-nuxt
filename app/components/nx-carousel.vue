@@ -81,7 +81,7 @@ onBeforeUnmount(() => {
     <div v-for="(entry, i) in carouselData" class="lg:main-grid h-full snap-center">
       <div class="col-start-2 h-full grid items-center">
         <div
-          class="reveal duration-1000 delay-100"
+          class="reveal duration-1000"
           :class="{
             'is-active':
               i === index + 1 ||
