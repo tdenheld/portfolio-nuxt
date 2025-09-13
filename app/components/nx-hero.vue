@@ -10,6 +10,12 @@ const props = defineProps<{
 
 const el = ref<HTMLElement | null>(null);
 
+const resetToVisible = () => {
+  if (el.value) {
+    gsap.set(el.value, { opacity: 1, filter: 'blur(0px)' });
+  }
+};
+
 const createScrollAnimation = () => {
   if (!el.value) return;
 
@@ -65,6 +71,11 @@ onMounted(() => {
 onBeforeUnmount(() => {
   cleanupAnimations();
 });
+
+// Expose the reset method to parent components
+defineExpose({
+  resetToVisible
+});
 </script>
 
 <template>
@@ -88,7 +99,7 @@ onBeforeUnmount(() => {
     >
       {{ data.meta.descriptionShort }}
     </p>
-    
+
     <div class="mt-8" v-if="data.path">
       <nuxt-link :to="data.path" class="button">Explore</nuxt-link>
     </div>

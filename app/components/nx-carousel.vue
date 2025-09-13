@@ -6,6 +6,7 @@ const props = defineProps<{
 }>();
 
 const element = ref<HTMLElement | null>(null);
+const heroRefs = ref<Array<any>>([]);
 const index = ref(0);
 
 // Create a new array with the last item at the start and the first item at the end
@@ -25,6 +26,10 @@ const setInitScrollPos = () => {
     top: getActualItemHeight(),
     behavior: 'instant' as ScrollBehavior,
   });
+};
+
+const resetHeroAnimations = () => {
+  heroRefs.value.forEach((ref) => ref?.resetToVisible?.());
 };
 
 const getActive = (i: number) => {
@@ -51,6 +56,9 @@ const handleScroll = () => {
     }
 
     if (element.value.scrollTop <= 0) {
+      // Reset animation state before programmatic scroll
+      resetHeroAnimations();
+
       // If we're at the top, jump to the bottom (last real item)
       element.value.scrollTo({
         top: getActualItemHeight() * props.data.length,
@@ -60,6 +68,9 @@ const handleScroll = () => {
       element.value.scrollTop >=
       element.value.scrollHeight - element.value.clientHeight
     ) {
+      // Reset animation state before programmatic scroll
+      resetHeroAnimations();
+
       // If we're at the bottom, jump to the top (first real item)
       setInitScrollPos();
     }
@@ -103,7 +114,7 @@ onBeforeUnmount(() => {
             'is-active': getActive(index),
           }"
         >
-          <nx-hero :data="entry"></nx-hero>
+          <nx-hero :ref="(el) => (heroRefs[index] = el)" :data="entry"></nx-hero>
         </div>
       </div>
     </div>
