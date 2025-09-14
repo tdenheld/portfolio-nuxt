@@ -14,6 +14,8 @@ html {
   font-kerning: normal;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 1500ms;
+  transition-timing-function: theme('transitionTimingFunction.DEFAULT');
 }
 
 a,

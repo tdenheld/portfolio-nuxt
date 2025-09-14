@@ -28,6 +28,27 @@ const setInitScrollPos = () => {
   });
 };
 
+const setColors = (entry: CarouselEntry) => {
+  if (!entry.meta.color) return;
+
+  const root = document.documentElement;
+  const { fg, bg } = entry.meta.color;
+
+  // Full palette
+  const colors = {
+    '--color-fg-primary': fg.primary,
+    '--color-fg-secondary': fg.secondary,
+    '--color-fg-tertiary': fg.tertiary,
+    '--color-bg-primary': bg.primary,
+    '--color-bg-secondary': bg.secondary,
+    '--color-bg-tertiary': bg.tertiary,
+  };
+
+  Object.entries(colors).forEach(([key, value]) => {
+    if (value) root.style.setProperty(key, value);
+  });
+};
+
 const resetHeroAnimations = () => {
   heroRefs.value.forEach((ref) => ref?.resetToVisible?.());
 };
@@ -84,6 +105,11 @@ const handleScroll = () => {
     ) {
       index.value = 0;
     }
+
+    // Set colors based on current active item
+    const activeEntry = props.data[index.value];
+    console.log('Current index:', index.value, 'Active entry:', activeEntry?.title);
+    if (activeEntry) setColors(activeEntry);
   });
 };
 

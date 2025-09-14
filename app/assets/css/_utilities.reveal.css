@@ -4,7 +4,7 @@
 
 @utility reveal {
   @apply opacity-0
-  transition
+  transition-opacity
   ease-in-out;
 
   &.is-active {

@@ -29,8 +29,8 @@ const createScrollAnimation = () => {
       scrollTrigger: {
         trigger: el.value,
         scrub: true,
-        start: 'center 45%',
-        end: 'top top',
+        start: 'center 48%',
+        end: 'top 4%',
         scroller: '[data-scroller-carousel]',
       },
     }
@@ -46,8 +46,8 @@ const createScrollAnimation = () => {
       scrollTrigger: {
         trigger: el.value,
         scrub: true,
-        start: 'bottom bottom',
-        end: 'center 55%',
+        start: 'bottom 96%',
+        end: 'center 52%',
         scroller: '[data-scroller-carousel]',
       },
     }
@@ -87,11 +87,11 @@ defineExpose({
       {{ data.meta.name || data.meta.period }}
     </p>
 
-    <h1
+    <h2
       class="mt-1 font-semibold text-[calc(24px+4.5vw)] leading-[1.1] font-display max-w-[18ch]"
     >
       {{ data.title }}
-    </h1>
+    </h2>
 
     <p
       v-if="data.meta.descriptionShort"

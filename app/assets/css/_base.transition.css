@@ -3,13 +3,13 @@
 //   ======================================================================== */
 
 /* Incoming */
-.page-enter-active {
+/* .page-enter-active {
   @apply transition duration-1000;
 }
 
 .page-enter-from {
   @apply opacity-0;
-}
+} */
 
 /* Outgoing */
 /* .page-leave-active {

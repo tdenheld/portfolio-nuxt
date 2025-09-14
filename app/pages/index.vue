@@ -5,13 +5,7 @@ const { data: projects } = await useAsyncData('projects', () =>
   queryCollection('projects').all()
 );
 
-const newPage = page
-  ? {
-      ...Object.fromEntries(Object.entries(page).filter(([key]) => key !== 'path')),
-      meta: {}, // Ensure `meta` exists
-      title: page.title || 'Untitled', // Provide a default title
-    }
-  : null;
+const newPage = page ? { ...page, path: undefined } : null;
 
 const sortedProjects = projects.value?.sort(
   (a, b) => (Number(a.meta.sort) || 0) - (Number(b.meta.sort) || 0)
