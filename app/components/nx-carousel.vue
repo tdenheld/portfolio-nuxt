@@ -109,9 +109,9 @@ onBeforeUnmount(() => {
     >
       <div class="col-start-2 h-full grid items-center">
         <div
-          class="reveal duration-[1500ms] delay-100"
+          class="reveal duration-[1500ms]"
           :class="{
-            'is-active': getActive(index),
+            'is-active delay-100': getActive(index),
           }"
         >
           <nx-hero :ref="(el) => (heroRefs[index] = el)" :data="entry"></nx-hero>
