@@ -15,7 +15,7 @@
 /* Mono */
 /* ------------------------ */
 @font-face {
-  font-family: 'tk-display';
+  font-family: 'tk-mono';
   src: url('@/assets/fonts/mono-400.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;

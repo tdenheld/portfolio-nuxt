@@ -6,6 +6,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const props = defineProps<{
   data: CarouselEntry;
+  headingLevel?: 'h1' | 'h2';
 }>();
 
 const el = ref<HTMLElement | null>(null);
@@ -74,7 +75,7 @@ onBeforeUnmount(() => {
 
 // Expose the reset method to parent components
 defineExpose({
-  resetToVisible
+  resetToVisible,
 });
 </script>
 
@@ -87,11 +88,12 @@ defineExpose({
       {{ data.meta.name || data.meta.period }}
     </p>
 
-    <h2
+    <component
+      :is="headingLevel || 'h2'"
       class="mt-1 font-semibold text-[calc(24px+4.5vw)] leading-[1.1] font-display max-w-[18ch]"
     >
       {{ data.title }}
-    </h2>
+    </component>
 
     <p
       v-if="data.meta.descriptionShort"

@@ -108,7 +108,6 @@ const handleScroll = () => {
 
     // Set colors based on current active item
     const activeEntry = props.data[index.value];
-    console.log('Current index:', index.value, 'Active entry:', activeEntry?.title);
     if (activeEntry) setColors(activeEntry);
   });
 };
@@ -130,17 +129,21 @@ onBeforeUnmount(() => {
     class="fixed inset-0 p-contain overflow-y-scroll overflow-x-hidden snap-y snap-mandatory no-scrollbar"
   >
     <div
-      v-for="(entry, index) in carouselData"
+      v-for="(entry, i) in carouselData"
       class="lg:main-grid h-full snap-center"
     >
       <div class="col-start-2 h-full grid items-center">
         <div
           class="reveal duration-[1500ms]"
           :class="{
-            'is-active delay-100': getActive(index),
+            'is-active delay-100': getActive(i),
           }"
         >
-          <nx-hero :ref="(el) => (heroRefs[index] = el)" :data="entry"></nx-hero>
+          <nx-hero
+            :ref="(el) => (heroRefs[index] = el)"
+            :data="entry"
+            :heading-level="index === 0 ? 'h1' : 'h2'"
+          ></nx-hero>
         </div>
       </div>
     </div>
