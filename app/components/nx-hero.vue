@@ -21,7 +21,7 @@ const createScrollAnimation = () => {
     // Up
     gsap.to(child, {
       opacity: 0,
-      filter: 'blur(8px)',
+      filter: 'blur(6px)',
       rotate: rotateUp,
       ease: 'none',
       scrollTrigger: {
@@ -36,7 +36,7 @@ const createScrollAnimation = () => {
     // Down
     gsap.from(child, {
       opacity: 0,
-      filter: 'blur(8px)',
+      filter: 'blur(6px)',
       ease: 'none',
       rotate: rotateDown,
       scrollTrigger: {

@@ -8,19 +8,21 @@ const props = defineProps<{
 const element = ref<HTMLElement | null>(null);
 const index = ref(0);
 
-// Create a new array with the last item at the start and the first item at the end
-const carouselData: CarouselEntry[] = [...Array(9).fill(props.data).flat()];
+// Create a new array with multiple copies of the data to allow infinite scrolling
+const carouselData = ref<CarouselEntry[]>([...Array(2).fill(props.data).flat()]);
 
 // Calculate the actual height of one item in the carousel
 const getActualItemHeight = () => {
-  return element.value ? element.value.scrollHeight / carouselData.length : 0;
+  return element.value ? element.value.scrollHeight / carouselData.value.length : 0;
 };
 
+// Get the currently active entry based on the index
 const getActiveEntry = () => {
   if (!props.data) return;
   return props.data[index.value];
 };
 
+// Set CSS variables for colors based on the active entry
 const setColors = () => {
   const entry = getActiveEntry();
   if (!entry || !entry.meta.color) return;
@@ -43,6 +45,7 @@ const setColors = () => {
   });
 };
 
+// Handle scroll events to update index and colors
 const handleScroll = () => {
   requestAnimationFrame(() => {
     if (!element.value) return;
@@ -53,13 +56,18 @@ const handleScroll = () => {
     const currentIndex = Math.round(scrollTop / itemHeight);
 
     //  Update index
-    if (currentIndex >= 0 && currentIndex < carouselData.length) {
+    if (currentIndex >= 0 && currentIndex < carouselData.value.length) {
       const dataIndex = currentIndex % props.data.length;
       index.value = dataIndex;
     }
 
     // Set colors based on current active item
     setColors();
+
+    // When reaching cloned items add another array to the carousel
+    if (currentIndex >= carouselData.value.length - props.data.length) {
+      carouselData.value = [...carouselData.value, ...props.data];
+    }
   });
 };
 
@@ -79,7 +87,11 @@ onBeforeUnmount(() => {
     data-scroller-carousel
     class="fixed inset-0 p-contain overflow-y-scroll overflow-x-hidden snap-y snap-mandatory no-scrollbar"
   >
-    <div v-for="(entry, i) in carouselData" class="lg:main-grid h-full snap-center">
+    <div
+      v-for="(entry, i) in carouselData"
+      :key="i"
+      class="lg:main-grid h-full snap-center"
+    >
       <div class="col-start-2 h-full grid items-center">
         <div>
           <nx-hero :data="entry" :heading-level="index === 0 ? 'h1' : 'h2'"></nx-hero>
