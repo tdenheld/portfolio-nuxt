@@ -1,5 +1,5 @@
 <script setup>
-const title = 'Global website page title';
+const title = 'Tibor den Held — Design Engineer & Creative Developer';
 
 const props = defineProps({
   title: String,
