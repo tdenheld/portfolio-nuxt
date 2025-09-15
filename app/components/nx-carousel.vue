@@ -6,30 +6,26 @@ const props = defineProps<{
 }>();
 
 const element = ref<HTMLElement | null>(null);
-const heroRefs = ref<Array<any>>([]);
 const index = ref(0);
 
-// Create a new array with the last item at the start and the first item at the end
-const carouselData: CarouselEntry[] =
-  props.data.length > 0
-    ? [props.data[props.data.length - 1]!, ...props.data, props.data[0]!]
-    : [];
+// Create a new array with multiple copies of the data to allow infinite scrolling
+const carouselData = ref<CarouselEntry[]>([...Array(2).fill(props.data).flat()]);
 
 // Calculate the actual height of one item in the carousel
 const getActualItemHeight = () => {
-  return element.value ? element.value.scrollHeight / carouselData.length : 0;
+  return element.value ? element.value.scrollHeight / carouselData.value.length : 0;
 };
 
-// Set initial scroll position to the first real item
-const setInitScrollPos = () => {
-  element.value?.scrollTo({
-    top: getActualItemHeight(),
-    behavior: 'instant' as ScrollBehavior,
-  });
+// Get the currently active entry based on the index
+const getActiveEntry = () => {
+  if (!props.data) return;
+  return props.data[index.value];
 };
 
-const setColors = (entry: CarouselEntry) => {
-  if (!entry.meta.color) return;
+// Set CSS variables for colors based on the active entry
+const setColors = () => {
+  const entry = getActiveEntry();
+  if (!entry || !entry.meta.color) return;
 
   const root = document.documentElement;
   const { fg, bg } = entry.meta.color;
@@ -49,71 +45,34 @@ const setColors = (entry: CarouselEntry) => {
   });
 };
 
-const resetHeroAnimations = () => {
-  heroRefs.value.forEach((ref) => ref.resetToVisible());
-};
-
-const getActive = (i: number) => {
-  return (
-    i === index.value + 1 ||
-    (i === 0 && index.value === props.data.length - 1) ||
-    (i === carouselData.length - 1 && index.value === 0)
-  );
-};
-
+// Handle scroll events to update index and colors
 const handleScroll = () => {
   requestAnimationFrame(() => {
     if (!element.value) return;
 
     // Calculate current index based on scroll position
     const scrollTop = element.value.scrollTop;
-    const itemHeight = element.value.clientHeight;
-    const currentIndex = Math.round(scrollTop / (itemHeight * 0.9));
+    const itemHeight = getActualItemHeight();
+    const currentIndex = Math.round(scrollTop / itemHeight);
 
-    // Update index (subtract 1 because first item is duplicate of last, then subtract 1 more for 0-based)
-    // Ensure index stays within bounds of actual data
-    if (currentIndex >= 1 && currentIndex <= props.data.length) {
-      index.value = currentIndex - 1;
-    }
-
-    if (element.value.scrollTop <= 0) {
-      // Reset animation state before programmatic scroll
-      resetHeroAnimations();
-
-      // If we're at the top, jump to the bottom (last real item)
-      element.value.scrollTo({
-        top: getActualItemHeight() * props.data.length,
-        behavior: 'instant' as ScrollBehavior,
-      });
-    } else if (
-      element.value.scrollTop >=
-      element.value.scrollHeight - element.value.clientHeight
-    ) {
-      // Reset animation state before programmatic scroll
-      resetHeroAnimations();
-
-      // If we're at the bottom, jump to the top (first real item)
-      setInitScrollPos();
-    }
-
-    // Handle edge cases for smoother looping
-    if (element.value.scrollTop <= itemHeight * 0.4) {
-      index.value = props.data.length - 1;
-    } else if (
-      element.value.scrollTop >=
-      element.value.scrollHeight - element.value.clientHeight * 1.4
-    ) {
-      index.value = 0;
+    //  Update index
+    if (currentIndex >= 0 && currentIndex < carouselData.value.length) {
+      const dataIndex = currentIndex % props.data.length;
+      index.value = dataIndex;
     }
 
     // Set colors based on current active item
-    const activeEntry = props.data[index.value];
-    if (activeEntry) setColors(activeEntry);
+    setColors();
+
+    // When reaching cloned items add another array to the carousel
+    if (currentIndex >= carouselData.value.length - props.data.length) {
+      carouselData.value = [...carouselData.value, ...props.data];
+    }
   });
 };
 
 onMounted(() => {
-  setInitScrollPos();
+  setColors();
   element.value?.addEventListener('scroll', handleScroll);
 });
 
@@ -128,14 +87,14 @@ onBeforeUnmount(() => {
     data-scroller-carousel
     class="fixed inset-0 p-contain overflow-y-scroll overflow-x-hidden snap-y snap-mandatory no-scrollbar"
   >
-    <div v-for="(entry, i) in carouselData" class="lg:main-grid h-full snap-center">
+    <div
+      v-for="(entry, i) in carouselData"
+      :key="i"
+      class="lg:main-grid h-full snap-center"
+    >
       <div class="col-start-2 h-full grid items-center">
-        <div class="reveal" :class="{ 'is-active': getActive(i) }">
-          <nx-hero
-            :ref="(el) => (heroRefs[i] = el)"
-            :data="entry"
-            :heading-level="index === 0 ? 'h1' : 'h2'"
-          ></nx-hero>
+        <div>
+          <nx-hero :data="entry" :heading-level="index === 0 ? 'h1' : 'h2'"></nx-hero>
         </div>
       </div>
     </div>

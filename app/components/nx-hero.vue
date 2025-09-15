@@ -11,34 +11,22 @@ const props = defineProps<{
 
 const el = ref<HTMLElement | null>(null);
 
-const resetToVisible = () => {
-  if (!el.value) return;
-
-  el.value.querySelectorAll('[data-hero-scroll]').forEach((child) => {
-    gsap.set(child, {
-      opacity: 1,
-      filter: 'blur(0px)',
-      rotate: '0deg',
-    });
-  });
-};
-
 const createScrollAnimation = () => {
   if (!el.value) return;
 
   el.value.querySelectorAll('[data-hero-scroll]').forEach((child, index) => {
-    const rotateUp = 50 * (4 - index) * -0.15 + 'deg';
-    const rotateDown = 50 * (1 + index) * 0.15 + 'deg';
+    const rotateUp = 50 * (4 - index) * -0.1 + 'deg';
+    const rotateDown = 50 * (1 + index) * 0.1 + 'deg';
 
     // Up
     gsap.to(child, {
       opacity: 0,
-      filter: 'blur(8px)',
+      filter: 'blur(6px)',
       rotate: rotateUp,
       ease: 'none',
       scrollTrigger: {
         trigger: el.value,
-        scrub: true,
+        scrub: 1,
         start: 'center 48%',
         end: 'top 4%',
         scroller: '[data-scroller-carousel]',
@@ -48,12 +36,12 @@ const createScrollAnimation = () => {
     // Down
     gsap.from(child, {
       opacity: 0,
-      filter: 'blur(8px)',
+      filter: 'blur(6px)',
       ease: 'none',
       rotate: rotateDown,
       scrollTrigger: {
         trigger: el.value,
-        scrub: true,
+        scrub: 1,
         start: 'bottom 96%',
         end: 'center 52%',
         scroller: '[data-scroller-carousel]',
@@ -78,11 +66,6 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   cleanupAnimations();
-});
-
-// Expose the reset method to parent components
-defineExpose({
-  resetToVisible,
 });
 </script>
 
