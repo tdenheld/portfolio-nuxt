@@ -7,11 +7,7 @@ const { data: projects } = await useAsyncData('projects', () =>
 
 const newPage = page ? { ...page, path: undefined } : null;
 
-const sortedProjects = projects.value?.sort(
-  (a, b) => (Number(a.meta.sort) || 0) - (Number(b.meta.sort) || 0)
-);
-
-const mergedData = [...(newPage ? [newPage] : []), ...(sortedProjects || [])];
+const mergedData = [...(newPage ? [newPage] : []), ...(projects.value || [])];
 </script>
 
 <template>

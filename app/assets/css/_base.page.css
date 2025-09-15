@@ -39,11 +39,13 @@ hr {
 }
 
 ::-moz-selection {
-  @apply bg-bg-secondary;
+  @apply bg-fg-primary
+  text-bg-primary;
 }
 
 ::selection {
-  @apply bg-bg-secondary;
+  @apply bg-fg-primary
+  text-bg-primary;
 }
 
 /* Resets */
