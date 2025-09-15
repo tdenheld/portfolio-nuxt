@@ -50,7 +50,7 @@ const setColors = (entry: CarouselEntry) => {
 };
 
 const resetHeroAnimations = () => {
-  heroRefs.value.forEach((ref) => ref?.resetToVisible());
+  heroRefs.value.forEach((ref) => ref.resetToVisible());
 };
 
 const getActive = (i: number) => {
