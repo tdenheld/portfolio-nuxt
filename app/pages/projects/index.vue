@@ -1,7 +1,5 @@
 <script setup>
-const { data: projects } = await useAsyncData('projects', () =>
-  queryCollection('projects').all()
-);
+const projects = await queryCollection('projects').all();
 </script>
 
 <template>

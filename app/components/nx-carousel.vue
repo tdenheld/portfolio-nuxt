@@ -50,7 +50,7 @@ const setColors = (entry: CarouselEntry) => {
 };
 
 const resetHeroAnimations = () => {
-  heroRefs.value.forEach((ref) => ref?.resetToVisible?.());
+  heroRefs.value.forEach((ref) => ref?.resetToVisible());
 };
 
 const getActive = (i: number) => {
@@ -128,10 +128,7 @@ onBeforeUnmount(() => {
     data-scroller-carousel
     class="fixed inset-0 p-contain overflow-y-scroll overflow-x-hidden snap-y snap-mandatory no-scrollbar"
   >
-    <div
-      v-for="(entry, i) in carouselData"
-      class="lg:main-grid h-full snap-center"
-    >
+    <div v-for="(entry, i) in carouselData" class="lg:main-grid h-full snap-center">
       <div class="col-start-2 h-full grid items-center">
         <div
           class="reveal duration-[1500ms]"
