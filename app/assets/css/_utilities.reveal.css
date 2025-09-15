@@ -4,15 +4,15 @@
 
 @utility reveal {
   @apply opacity-0
-  transition-opacity
-  ease-in-out;
+  ease-in-out
+  duration-1500;
+  transition-property: transform, filter, opacity;
 
   &.is-active {
-    @apply transform-none
-    translate-none
-    filter-none
-    opacity-100
+    @apply opacity-100
     ease-out;
+    transform: none;
+    filter: none;
   }
 }
 
