@@ -130,14 +130,9 @@ onBeforeUnmount(() => {
   >
     <div v-for="(entry, i) in carouselData" class="lg:main-grid h-full snap-center">
       <div class="col-start-2 h-full grid items-center">
-        <div
-          class="reveal duration-[1500ms]"
-          :class="{
-            'is-active delay-100': getActive(i),
-          }"
-        >
+        <div class="reveal duration-[1500ms]" :class="{ 'is-active': getActive(i) }">
           <nx-hero
-            :ref="(el) => (heroRefs[index] = el)"
+            :ref="(el) => (heroRefs[i] = el)"
             :data="entry"
             :heading-level="index === 0 ? 'h1' : 'h2'"
           ></nx-hero>

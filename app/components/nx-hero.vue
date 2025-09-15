@@ -12,20 +12,29 @@ const props = defineProps<{
 const el = ref<HTMLElement | null>(null);
 
 const resetToVisible = () => {
-  if (el.value) {
-    gsap.set(el.value, { opacity: 1, filter: 'blur(0px)' });
-  }
+  if (!el.value) return;
+
+  el.value.querySelectorAll('[data-hero-scroll]').forEach((child) => {
+    gsap.set(child, {
+      opacity: 1,
+      filter: 'blur(0px)',
+      rotate: '0deg',
+    });
+  });
 };
 
 const createScrollAnimation = () => {
   if (!el.value) return;
 
-  gsap.fromTo(
-    el.value,
-    { opacity: 1, filter: 'blur(0px)' },
-    {
+  el.value.querySelectorAll('[data-hero-scroll]').forEach((child, index) => {
+    const rotateUp = 50 * (4 - index) * -0.15 + 'deg';
+    const rotateDown = 50 * (1 + index) * 0.15 + 'deg';
+
+    // Up
+    gsap.to(child, {
       opacity: 0,
       filter: 'blur(8px)',
+      rotate: rotateUp,
       ease: 'none',
       scrollTrigger: {
         trigger: el.value,
@@ -34,16 +43,14 @@ const createScrollAnimation = () => {
         end: 'top 4%',
         scroller: '[data-scroller-carousel]',
       },
-    }
-  );
+    });
 
-  gsap.fromTo(
-    el.value,
-    { opacity: 0, filter: 'blur(8px)' },
-    {
-      opacity: 1,
-      filter: 'blur(0px)',
+    // Down
+    gsap.from(child, {
+      opacity: 0,
+      filter: 'blur(8px)',
       ease: 'none',
+      rotate: rotateDown,
       scrollTrigger: {
         trigger: el.value,
         scrub: true,
@@ -51,8 +58,8 @@ const createScrollAnimation = () => {
         end: 'center 52%',
         scroller: '[data-scroller-carousel]',
       },
-    }
-  );
+    });
+  });
 };
 
 const cleanupAnimations = () => {
@@ -83,26 +90,30 @@ defineExpose({
   <div ref="el">
     <p
       v-if="data.meta.name || data.meta.period"
-      class="font-serif text-xl md:text-[28px] text-fg-secondary"
+      data-hero-scroll
+      class="font-serif text-xl md:text-[28px] text-fg-secondary origin-left"
     >
       {{ data.meta.name || data.meta.period }}
     </p>
 
-    <component
-      :is="headingLevel || 'h2'"
-      class="mt-1 font-semibold text-[calc(24px+4.5vw)] leading-[1.1] font-display max-w-[18ch]"
-    >
-      {{ data.title }}
-    </component>
+    <div data-hero-scroll class="origin-left">
+      <component
+        :is="headingLevel || 'h2'"
+        class="mt-1 font-semibold text-[calc(24px+4.5vw)] leading-[1.1] font-display max-w-[18ch]"
+      >
+        {{ data.title }}
+      </component>
+    </div>
 
     <p
       v-if="data.meta.descriptionShort"
-      class="mt-5 text-fg-secondary text-lg max-w-[40ch] leading-[1.4]"
+      data-hero-scroll
+      class="mt-5 text-fg-secondary text-lg max-w-[40ch] leading-[1.4] origin-left"
     >
       {{ data.meta.descriptionShort }}
     </p>
 
-    <div class="mt-8" v-if="data.path">
+    <div class="mt-8 origin-left" v-if="data.path" data-hero-scroll>
       <nuxt-link :to="data.path" class="button">Explore</nuxt-link>
     </div>
   </div>
