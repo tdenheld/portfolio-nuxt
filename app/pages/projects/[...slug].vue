@@ -12,9 +12,7 @@ const page = await queryCollection('projects').path(route.path).first();
         :image="page.meta.image.src"
       ></nx-meta-tags>
 
-      <div class="fixed inset-0 bg-bg-primary">
-
-      </div>
+      <div class="fixed inset-0 bg-bg-primary"></div>
     </div>
 
     <div v-else>
