@@ -13,16 +13,16 @@ const el = ref<HTMLElement | null>(null);
 
 const createScrollAnimation = () => {
   if (!el.value) return;
+  const length = el.value.querySelectorAll('[data-hero-scroll]').length;
+  if (length === 0) return;
 
   el.value.querySelectorAll('[data-hero-scroll]').forEach((child, index) => {
-    const rotateUp = 50 * (4 - index) * -0.1 + 'deg';
-    const rotateDown = 50 * (1 + index) * 0.1 + 'deg';
-
     // Up
     gsap.to(child, {
       opacity: 0,
       filter: 'blur(6px)',
-      rotate: rotateUp,
+      rotate: (length - index) * -5 + 'deg',
+      x: (length - index) * -2.5 + '%',
       ease: 'none',
       scrollTrigger: {
         trigger: el.value,
@@ -38,7 +38,8 @@ const createScrollAnimation = () => {
       opacity: 0,
       filter: 'blur(6px)',
       ease: 'none',
-      rotate: rotateDown,
+      rotate: (index + 1) * 5 + 'deg',
+      x: (index + 1) * -2.5 + '%',
       scrollTrigger: {
         trigger: el.value,
         scrub: 1,
@@ -71,13 +72,15 @@ onBeforeUnmount(() => {
 
 <template>
   <div ref="el">
-    <p
+    <div
       v-if="data.meta.name || data.meta.period"
       data-hero-scroll
-      class="font-serif text-xl md:text-[28px] text-fg-secondary origin-left"
+      class="origin-left"
     >
-      {{ data.meta.name || data.meta.period }}
-    </p>
+      <p class="font-serif text-xl md:text-[28px] text-fg-secondary">
+        {{ data.meta.name || data.meta.period }}
+      </p>
+    </div>
 
     <div data-hero-scroll class="origin-left">
       <component
@@ -88,13 +91,11 @@ onBeforeUnmount(() => {
       </component>
     </div>
 
-    <p
-      v-if="data.meta.descriptionShort"
-      data-hero-scroll
-      class="mt-5 text-fg-secondary text-lg max-w-[40ch] leading-[1.4] origin-left"
-    >
-      {{ data.meta.descriptionShort }}
-    </p>
+    <div v-if="data.meta.descriptionShort" data-hero-scroll class="origin-left">
+      <p class="mt-5 text-fg-secondary text-lg max-w-[40ch] leading-[1.4]">
+        {{ data.meta.descriptionShort }}
+      </p>
+    </div>
 
     <div class="mt-8 origin-left" v-if="data.path" data-hero-scroll>
       <nuxt-link :to="data.path" class="button">Explore</nuxt-link>

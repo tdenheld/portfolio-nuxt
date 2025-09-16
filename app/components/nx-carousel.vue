@@ -82,11 +82,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div
-    ref="element"
-    data-scroller-carousel
-    class="fixed inset-0 p-contain overflow-y-scroll overflow-x-hidden snap-y snap-mandatory no-scrollbar"
-  >
+  <div ref="element" data-scroller-carousel class="s-carousel no-scrollbar">
     <div
       v-for="(entry, i) in carouselData"
       :key="i"
@@ -105,3 +101,17 @@ onBeforeUnmount(() => {
     </div>
   </div>
 </template>
+
+<style scoped lang="postcss">
+.s-carousel {
+  position: fixed;
+  inset: 0;
+  background-color: var(--color-bg-primary);
+  padding: var(--spacing-contain);
+  transition: background-color 1500ms;
+  transition-timing-function: var(--ease-out);
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+}
+</style>

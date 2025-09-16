@@ -3,7 +3,7 @@
 //   ======================================================================== */
 
 html {
-  @apply bg-bg-primary
+  @apply bg-[#3C3D3D]
   text-fg-primary
   font-sans
   font-normal
@@ -14,8 +14,6 @@ html {
   font-kerning: normal;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  transition: background-color 1500ms;
-  transition-timing-function: theme('transitionTimingFunction.DEFAULT');
 }
 
 a,

@@ -10,7 +10,7 @@ const mergedData = [...(newPage ? [newPage] : []), ...(projects || [])];
   <div>
     <nx-meta-tags></nx-meta-tags>
 
-    <div class="fixed inset-0 p-contain lg:main-grid">
+    <div class="fixed inset-0 p-contain lg:main-grid z-raised pointer-events-none">
       <div class="col-start-2 h-full">
         <div
           class="invisible lg:visible absolute top-[calc(var(--spacing-contain)+14px)] font-mono text-[10px] text-fg-secondary tracking-wider"
