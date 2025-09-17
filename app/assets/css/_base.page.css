@@ -19,9 +19,10 @@ html {
 a,
 button {
   @apply cursor-pointer
-  focus-visible:outline-2
+  focus-visible:outline-1
+  focus-visible:outline-dashed
   focus-visible:outline-offset-2
-  focus-visible:outline-fg-primary;
+  focus-visible:outline-fg-secondary;
   -webkit-tap-highlight-color: transparent;
 
   /* :where is less specific than :not and can be

@@ -10,17 +10,9 @@ const mergedData = [...(newPage ? [newPage] : []), ...(projects || [])];
   <div>
     <nx-meta-tags></nx-meta-tags>
 
-    <div class="fixed inset-0 p-contain lg:main-grid z-raised pointer-events-none">
+    <div class="fixed inset-x-0 bottom-contain px-contain lg:main-grid z-raised">
       <div class="col-start-2 h-full">
-        <div
-          class="invisible lg:visible absolute top-[calc(var(--spacing-contain)+14px)] font-mono text-[10px] text-fg-secondary tracking-wider"
-        >
-          Netherlands, <nx-time></nx-time>
-        </div>
-
-        <p
-          class="absolute bottom-contain text-xs md:text-sm w-[32ch] text-fg-secondary"
-        >
+        <p class="text-xs md:text-sm w-[32ch] text-fg-secondary">
           {{ page?.description }}
         </p>
       </div>
