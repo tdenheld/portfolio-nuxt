@@ -3,6 +3,7 @@ export interface CarouselEntry {
     name?: string;
     period?: string;
     descriptionShort?: string;
+    image?: string;
     color?: {
       fg: {
         primary: string;

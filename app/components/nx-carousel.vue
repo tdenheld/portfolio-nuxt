@@ -45,6 +45,12 @@ const setColors = () => {
   });
 };
 
+const getImage = () => {
+  const entry = getActiveEntry();
+  if (!entry || !entry.meta.image) return;
+  return entry.meta.image;
+}
+
 // Handle scroll events to update index and colors
 const handleScroll = () => {
   requestAnimationFrame(() => {
@@ -99,6 +105,8 @@ onBeforeUnmount(() => {
     <div class="fixed bottom-contain right-contain text-fg-primary text-xs font-mono">
       {{ index }} / {{ data.length - 1 }}
     </div>
+
+    <nx-thumb class="fixed bottom-contain" :src="getImage()"></nx-thumb>
   </div>
 </template>
 

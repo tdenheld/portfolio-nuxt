@@ -4,4 +4,4 @@
   <div></div>
 </template>
 
-<style lang="postcss"></style>
+<style scoped lang="postcss"></style>
