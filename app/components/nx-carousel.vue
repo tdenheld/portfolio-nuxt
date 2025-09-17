@@ -49,7 +49,7 @@ const getImage = () => {
   const entry = getActiveEntry();
   if (!entry || !entry.meta.image) return;
   return entry.meta.image;
-}
+};
 
 // Handle scroll events to update index and colors
 const handleScroll = () => {
@@ -102,11 +102,17 @@ onBeforeUnmount(() => {
     </div>
 
     <!-- Index counter -->
-    <div class="fixed bottom-contain right-contain text-fg-primary text-xs font-mono">
-      {{ index }} / {{ data.length - 1 }}
-    </div>
+    <div class="fixed bottom-contain right-contain">
+      <p class="text-fg-primary text-xs font-mono text-right">
+        {{ index }} / {{ data.length - 1 }}
+      </p>
 
-    <nx-thumb class="fixed bottom-contain" :src="getImage()"></nx-thumb>
+      <nx-thumb
+        v-if="getImage()"
+        :src="getImage()"
+        class="mt-2 hidden lg:block"
+      ></nx-thumb>
+    </div>
   </div>
 </template>
 

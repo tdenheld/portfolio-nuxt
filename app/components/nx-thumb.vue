@@ -5,12 +5,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="w-32">
-    <nx-image
-      :src="
-        src ||
-        'https://res.cloudinary.com/tibor/image/upload/v1758128623/ns-02_ifft7l.png'
-      "
-    ></nx-image>
+  <div class="w-48 aspect-video rounded-lg overflow-hidden">
+    <nx-image v-if="src" :src="src"></nx-image>
   </div>
 </template>

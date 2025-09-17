@@ -91,8 +91,8 @@ onBeforeUnmount(() => {
       </component>
     </div>
 
-    <div v-if="data.meta.descriptionShort" data-hero-scroll class="origin-left">
-      <p class="mt-5 text-fg-secondary text-lg max-w-[40ch] leading-[1.4]">
+    <div v-if="data.meta.descriptionShort" data-hero-scroll class="mt-2 origin-left">
+      <p class="text-fg-secondary text-lg max-w-[40ch] leading-[1.4]">
         {{ data.meta.descriptionShort }}
       </p>
     </div>
