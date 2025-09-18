@@ -3,7 +3,7 @@ const lineCount = ref(7);
 
 const setLineCount = () => {
   requestAnimationFrame(() => {
-    lineCount.value = window.innerWidth >= 1300 ? 9 : 7;
+    lineCount.value = window.innerWidth >= 980 ? 9 : 7;
   });
 };
 
@@ -28,7 +28,7 @@ onUnmounted(() => {
       <div
         v-for="line in lineCount"
         :key="line"
-        class="border-fg-secondary/10 first:invisible last:invisible nth-[4]:border-fg-primary/60 nth-[4]:border-dashed xl:nth-[4]:border-fg-secondary/10 xl:nth-[4]:border-solid xl:nth-[5]:border-fg-primary/60 xl:nth-[5]:border-dashed"
+        class="border-fg-secondary/10 first:invisible last:invisible nth-[4]:border-fg-primary/60 nth-[4]:border-dashed lg:nth-[4]:border-fg-secondary/10 lg:nth-[4]:border-solid lg:nth-[5]:border-fg-primary/60 lg:nth-[5]:border-dashed"
         :class="{ 'border-t': grid === 1, 'border-l': grid === 2 }"
       ></div>
     </div>

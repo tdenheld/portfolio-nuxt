@@ -8,6 +8,6 @@ import svgLogo from '../assets/images/logo.svg?component';
     class="inline-block text-fg-secondary transition-fg"
     aria-label="Home page"
   >
-    <svg-logo></svg-logo>
+    <svg-logo class="w-8"></svg-logo>
   </nuxt-link>
 </template>

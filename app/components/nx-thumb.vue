@@ -8,7 +8,7 @@ const props = defineProps<{
 <template>
   <div>
     <div
-      class="w-24 md:w-48 xl:w-56 aspect-video rounded-md md:rounded-lg overflow-hidden relative"
+      class="w-[clamp(6rem,calc(48px+10vw),14rem)] aspect-video rounded-md md:rounded-lg overflow-hidden relative"
     >
       <div
         class="absolute inset-0 transition-opacity duration-1500 opacity-0"
@@ -31,7 +31,7 @@ const props = defineProps<{
           :src="image"
           :srcset="[240, 400, 640]"
           :lazy="false"
-          sizes="(min-width: 46.25rem) 12rem, (min-width: 81.25rem) 14rem, 6rem"
+          sizes="(min-width: 81.25rem) 14rem, (min-width: 46.25rem) 12rem, 6rem"
           class="size-full"
         ></nx-image>
       </div>
