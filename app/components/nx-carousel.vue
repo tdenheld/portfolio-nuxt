@@ -3,7 +3,6 @@ import type { Project } from '~/interfaces';
 
 const props = defineProps<{
   data: Project[];
-  description?: string;
 }>();
 
 const element = ref<HTMLElement | null>(null);
@@ -90,39 +89,26 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div>
-    <div class="fixed inset-x-0 bottom-contain px-contain lg:main-grid z-raised">
-      <div class="col-start-2 h-full">
-        <p class="text-xs md:text-sm w-[32ch] text-fg-secondary">
-          {{ description }}
-        </p>
+  <div ref="element" data-scroller-carousel class="s-carousel no-scrollbar">
+    <div
+      v-for="(entry, i) in carouselData"
+      :key="i"
+      class="lg:main-grid h-full snap-center"
+    >
+      <div class="col-start-2 h-full grid items-center">
+        <div>
+          <nx-hero :data="entry" :heading-level="index === 0 ? 'h1' : 'h2'"></nx-hero>
+        </div>
       </div>
     </div>
 
-    <div ref="element" data-scroller-carousel class="s-carousel no-scrollbar">
-      <div
-        v-for="(entry, i) in carouselData"
-        :key="i"
-        class="lg:main-grid h-full snap-center"
-      >
-        <div class="col-start-2 h-full grid items-center">
-          <div>
-            <nx-hero
-              :data="entry"
-              :heading-level="index === 0 ? 'h1' : 'h2'"
-            ></nx-hero>
-          </div>
-        </div>
-      </div>
+    <!-- Index counter -->
+    <div class="fixed bottom-contain right-contain">
+      <p class="text-fg-primary text-xs font-mono text-right">
+        {{ index }} / {{ data.length - 1 }}
+      </p>
 
-      <!-- Index counter -->
-      <div class="fixed bottom-contain right-contain">
-        <nx-thumb :images="getAllImages()" :index="index"></nx-thumb>
-
-        <p class="text-fg-primary text-xs font-mono text-right mt-2">
-          {{ index }} / {{ data.length - 1 }}
-        </p>
-      </div>
+      <nx-thumb :images="getAllImages()" :index="index" class="mt-2"></nx-thumb>
     </div>
   </div>
 </template>
