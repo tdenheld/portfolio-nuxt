@@ -1,9 +1,11 @@
 <script setup lang="ts">
 const page = await queryCollection('content').path('/').first();
-const projects = await queryCollection('projects').all();
+const { data: projects } = await useAsyncData('projects', () =>
+  queryCollection('projects').all()
+);
 
 const newPage = page ? { ...page, path: undefined } : null;
-const mergedData = [...(newPage ? [newPage] : []), ...(projects || [])];
+const mergedData = [...(newPage ? [newPage] : []), ...(projects.value || [])];
 </script>
 
 <template>
