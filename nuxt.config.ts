@@ -8,19 +8,6 @@ export default defineNuxtConfig({
   ssr: false,
   spaLoadingTemplate: true,
 
-  // Prevent Nuxt from trying to prerender any routes
-  // hooks: {
-  //   'prerender:routes': ({ routes }) => {
-  //     routes.clear();
-  //   },
-  // },
-
-  // router: {
-  //   options: {
-  //     hashMode: true,
-  //   },
-  // },
-
   // ---------------------------------------------
 
   devServer: {

@@ -25,23 +25,25 @@ const getActiveEntry = () => {
 // Set CSS variables for colors based on the active entry
 const setColors = () => {
   const entry = getActiveEntry();
-  if (!entry || !entry.meta.color) return;
-
   const root = document.documentElement;
-  const { fg, bg } = entry.meta.color;
+  if (!entry) return;
 
-  // Full palette
-  const colors = {
-    '--color-fg-primary': fg.primary,
-    '--color-fg-secondary': fg.secondary,
-    '--color-fg-tertiary': fg.tertiary,
-    '--color-bg-primary': bg.primary,
-    '--color-bg-secondary': bg.secondary,
-    '--color-bg-tertiary': bg.tertiary,
+  // Define color variable mappings
+  const colorVariables = {
+    '--color-fg-primary': entry.meta.color?.fg.primary,
+    '--color-fg-secondary': entry.meta.color?.fg.secondary,
+    '--color-fg-tertiary': entry.meta.color?.fg.tertiary,
+    '--color-bg-primary': entry.meta.color?.bg.primary,
+    '--color-bg-secondary': entry.meta.color?.bg.secondary,
+    '--color-bg-tertiary': entry.meta.color?.bg.tertiary,
   };
 
-  Object.entries(colors).forEach(([key, value]) => {
-    if (value) root.style.setProperty(key, value);
+  Object.entries(colorVariables).forEach(([key, value]) => {
+    if (value) {
+      root.style.setProperty(key, value);
+    } else {
+      root.style.removeProperty(key);
+    }
   });
 };
 

@@ -25,13 +25,13 @@
   /* ------------------------------------------- */
   --color-*: initial;
 
-  --color-fg-primary: oklch(0.8449 0.097 112.19);
-  --color-fg-secondary: oklch(0.9594 0.0201 97.53);
-  --color-fg-tertiary: oklch(0.9594 0.0201 97.53);
+  --color-fg-primary: #CDD388;
+  --color-fg-secondary: #F5F2E3;
+  --color-fg-tertiary: #F5F2E3;
 
-  --color-bg-primary: oklch(0.5309 0.0677 176.7);
-  --color-bg-secondary: oklch(0.5224 0.057 223.72);
-  --color-bg-tertiary: oklch(0.5311 0.1 135.77);
+  --color-bg-primary: #3C796B;
+  --color-bg-secondary: #51793C;
+  --color-bg-tertiary: #437182;
 
   /* Motion */
   /* ------------------------------------------- */
