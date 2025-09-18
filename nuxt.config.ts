@@ -4,18 +4,14 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineNuxtConfig({
   compatibilityDate: '2025-09-01',
 
-  // Use Nuxt in SPA mode
+  // Use Nuxt in SPA mode only
   ssr: false,
+  spaLoadingTemplate: true,
 
-  // Ensure proper SPA generation
+  // Prevent Nuxt from trying to prerender any routes
   hooks: {
-    'nitro:config': async (nitroConfig) => {
-      // For SPA mode, we need to ensure index.html is generated
-      if (!nitroConfig.prerender) {
-        nitroConfig.prerender = { routes: ['/'] };
-      } else if (!nitroConfig.prerender.routes?.includes('/')) {
-        nitroConfig.prerender.routes = [...(nitroConfig.prerender.routes || []), '/'];
-      }
+    'prerender:routes': ({ routes }) => {
+      routes.clear();
     },
   },
 
@@ -24,6 +20,8 @@ export default defineNuxtConfig({
       hashMode: true,
     },
   },
+
+  // ---------------------------------------------
 
   devServer: {
     host: '0.0.0.0',
