@@ -1,30 +1,31 @@
-<div class="loader"></div>
 <style>
+  html {
+    background-color: oklch(0.5309 0.0677 176.7);
+  }
+
   .loader {
     display: block;
     position: fixed;
     z-index: 1031;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    width: 18px;
-    height: 18px;
+    transform: translateX(-50%, -50%);
+    width: 24px;
+    height: 24px;
     box-sizing: border-box;
-    border: solid 2px transparent;
-    border-top-color: #000;
-    border-left-color: #000;
-    border-bottom-color: #efefef;
-    border-right-color: #efefef;
-    border-radius: 50%;
-    animation: loader 400ms linear infinite;
+    border: solid 1.5px oklch(0.8449 0.097 112.19);
+    border-radius: 4px;
+    animation: loader 700ms linear infinite;
   }
 
   @keyframes loader {
     0% {
-      transform: translate(-50%, -50%) rotate(0deg);
+      transform: rotate(0deg);
     }
     100% {
-      transform: translate(-50%, -50%) rotate(360deg);
+      transform: rotate(360deg);
     }
   }
 </style>
+
+<div class="loader"></div>
