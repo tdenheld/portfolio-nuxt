@@ -42,3 +42,8 @@
   @apply [scrollbar-width:none]
   [&::-webkit-scrollbar]:hidden;
 }
+
+@utility transition-fg {
+  @apply transition-colors
+  duration-800;
+}
