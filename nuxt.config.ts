@@ -26,19 +26,19 @@ export default defineNuxtConfig({
         {
           rel: 'apple-touch-icon',
           type: 'image/png',
-          href: 'favicon-touch.png',
+          href: '/favicon-touch.png',
         },
         {
           rel: 'icon',
           type: 'image/png',
-          href: 'favicon.ico',
+          href: '/favicon.ico',
         },
         {
           rel: 'preload',
           type: 'font/woff2',
           as: 'font',
           crossorigin: '',
-          href: 'fonts/display-var.woff2',
+          href: '/fonts/display-var.woff2',
         },
       ],
     },
