@@ -33,6 +33,12 @@ export default defineNuxtConfig({
           type: 'image/png',
           href: 'favicon.ico',
         },
+        {
+          rel: 'preload',
+          type: 'font/woff2',
+          as: 'font',
+          href: 'assets/fonts/display-var.woff2',
+        },
       ],
     },
   },
