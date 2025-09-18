@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { CarouselEntry } from '~/interfaces';
+import type { Project } from '~/interfaces';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const props = defineProps<{
-  data: CarouselEntry;
+  data: Project;
   headingLevel?: 'h1' | 'h2';
 }>();
 

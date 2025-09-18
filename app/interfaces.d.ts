@@ -1,4 +1,7 @@
-export interface CarouselEntry {
+export interface Project {
+  title: string;
+  description?: string;
+  path?: string;
   meta: {
     name?: string;
     period?: string;
@@ -17,6 +20,4 @@ export interface CarouselEntry {
       };
     };
   };
-  title: string;
-  path?: string;
 }

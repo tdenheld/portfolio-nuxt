@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import type { CarouselEntry } from '~/interfaces';
+import type { Project } from '~/interfaces';
 
 const props = defineProps<{
-  data: CarouselEntry[];
+  data: Project[];
+  description?: string;
 }>();
 
 const element = ref<HTMLElement | null>(null);
 const index = ref(0);
 
 // Create a new array with multiple copies of the data to allow infinite scrolling
-const carouselData = ref<CarouselEntry[]>([...Array(2).fill(props.data).flat()]);
+const carouselData = ref<Project[]>([...Array(2).fill(props.data).flat()]);
 
 // Calculate the actual height of one item in the carousel
 const getActualItemHeight = () => {
@@ -45,10 +46,11 @@ const setColors = () => {
   });
 };
 
-const getImage = () => {
-  const entry = getActiveEntry();
-  if (!entry || !entry.meta.image) return;
-  return entry.meta.image;
+const getAllImages = () => {
+  // Return an array of all images from the data array
+  return props.data
+    .map((entry) => entry.meta?.image)
+    .filter((img): img is string => !!img);
 };
 
 // Handle scroll events to update index and colors
@@ -88,30 +90,39 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div ref="element" data-scroller-carousel class="s-carousel no-scrollbar">
-    <div
-      v-for="(entry, i) in carouselData"
-      :key="i"
-      class="lg:main-grid h-full snap-center"
-    >
-      <div class="col-start-2 h-full grid items-center">
-        <div>
-          <nx-hero :data="entry" :heading-level="index === 0 ? 'h1' : 'h2'"></nx-hero>
-        </div>
+  <div>
+    <div class="fixed inset-x-0 bottom-contain px-contain lg:main-grid z-raised">
+      <div class="col-start-2 h-full">
+        <p class="text-xs md:text-sm w-[32ch] text-fg-secondary">
+          {{ description }}
+        </p>
       </div>
     </div>
 
-    <!-- Index counter -->
-    <div class="fixed bottom-contain right-contain">
-      <p class="text-fg-primary text-xs font-mono text-right">
-        {{ index }} / {{ data.length - 1 }}
-      </p>
+    <div ref="element" data-scroller-carousel class="s-carousel no-scrollbar">
+      <div
+        v-for="(entry, i) in carouselData"
+        :key="i"
+        class="lg:main-grid h-full snap-center"
+      >
+        <div class="col-start-2 h-full grid items-center">
+          <div>
+            <nx-hero
+              :data="entry"
+              :heading-level="index === 0 ? 'h1' : 'h2'"
+            ></nx-hero>
+          </div>
+        </div>
+      </div>
 
-      <nx-thumb
-        v-if="getImage()"
-        :src="getImage()"
-        class="mt-2 hidden lg:block"
-      ></nx-thumb>
+      <!-- Index counter -->
+      <div class="fixed bottom-contain right-contain">
+        <nx-thumb :images="getAllImages()" :index="index"></nx-thumb>
+
+        <p class="text-fg-primary text-xs font-mono text-right mt-2">
+          {{ index }} / {{ data.length - 1 }}
+        </p>
+      </div>
     </div>
   </div>
 </template>
