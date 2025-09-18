@@ -14,14 +14,24 @@
 @keyframes fade-in {
   to {
     opacity: 1;
-    transform: none;
-    translate: none;
-    filter: none;
   }
 }
 
 @utility a-fi {
   animation-name: fade-in;
+}
+
+/* ---------------------------- */
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@utility a-fo {
+  opacity: 1;
+  animation-delay: 300ms;
+  animation-name: fade-out;
 }
 
 /* ---------------------------- */
@@ -32,9 +42,6 @@
   }
   100% {
     opacity: 1;
-    transform: none;
-    translate: none;
-    filter: none;
   }
 }
 
