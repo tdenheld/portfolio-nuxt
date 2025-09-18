@@ -4,13 +4,13 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineNuxtConfig({
   compatibilityDate: '2025-09-01',
 
-  // ssr: false,
+  ssr: false,
 
-  // hooks: {
-  //   'prerender:routes': ({ routes }) => {
-  //     routes.clear();
-  //   },
-  // },
+  hooks: {
+    'prerender:routes': ({ routes }) => {
+      routes.clear();
+    },
+  },
 
   devServer: {
     host: '0.0.0.0',
