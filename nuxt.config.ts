@@ -4,13 +4,18 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineNuxtConfig({
   compatibilityDate: '2025-09-01',
 
+  // Use Nuxt in SPA mode only
   ssr: false,
+  spaLoadingTemplate: true,
 
+  // Prevent Nuxt from trying to prerender any routes
   hooks: {
     'prerender:routes': ({ routes }) => {
       routes.clear();
     },
   },
+
+  // ---------------------------------------------
 
   devServer: {
     host: '0.0.0.0',
