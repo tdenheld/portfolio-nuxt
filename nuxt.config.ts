@@ -8,8 +8,6 @@ export default defineNuxtConfig({
   ssr: false,
   spaLoadingTemplate: true,
 
-  // ---------------------------------------------
-
   devServer: {
     host: '0.0.0.0',
   },
