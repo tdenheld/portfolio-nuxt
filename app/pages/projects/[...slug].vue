@@ -1,6 +1,13 @@
 <script setup>
 const route = useRoute();
 const page = await queryCollection('projects').path(route.path).first();
+
+const nuxtApp = useNuxtApp();
+
+// Set colors on document element when component mounts
+onMounted(() => {
+  nuxtApp.$setColor(page?.meta?.color);
+});
 </script>
 
 <template>
@@ -9,7 +16,7 @@ const page = await queryCollection('projects').path(route.path).first();
       <nx-meta-tags
         :title="page.title"
         :description="page.description"
-        :image="page.meta.image.src"
+        :image="page.meta.image"
       ></nx-meta-tags>
 
       <div class="fixed inset-0 bg-bg-primary"></div>

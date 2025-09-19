@@ -11,9 +11,9 @@ import svgLogo from '../assets/images/logo.svg?component';
     </main>
 
     <div
-      class="fixed inset-0 bg-bg-primary z-[999] pointer-events-none grid place-content-center a a-fo"
+      class="fixed inset-0 bg-[#3c796b] z-[999] pointer-events-none grid place-content-center a a-fo"
     >
-      <svg-logo class="w-12 text-fg-primary"></svg-logo>
+      <svg-logo class="w-12 text-[#cdd388]"></svg-logo>
     </div>
   </div>
 </template>

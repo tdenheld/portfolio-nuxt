@@ -5,6 +5,8 @@ const props = defineProps<{
   data: Project[];
 }>();
 
+const nuxtApp: any = useNuxtApp();
+
 const element = ref<HTMLElement | null>(null);
 const index = ref(0);
 
@@ -23,28 +25,10 @@ const getActiveEntry = () => {
 };
 
 // Set CSS variables for colors based on the active entry
-const setColors = () => {
+const setColor = () => {
   const entry = getActiveEntry();
-  const root = document.documentElement;
   if (!entry) return;
-
-  // Define color variable mappings
-  const colorVariables = {
-    '--color-fg-primary': entry.meta.color?.fg.primary,
-    '--color-fg-secondary': entry.meta.color?.fg.secondary,
-    '--color-fg-tertiary': entry.meta.color?.fg.tertiary,
-    '--color-bg-primary': entry.meta.color?.bg.primary,
-    '--color-bg-secondary': entry.meta.color?.bg.secondary,
-    '--color-bg-tertiary': entry.meta.color?.bg.tertiary,
-  };
-
-  Object.entries(colorVariables).forEach(([key, value]) => {
-    if (value) {
-      root.style.setProperty(key, value);
-    } else {
-      root.style.removeProperty(key);
-    }
-  });
+  nuxtApp.$setColor(entry.meta?.color);
 };
 
 const getAllImages = () => {
@@ -71,7 +55,7 @@ const handleScroll = () => {
     }
 
     // Set colors based on current active item
-    setColors();
+    setColor();
 
     // When reaching cloned items add another array to the carousel
     if (currentIndex >= carouselData.value.length - props.data.length) {
@@ -81,7 +65,7 @@ const handleScroll = () => {
 };
 
 onMounted(() => {
-  setColors();
+  setColor();
   element.value?.addEventListener('scroll', handleScroll);
 });
 

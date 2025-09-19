@@ -1,3 +1,16 @@
+export interface Color {
+  fg: {
+    primary: string;
+    secondary: string;
+    tertiary: string;
+  };
+  bg: {
+    primary: string;
+    secondary: string;
+    tertiary: string;
+  };
+}
+
 export interface Project {
   title: string;
   description?: string;
@@ -7,17 +20,6 @@ export interface Project {
     period?: string;
     descriptionShort?: string;
     image?: string;
-    color?: {
-      fg: {
-        primary: string;
-        secondary: string;
-        tertiary: string;
-      };
-      bg: {
-        primary: string;
-        secondary: string;
-        tertiary: string;
-      };
-    };
+    color?: Color;
   };
 }
