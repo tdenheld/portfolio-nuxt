@@ -22,20 +22,6 @@
 }
 
 /* ---------------------------- */
-@keyframes fade-out {
-  to {
-    opacity: 0;
-  }
-}
-
-@utility a-fo {
-  opacity: 1;
-  animation-delay: 500ms;
-  animation-duration: 500ms;
-  animation-name: fade-out;
-}
-
-/* ---------------------------- */
 
 @keyframes fade-in-50 {
   50% {
