@@ -19,7 +19,7 @@ onMounted(() => {
         :image="page.meta.image"
       ></nx-meta-tags>
 
-      <div class="h-screen main-grid p-contain">
+      <div class="h-[100svh] main-grid p-contain">
         <div class="col-start-2 h-full grid items-center">
           <nx-hero :data="page" heading-level="h1" pdp></nx-hero>
         </div>
