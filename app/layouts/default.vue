@@ -3,7 +3,7 @@
     <nx-nav></nx-nav>
     <div class="fixed inset-0 bg-bg-primary transition duration-1500"></div>
 
-    <main>
+    <main class="relative">
       <slot></slot>
     </main>
 

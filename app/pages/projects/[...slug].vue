@@ -12,7 +12,7 @@ onMounted(() => {
 
 <template>
   <div>
-    <div v-if="page" :value="page" class="relative">
+    <div v-if="page" :value="page">
       <nx-meta-tags
         :title="page.title"
         :description="page.description"
