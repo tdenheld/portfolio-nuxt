@@ -2,7 +2,7 @@
 
 <template>
   <nav
-    class="fixed inset-x-0 z-navigation pt-contain px-contain lg:main-grid"
+    class="fixed inset-x-0 z-navigation pt-contain px-contain main-grid"
   >
     <div>
       <nx-logo></nx-logo>

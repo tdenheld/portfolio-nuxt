@@ -79,7 +79,7 @@ onBeforeUnmount(() => {
     <div
       v-for="(entry, i) in carouselData"
       :key="i"
-      class="lg:main-grid h-full snap-center"
+      class="main-grid h-full snap-center"
     >
       <div class="col-start-2 h-full grid items-center">
         <div>
