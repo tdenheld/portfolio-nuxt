@@ -12,14 +12,18 @@ onMounted(() => {
 
 <template>
   <div>
-    <div v-if="page" :value="page">
+    <div v-if="page" :value="page" class="relative">
       <nx-meta-tags
         :title="page.title"
         :description="page.description"
         :image="page.meta.image"
       ></nx-meta-tags>
 
-      <div class="fixed inset-0 bg-bg-primary"></div>
+      <div class="h-screen main-grid p-contain">
+        <div class="col-start-2 h-full grid items-center">
+          <nx-hero :data="page" heading-level="h1" pdp></nx-hero>
+        </div>
+      </div>
     </div>
 
     <div v-else>

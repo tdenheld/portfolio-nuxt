@@ -103,10 +103,7 @@ onBeforeUnmount(() => {
 .s-carousel {
   position: fixed;
   inset: 0;
-  background-color: var(--color-bg-primary);
   padding: var(--spacing-contain);
-  transition: background-color 1500ms;
-  transition-timing-function: var(--ease-out);
   overflow-x: hidden;
   overflow-y: scroll;
   scroll-snap-type: y mandatory;

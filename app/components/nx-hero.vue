@@ -7,12 +7,13 @@ gsap.registerPlugin(ScrollTrigger);
 const props = defineProps<{
   data: Project;
   headingLevel?: 'h1' | 'h2';
+  pdp?: boolean;
 }>();
 
 const el = ref<HTMLElement | null>(null);
 
 const createScrollAnimation = () => {
-  if (!el.value) return;
+  if (!el.value || props.pdp) return;
   const length = el.value.querySelectorAll('[data-hero-scroll]').length;
   if (length === 0) return;
 
@@ -59,7 +60,7 @@ const createScrollAnimation = () => {
 };
 
 const cleanupAnimations = () => {
-  if (el.value) {
+  if (el.value && !props.pdp) {
     ScrollTrigger.getAll().forEach((trigger) => {
       if (trigger.trigger === el.value) {
         trigger.kill();
@@ -108,7 +109,9 @@ onBeforeUnmount(() => {
 
     <div class="mt-8" v-if="data.path" data-hero-scroll>
       <div>
-        <nuxt-link :to="data.path" class="button">Explore</nuxt-link>
+        <nuxt-link :to="data.path" class="button" :class="{ invisible: pdp }"
+          >Explore</nuxt-link
+        >
       </div>
     </div>
   </div>
