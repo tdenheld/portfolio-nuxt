@@ -7,9 +7,20 @@ const props = defineProps<{
 }>();
 
 const nuxtApp: any = useNuxtApp();
+const router = useRouter();
 
 const element = ref<HTMLElement | null>(null);
 const index = ref(0);
+const isAnimating = ref(false);
+
+const handleLinkClick = (path: string) => {
+  isAnimating.value = true;
+
+  setTimeout(() => {
+    router.push(path);
+    isAnimating.value = false;
+  }, 300);
+};
 
 // Create a new array with multiple copies of the data to allow infinite scrolling
 const carouselData = ref<Project[]>([...Array(2).fill(props.data).flat()]);
@@ -88,14 +99,25 @@ onBeforeUnmount(() => {
             <nx-hero
               :data="entry"
               :heading-level="index === 0 ? 'h1' : 'h2'"
+              @nx-click="handleLinkClick($event)"
+              :is-animating="isAnimating"
             ></nx-hero>
           </div>
         </div>
       </div>
     </div>
-    
-    <nx-counter :index="index" :length="data.length" :images="getAllImages()"></nx-counter>
-    <nx-description :description="description"></nx-description>
+
+    <nx-counter
+      :index="index"
+      :length="data.length"
+      :images="getAllImages()"
+    ></nx-counter>
+
+    <nx-description
+      :description="description"
+      class="transition"
+      :class="{ 'opacity-0': isAnimating }"
+    ></nx-description>
   </div>
 </template>
 

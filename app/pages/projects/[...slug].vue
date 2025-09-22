@@ -36,6 +36,8 @@ onMounted(() => {
           </div>
         </div>
       </div>
+
+      <nx-counter :index="0" :length="1"></nx-counter>
     </div>
 
     <div v-else>

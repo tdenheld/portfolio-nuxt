@@ -11,6 +11,7 @@ const props = defineProps<{
 }>();
 
 const hostElement = ref<HTMLElement | null>(null);
+const isAnimating = ref(false);
 
 const createScrollAnimation = () => {
   if (!hostElement.value || props.pdp) return;
@@ -110,8 +111,16 @@ onBeforeUnmount(() => {
 
     <div class="mt-8" v-if="data.path" data-hero-scroll>
       <div>
-        <nuxt-link :to="data.path" class="button" :class="{ invisible: pdp }"
-          >Explore</nuxt-link
+        <a
+          :href="data.path"
+          @click="
+            ($event.preventDefault(),
+            $emit('nx-click', data.path),
+            (isAnimating = true))
+          "
+          class="button transition"
+          :class="{ invisible: pdp, 'opacity-0': isAnimating }"
+          >Explore</a
         >
       </div>
     </div>
