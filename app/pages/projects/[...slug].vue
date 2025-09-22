@@ -19,9 +19,20 @@ onMounted(() => {
         :image="page.meta.image"
       ></nx-meta-tags>
 
-      <div class="h-[100svh] main-grid p-contain">
-        <div class="col-start-2 h-full grid items-center">
-          <nx-hero :data="page" heading-level="h1" pdp></nx-hero>
+      <div class="fixed inset-0 main-grid p-contain overflow-y-auto">
+        <div class="col-start-2 h-full">
+          <div class="h-full grid items-center">
+            <nx-hero :data="page" heading-level="h1" pdp></nx-hero>
+          </div>
+
+          <div class="-mt-28 space-y-6 a a-fi pb-16">
+            <nx-image
+              v-for="entry in page.meta.items"
+              :src="entry.src"
+              :alt="entry.alt"
+              class="rounded-2xl overflow-hidden"
+            ></nx-image>
+          </div>
         </div>
       </div>
     </div>
