@@ -3,6 +3,7 @@ import type { Project } from '~/interfaces';
 
 const props = defineProps<{
   data: Project[];
+  description?: string;
 }>();
 
 const nuxtApp: any = useNuxtApp();
@@ -75,27 +76,26 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div ref="element" data-scroller-carousel class="s-carousel no-scrollbar">
-    <div
-      v-for="(entry, i) in carouselData"
-      :key="i"
-      class="main-grid h-full snap-center"
-    >
-      <div class="col-start-2 h-full grid items-center">
-        <div>
-          <nx-hero :data="entry" :heading-level="index === 0 ? 'h1' : 'h2'"></nx-hero>
+  <div>
+    <div ref="element" data-scroller-carousel class="s-carousel no-scrollbar">
+      <div
+        v-for="(entry, i) in carouselData"
+        :key="i"
+        class="main-grid h-full snap-center"
+      >
+        <div class="col-start-2 h-full grid items-center">
+          <div>
+            <nx-hero
+              :data="entry"
+              :heading-level="index === 0 ? 'h1' : 'h2'"
+            ></nx-hero>
+          </div>
         </div>
       </div>
     </div>
-
-    <!-- Index counter -->
-    <div class="fixed bottom-contain right-contain">
-      <p class="text-fg-primary text-xs font-mono text-right">
-        {{ index }} / {{ data.length - 1 }}
-      </p>
-
-      <nx-thumb :images="getAllImages()" :index="index" class="mt-2"></nx-thumb>
-    </div>
+    
+    <nx-counter :index="index" :length="data.length" :images="getAllImages()"></nx-counter>
+    <nx-description :description="description"></nx-description>
   </div>
 </template>
 
