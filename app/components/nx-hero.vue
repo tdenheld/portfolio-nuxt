@@ -10,30 +10,31 @@ const props = defineProps<{
   pdp?: boolean;
 }>();
 
-const el = ref<HTMLElement | null>(null);
+const hostElement = ref<HTMLElement | null>(null);
 
 const createScrollAnimation = () => {
-  if (!el.value || props.pdp) return;
-  const length = el.value.querySelectorAll('[data-hero-scroll]').length;
+  if (!hostElement.value || props.pdp) return;
+  const scrollElements = hostElement.value.querySelectorAll('[data-hero-scroll]');
+  const length = scrollElements.length;
   if (length === 0) return;
 
   const xFactor = -2.8;
   const rotateFactor = 6.7;
 
-  el.value.querySelectorAll('[data-hero-scroll]').forEach((child, index) => {
-    const grandChild = child.childNodes[0] as HTMLElement;
+  scrollElements.forEach((el, index) => {
+    const child = el.childNodes[0] as HTMLElement;
+    el.classList.add('origin-left');
     child.classList.add('origin-left');
-    grandChild.classList.add('origin-left');
 
     // Up
-    gsap.to(grandChild, {
+    gsap.to(child, {
       opacity: 0,
       filter: 'blur(6px)',
       rotate: (length - index) * -rotateFactor + 'deg',
       x: (length - index) * xFactor + '%',
       ease: 'none',
       scrollTrigger: {
-        trigger: el.value,
+        trigger: hostElement.value,
         scrub: 1,
         start: 'center 48%',
         end: 'top 4%',
@@ -42,14 +43,14 @@ const createScrollAnimation = () => {
     });
 
     // Down
-    gsap.from(child, {
+    gsap.from(el, {
       opacity: 0,
       filter: 'blur(6px)',
       ease: 'none',
       rotate: (index + 1) * rotateFactor + 'deg',
       x: (index + 1) * xFactor + '%',
       scrollTrigger: {
-        trigger: el.value,
+        trigger: hostElement.value,
         scrub: 1,
         start: 'bottom 96%',
         end: 'center 52%',
@@ -60,9 +61,9 @@ const createScrollAnimation = () => {
 };
 
 const cleanupAnimations = () => {
-  if (el.value && !props.pdp) {
+  if (hostElement.value && !props.pdp) {
     ScrollTrigger.getAll().forEach((trigger) => {
-      if (trigger.trigger === el.value) {
+      if (trigger.trigger === hostElement.value) {
         trigger.kill();
       }
     });
@@ -79,7 +80,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div ref="el">
+  <div ref="hostElement">
     <div v-if="data.meta.name || data.meta.period" data-hero-scroll>
       <div>
         <p class="font-serif text-xl md:text-[28px] text-fg-secondary">
