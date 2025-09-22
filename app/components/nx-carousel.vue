@@ -100,7 +100,6 @@ onBeforeUnmount(() => {
               :data="entry"
               :heading-level="index === 0 ? 'h1' : 'h2'"
               @nx-click="handleLinkClick($event)"
-              :is-animating="isAnimating"
             ></nx-hero>
           </div>
         </div>
