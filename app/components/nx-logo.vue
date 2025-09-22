@@ -1,13 +1,26 @@
 <script setup>
 import svgLogo from '../assets/images/logo.svg?component';
+const route = useRoute();
+
+const scrollToTop = () => {
+  const carousel = document.querySelector('[data-scroller-carousel]');
+  carousel.scrollTo({ top: 0 });
+};
 </script>
 
 <template>
-  <nuxt-link
-    to="/"
-    class="inline-block text-fg-secondary transition-fg"
-    aria-label="Home page"
-  >
-    <svg-logo class="w-8"></svg-logo>
-  </nuxt-link>
+  <div>
+    <nuxt-link
+      v-if="route.path !== '/'"
+      to="/"
+      class="inline-block text-fg-secondary transition-fg"
+      aria-label="Home page"
+    >
+      <svg-logo class="w-8"></svg-logo>
+    </nuxt-link>
+
+    <button v-else aria-label="Scroll to top" @click="scrollToTop">
+      <svg-logo class="w-8"></svg-logo>
+    </button>
+  </div>
 </template>

@@ -1,7 +1,6 @@
 <script setup>
 const route = useRoute();
 const page = await queryCollection('projects').path(route.path).first();
-
 const nuxtApp = useNuxtApp();
 
 // Set colors on document element when component mounts
