@@ -31,15 +31,15 @@ onMounted(() => {
   place-content: center;
 
   animation-fill-mode: both;
-  animation-timing-function: var(--ease-out);
-  animation-delay: 500ms;
-  animation-duration: 500ms;
+  animation-timing-function: var(--ease-in-out-expo);
+  animation-delay: 200ms;
+  animation-duration: 800ms;
   animation-name: fade-out;
 }
 
 @keyframes fade-out {
   to {
-    opacity: 0;
+    transform: translateY(-100%);
   }
 }
 </style>
