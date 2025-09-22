@@ -11,8 +11,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-if="isLoading" class="s-preloader">
-    <svg-logo class="w-12 text-[#cdd388]"></svg-logo>
+  <div>
+    <div v-if="isLoading" class="s-preloader">
+      <div class="grid place-content-center size-20 bg-bg-primary rounded-xl">
+        <svg-logo class="w-10 text-preloader-fg pb-1"></svg-logo>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -20,14 +24,14 @@ onMounted(() => {
 .s-preloader {
   position: fixed;
   inset: 0;
-  background-color: #3c796b;
+  background-color: var(--color-preloader-bg);
   z-index: 999;
   pointer-events: none;
   display: grid;
   place-content: center;
 
   animation-fill-mode: both;
-  animation-timing-function: theme('transitionTimingFunction.DEFAULT');
+  animation-timing-function: var(--ease-out);
   animation-delay: 500ms;
   animation-duration: 500ms;
   animation-name: fade-out;

@@ -25,6 +25,9 @@
   /* ------------------------------------------- */
   --color-*: initial;
 
+  --color-preloader-bg: #232927;
+  --color-preloader-fg: #CDD388;
+
   --color-fg-primary: #CDD388;
   --color-fg-secondary: #F5F2E3;
   --color-fg-tertiary: #F5F2E3;

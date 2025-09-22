@@ -3,7 +3,7 @@
 //   ======================================================================== */
 
 html {
-  @apply bg-[#3C3D3D]
+  @apply bg-preloader-bg
   text-fg-primary
   font-sans
   font-normal

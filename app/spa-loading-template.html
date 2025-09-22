@@ -1,13 +1,12 @@
 <style>
   html {
-    background-color: #3c3d3d;
+    background-color: #232927;
   }
 
   .p-grid {
     display: grid;
     place-content: center;
     position: fixed;
-    background-color: #3c796b;
     inset: 0;
     width: 100%;
     height: 100%;
@@ -15,19 +14,42 @@
   }
 
   .p-logo {
+    position: relative;
+    display: grid;
+    place-content: center;
+    width: 80px;
+    height: 80px;
+  }
+
+  .p-logo:before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: #3c796b;
+    border-radius: 12px;
+    animation: rotate 1.5s linear infinite;
+  }
+
+  .p-logo svg {
+    position: relative;
+    padding-bottom: 4px;
     color: #cdd388;
-    width: 48px;
+    width: 40px;
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 </style>
 
 <div class="p-grid">
-  <div>
-    <svg
-      class="p-logo"
-      viewBox="0 0 32 35"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+  <div class="p-logo">
+    <svg viewBox="0 0 32 35" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M18.4539 13.9968L18.4835 14.716H19.2033H31.25V34.25H0.75V14.716H4.06401H4.78278L4.81334 13.9979L5.37699 0.75H9.8147L10.3789 13.9979L10.4095 14.716H11.1282H12.5303H13.2501L13.2797 13.9968L13.6492 5.01139H18.085L18.4539 13.9968Z"
         stroke="currentColor"
