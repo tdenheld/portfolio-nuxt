@@ -25,7 +25,7 @@ onMounted(() => {
             <nx-hero :data="page" heading-level="h1" pdp></nx-hero>
           </div>
 
-          <div class="-mt-28 md:-mt-64 pb-16 space-y-6 a a-fi">
+          <div class="-mt-28 md:-mt-64 pb-16 space-y-contain a a-fi">
             <nx-image
               v-for="entry in page.meta.items"
               :src="entry.src"
