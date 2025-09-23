@@ -20,11 +20,20 @@ const getLength = () => {
 onMounted(() => {
   nuxtApp.$setColor(page?.meta?.color);
 
-  ScrollSmoother.create({
-    smooth: 0.8,
-    effects: true, // looks for data-speed and data-lag attr
-    smoothTouch: 0.1,
-  });
+  if (!nuxtApp.$isTouchDevice()) {
+    ScrollSmoother.create({
+      smooth: 0.8,
+      effects: true, // looks for data-speed and data-lag attr
+      smoothTouch: 0.2, // much lower smoothing on touch devices
+      normalizeScroll: true, // prevents address bar from showing/hiding on scroll
+    });
+  }
+});
+
+onUnmounted(() => {
+  if (!nuxtApp.$isTouchDevice()) {
+    ScrollSmoother.get().kill();
+  }
 });
 </script>
 
@@ -42,11 +51,15 @@ onMounted(() => {
         class="fixed inset-0 main-grid px-contain overflow-y-auto no-scrollbar"
       >
         <div id="smooth-content" class="col-start-2">
-          <div class="h-[100svh] py-contain grid items-center">
-            <nx-hero :data="page" heading-level="h1" pdp></nx-hero>
+          <div class="h-[100svh] py-contain grid items-center -mt-24">
+            <div>
+              <nx-hero :data="page" heading-level="h1" pdp></nx-hero>
+            </div>
           </div>
 
-          <div class="-mt-28 md:-mt-64 pb-16 space-y-contain a a-fi-up">
+          <div
+            class="-mt-48 md:-mt-64 pb-16 space-y-contain a a-fi-up [animation-delay:200ms]"
+          >
             <nx-image
               v-for="entry in page.meta.items"
               :src="entry.src"
@@ -59,7 +72,12 @@ onMounted(() => {
         </div>
       </div>
 
-      <nx-counter :index="getCurrentIndex()" :length="getLength()" pdp></nx-counter>
+      <nx-counter
+        class="hidden md:block"
+        :index="getCurrentIndex()"
+        :length="getLength()"
+        pdp
+      ></nx-counter>
     </div>
 
     <div v-else>

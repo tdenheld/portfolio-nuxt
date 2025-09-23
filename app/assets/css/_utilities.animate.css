@@ -6,7 +6,7 @@
   opacity: 0;
   animation-duration: 1500ms;
   animation-fill-mode: both;
-  animation-timing-function: theme('transitionTimingFunction.DEFAULT');
+  animation-timing-function: var(--ease-out);
 }
 
 /* Variants */
@@ -42,7 +42,6 @@
   opacity: 0;
   transform: translateY(48px);
   animation-name: fade-in-up;
-  animation-delay: 400ms;
 }
 
 @keyframes fade-in-up {

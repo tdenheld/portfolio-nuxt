@@ -18,7 +18,7 @@ const handleClick = (path: string) => {
 
   setTimeout(() => {
     router.push(path);
-  }, 500);
+  }, 800);
 };
 
 // Create a new array with multiple copies of the data to allow infinite scrolling
@@ -94,7 +94,10 @@ onBeforeUnmount(() => {
         class="main-grid h-full snap-center"
       >
         <div class="col-start-2 h-full grid items-center">
-          <div>
+          <div
+            class="transition duration-800"
+            :class="{ '-translate-y-24': isAnimating }"
+          >
             <nx-hero
               :data="entry"
               :heading-level="index === 0 ? 'h1' : 'h2'"

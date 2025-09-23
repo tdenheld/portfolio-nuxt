@@ -6,7 +6,7 @@ const isTouchDevice = ref(false);
 const moveMagnet = (event) => {
   if (isTouchDevice.value) return;
 
-  const STRENGTH = 48;
+  const STRENGTH = 56; // max px to move
   const btn = event.currentTarget;
   const bounding = btn.getBoundingClientRect();
 
