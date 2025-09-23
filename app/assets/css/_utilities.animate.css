@@ -11,17 +11,21 @@
 
 /* Variants */
 /* ---------------------------- */
+@utility a-fi {
+  animation-name: fade-in;
+}
+
 @keyframes fade-in {
   to {
     opacity: 1;
   }
 }
 
-@utility a-fi {
-  animation-name: fade-in;
-}
-
 /* ---------------------------- */
+
+@utility a-fi-50 {
+  animation-name: fade-in-50;
+}
 
 @keyframes fade-in-50 {
   50% {
@@ -32,6 +36,18 @@
   }
 }
 
-@utility a-fi-50 {
-  animation-name: fade-in-50;
+/* ---------------------------- */
+
+@utility a-fi-up {
+  opacity: 0;
+  transform: translateY(48px);
+  animation-name: fade-in-up;
+  animation-delay: 400ms;
+}
+
+@keyframes fade-in-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

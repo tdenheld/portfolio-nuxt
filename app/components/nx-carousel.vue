@@ -18,7 +18,6 @@ const handleClick = (path: string) => {
 
   setTimeout(() => {
     router.push(path);
-    isAnimating.value = false;
   }, 500);
 };
 
