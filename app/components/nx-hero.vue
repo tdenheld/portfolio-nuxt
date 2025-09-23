@@ -118,9 +118,9 @@ onBeforeUnmount(() => {
             $emit('nx-click', data.path),
             (isAnimating = true))
           "
-          class="button transition"
+          class="transition focus-visible:outline-0 group"
           :class="{ invisible: pdp, 'opacity-0': isAnimating }"
-          >Explore</a
+          ><nx-button>Explore</nx-button></a
         >
       </div>
     </div>

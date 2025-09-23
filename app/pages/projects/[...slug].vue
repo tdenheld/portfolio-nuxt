@@ -1,7 +1,16 @@
 <script setup>
 const route = useRoute();
 const page = await queryCollection('projects').path(route.path).first();
+const projects = await queryCollection('projects').all();
 const nuxtApp = useNuxtApp();
+
+const getCurrentIndex = () => {
+  return projects.findIndex((p) => p.path === page.path) + 1;
+};
+
+const getLength = () => {
+  return projects.length + 1;
+};
 
 // Set colors on document element when component mounts
 onMounted(() => {
@@ -37,7 +46,11 @@ onMounted(() => {
         </div>
       </div>
 
-      <nx-counter :index="0" :length="1"></nx-counter>
+      <nx-counter
+        :index="getCurrentIndex()"
+        :length="getLength()"
+        pdp
+      ></nx-counter>
     </div>
 
     <div v-else>

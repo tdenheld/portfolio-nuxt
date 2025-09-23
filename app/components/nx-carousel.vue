@@ -19,7 +19,7 @@ const handleLinkClick = (path: string) => {
   setTimeout(() => {
     router.push(path);
     isAnimating.value = false;
-  }, 300);
+  }, 500);
 };
 
 // Create a new array with multiple copies of the data to allow infinite scrolling
@@ -110,11 +110,12 @@ onBeforeUnmount(() => {
       :index="index"
       :length="data.length"
       :images="getAllImages()"
+      :is-fading-out="isAnimating"
     ></nx-counter>
 
     <nx-description
       :description="description"
-      class="transition"
+      class="transition duration-500"
       :class="{ 'opacity-0': isAnimating }"
     ></nx-description>
   </div>

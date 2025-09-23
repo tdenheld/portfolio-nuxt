@@ -35,6 +35,26 @@
 }
 
 /* ----------------------------------------------- */
+/* Focus Rings */
+/* ----------------------------------------------- */
+
+@utility focus-ring {
+  @apply outline-1
+  outline-dashed
+  outline-fg-secondary;
+}
+
+@utility focus-ring-sm {
+  @apply focus-ring
+  outline-offset-2;
+}
+
+@utility focus-ring-md {
+  @apply focus-ring
+  outline-offset-4;
+}
+
+/* ----------------------------------------------- */
 /* Misc */
 /* ----------------------------------------------- */
 
