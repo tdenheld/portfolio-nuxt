@@ -13,7 +13,7 @@ const element = ref<HTMLElement | null>(null);
 const index = ref(0);
 const isAnimating = ref(false);
 
-const handleLinkClick = (path: string) => {
+const handleClick = (path: string) => {
   isAnimating.value = true;
 
   setTimeout(() => {
@@ -99,7 +99,7 @@ onBeforeUnmount(() => {
             <nx-hero
               :data="entry"
               :heading-level="index === 0 ? 'h1' : 'h2'"
-              @nx-click="handleLinkClick($event)"
+              @nx-click="handleClick($event)"
             ></nx-hero>
           </div>
         </div>
