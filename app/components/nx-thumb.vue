@@ -26,7 +26,7 @@ const props = defineProps<{
         :key="imgIndex"
         class="absolute inset-0 transition-opacity opacity-0"
         :class="{
-          'opacity-100': imgIndex === index - 1 && !isFadingOut,
+          'opacity-100': imgIndex === index - 1 && !isFadingOut && !pdp,
           'duration-1500': !isFadingOut,
           'duration-500': isFadingOut,
         }"
