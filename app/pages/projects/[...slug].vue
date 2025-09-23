@@ -20,20 +20,20 @@ const getLength = () => {
 onMounted(() => {
   nuxtApp.$setColor(page?.meta?.color);
 
-  if (!nuxtApp.$isTouchDevice()) {
-    ScrollSmoother.create({
-      smooth: 0.8,
-      effects: true, // looks for data-speed and data-lag attr
-      smoothTouch: 0.2, // much lower smoothing on touch devices
-      normalizeScroll: true, // prevents address bar from showing/hiding on scroll
-    });
-  }
+  // if (!nuxtApp.$isTouchDevice()) {
+  //   ScrollSmoother.create({
+  //     smooth: 0.6,
+  //     effects: true, // looks for data-speed and data-lag attr
+  //     smoothTouch: 0.2, // much lower smoothing on touch devices
+  //     normalizeScroll: true, // prevents address bar from showing/hiding on scroll
+  //   });
+  // }
 });
 
 onUnmounted(() => {
-  if (!nuxtApp.$isTouchDevice()) {
-    ScrollSmoother.get().kill();
-  }
+  // if (!nuxtApp.$isTouchDevice()) {
+  //   ScrollSmoother.get().kill();
+  // }
 });
 </script>
 
@@ -48,11 +48,11 @@ onUnmounted(() => {
 
       <div
         id="smooth-wrapper"
-        class="fixed inset-0 main-grid px-contain overflow-y-auto no-scrollbar"
+        class="fixed inset-0 main-grid px-contain overflow-y-auto snap-y snap-mandatory no-scrollbar"
       >
         <div id="smooth-content" class="col-start-2">
           <div class="h-[100svh] py-contain grid items-center -mt-24">
-            <div>
+            <div class="snap-center">
               <nx-hero :data="page" heading-level="h1" pdp></nx-hero>
             </div>
           </div>
@@ -64,7 +64,7 @@ onUnmounted(() => {
               v-for="entry in page.meta.items"
               :src="entry.src"
               :alt="entry.alt"
-              class="rounded-2xl overflow-hidden"
+              class="rounded-2xl overflow-hidden snap-center"
               sizes="60vw"
               :srcset="[320, 640, 1280, 2100]"
             ></nx-image>
