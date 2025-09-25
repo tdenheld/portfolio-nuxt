@@ -111,17 +111,12 @@ onBeforeUnmount(() => {
 
     <div class="mt-8" v-if="data.path" data-hero-scroll>
       <div>
-        <a
-          :href="data.path"
-          @click="
-            ($event.preventDefault(),
-            $emit('nx-click', data.path),
-            (isAnimating = true))
-          "
+        <nuxt-link
+          :to="data.path"
           class="transition focus-visible:outline-0 group"
           :class="{ invisible: pdp, 'opacity-0': isAnimating }"
-          ><nx-button>Explore</nx-button></a
-        >
+          ><nx-button>Explore</nx-button>
+        </nuxt-link>
       </div>
     </div>
   </div>

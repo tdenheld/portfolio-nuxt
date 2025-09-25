@@ -2,7 +2,6 @@
 const props = defineProps<{
   index: number;
   images?: string[];
-  isFadingOut?: boolean;
   pdp?: boolean;
 }>();
 </script>
@@ -15,7 +14,7 @@ const props = defineProps<{
       <div
         class="absolute inset-0 transition-opacity duration-1500 opacity-0"
         :class="{
-          'opacity-100': index === 0 || isFadingOut || pdp,
+          'opacity-100': index === 0 || pdp,
         }"
       >
         <nx-oscilloscope></nx-oscilloscope>
@@ -24,11 +23,9 @@ const props = defineProps<{
       <div
         v-for="(image, imgIndex) in images"
         :key="imgIndex"
-        class="absolute inset-0 transition-opacity opacity-0"
+        class="absolute inset-0 transition-opacity opacity-0 duration-1500"
         :class="{
-          'opacity-100': imgIndex === index - 1 && !isFadingOut && !pdp,
-          'duration-1500': !isFadingOut,
-          'duration-500': isFadingOut,
+          'opacity-100': imgIndex === index - 1 && !pdp,
         }"
       >
         <nx-image

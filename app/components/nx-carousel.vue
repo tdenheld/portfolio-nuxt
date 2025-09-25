@@ -7,19 +7,9 @@ const props = defineProps<{
 }>();
 
 const nuxtApp: any = useNuxtApp();
-const router = useRouter();
 
 const element = ref<HTMLElement | null>(null);
 const index = ref(0);
-const isAnimating = ref(false);
-
-const handleClick = (path: string) => {
-  isAnimating.value = true;
-
-  setTimeout(() => {
-    router.push(path);
-  }, 800);
-};
 
 // Create a new array with multiple copies of the data to allow infinite scrolling
 const carouselData = ref<Project[]>([...Array(2).fill(props.data).flat()]);
@@ -94,16 +84,7 @@ onBeforeUnmount(() => {
         class="main-grid h-full snap-center"
       >
         <div class="col-start-2 h-full grid items-center">
-          <div
-            class="transition duration-800"
-            :class="{ '-translate-y-24': isAnimating }"
-          >
-            <nx-hero
-              :data="entry"
-              :heading-level="index === 0 ? 'h1' : 'h2'"
-              @nx-click="handleClick($event)"
-            ></nx-hero>
-          </div>
+          <nx-hero :data="entry" :heading-level="index === 0 ? 'h1' : 'h2'"></nx-hero>
         </div>
       </div>
     </div>
@@ -112,14 +93,9 @@ onBeforeUnmount(() => {
       :index="index"
       :length="data.length"
       :images="getAllImages()"
-      :is-fading-out="isAnimating"
     ></nx-counter>
 
-    <nx-description
-      :description="description"
-      class="transition duration-500"
-      :class="{ 'opacity-0': isAnimating }"
-    ></nx-description>
+    <nx-description :description="description"></nx-description>
   </div>
 </template>
 

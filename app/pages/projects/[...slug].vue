@@ -51,21 +51,23 @@ onUnmounted(() => {
         class="fixed inset-0 main-grid px-contain overflow-y-auto no-scrollbar"
       >
         <div id="smooth-content" class="col-start-2">
-          <div class="h-[100svh] py-contain grid items-center -mt-24">
-            <nx-hero :data="page" heading-level="h1" pdp></nx-hero>
-          </div>
+          <div class="pdp-fade-up">
+            <div class="h-[100svh] py-contain grid items-center">
+              <nx-hero :data="page" heading-level="h1" pdp></nx-hero>
+            </div>
 
-          <div
-            class="-mt-48 md:-mt-64 pb-16 space-y-contain a a-fi-up [animation-delay:200ms]"
-          >
-            <nx-image
-              v-for="entry in page.meta.items"
-              :src="entry.src"
-              :alt="entry.alt"
-              class="rounded-2xl overflow-hidden"
-              sizes="60vw"
-              :srcset="[320, 640, 1280, 2100]"
-            ></nx-image>
+            <div
+              class="-mt-40 md:-mt-56 lg:-mt-64 xl:-mt-96 pb-16 space-y-contain a-fi-up [animation-delay:200ms]"
+            >
+              <nx-image
+                v-for="entry in page.meta.items"
+                :src="entry.src"
+                :alt="entry.alt"
+                class="rounded-2xl overflow-hidden"
+                sizes="60vw"
+                :srcset="[320, 640, 1280, 2100]"
+              ></nx-image>
+            </div>
           </div>
         </div>
       </div>
@@ -83,3 +85,18 @@ onUnmounted(() => {
     </div>
   </div>
 </template>
+
+<style scoped lang="postcss">
+.pdp-fade-up {
+  animation-duration: 1500ms;
+  animation-fill-mode: both;
+  animation-timing-function: var(--ease-out);
+  animation-name: pdp-fade-up;
+}
+
+@keyframes pdp-fade-up {
+  to {
+    margin-top: -200px;
+  }
+}
+</style>

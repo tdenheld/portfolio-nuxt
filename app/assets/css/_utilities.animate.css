@@ -12,6 +12,7 @@
 /* Variants */
 /* ---------------------------- */
 @utility a-fi {
+  @apply a;
   animation-name: fade-in;
 }
 
@@ -24,6 +25,7 @@
 /* ---------------------------- */
 
 @utility a-fi-50 {
+  @apply a;
   animation-name: fade-in-50;
 }
 
@@ -39,6 +41,7 @@
 /* ---------------------------- */
 
 @utility a-fi-up {
+  @apply a;
   opacity: 0;
   transform: translateY(48px);
   animation-name: fade-in-up;
