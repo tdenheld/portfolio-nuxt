@@ -43,7 +43,7 @@
 @utility a-fi-up {
   @apply a;
   opacity: 0;
-  transform: translateY(48px);
+  transform: translateY(80px);
   animation-name: fade-in-up;
 }
 

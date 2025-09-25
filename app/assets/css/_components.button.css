@@ -20,4 +20,11 @@
   text-fg-primary
   border
   border-fg-primary/40;
+
+  &.is-magnet {
+    @apply group-focus-visible:focus-ring-md
+    group-hover:bg-fg-secondary/8
+    transition
+    duration-600;
+  }
 }

@@ -41,7 +41,7 @@ onMounted(() => {
       class="inline-block transition duration-600"
       :style="{ transform: `translate3d(${x}px, ${y}px, 0)` }"
     >
-      <span class="button group-focus-visible:focus-ring-md">
+      <span class="button is-magnet">
         <slot></slot>
       </span>
     </span>
