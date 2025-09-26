@@ -57,7 +57,7 @@ onUnmounted(() => {
             </div>
 
             <div
-              class="mt-[calc(-32vh+48px)] pb-16 space-y-contain a-fi-up [animation-delay:250ms]"
+              class="pdp-img-fade-up mt-[calc(-32vh+48px)] pb-16 space-y-contain"
             >
               <nx-image
                 v-for="entry in page.meta.items"
@@ -88,15 +88,34 @@ onUnmounted(() => {
 
 <style scoped lang="postcss">
 .pdp-fade-up {
-  animation-duration: 1600ms;
+  animation-duration: 1000ms;
   animation-fill-mode: both;
-  animation-timing-function: var(--ease-in-out-expo);
+  animation-timing-function: var(--ease-out);
   animation-name: pdp-fade-up;
 }
 
 @keyframes pdp-fade-up {
   to {
     margin-top: calc(-26vh + 140px);
+  }
+}
+
+/* ---------------------------- */
+
+.pdp-img-fade-up {
+  opacity: 0;
+  transform: translateY(80px);
+  animation-duration: 1000ms;
+  animation-fill-mode: both;
+  animation-timing-function: var(--ease-out);
+  animation-delay: 300ms;
+  animation-name: pdp-img-fade-up;
+}
+
+@keyframes pdp-img-fade-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 </style>
