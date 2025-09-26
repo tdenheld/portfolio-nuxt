@@ -1,8 +1,4 @@
 <script setup>
-import gsap from 'gsap';
-import { ScrollSmoother } from 'gsap/all';
-gsap.registerPlugin(ScrollSmoother);
-
 const route = useRoute();
 const page = await queryCollection('projects').path(route.path).first();
 const projects = await queryCollection('projects').all();
@@ -19,21 +15,6 @@ const getLength = () => {
 // Set colors on document element when component mounts
 onMounted(() => {
   nuxtApp.$setColor(page?.meta?.color);
-
-  if (!nuxtApp.$isTouchDevice()) {
-    ScrollSmoother.create({
-      smooth: 0.7,
-      effects: true, // looks for data-speed and data-lag attr
-      smoothTouch: 0.2, // much lower smoothing on touch devices
-      normalizeScroll: true, // prevents address bar from showing/hiding on scroll
-    });
-  }
-});
-
-onUnmounted(() => {
-  if (!nuxtApp.$isTouchDevice()) {
-    ScrollSmoother.get().kill();
-  }
 });
 </script>
 
