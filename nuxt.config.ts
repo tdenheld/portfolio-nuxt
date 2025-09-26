@@ -4,10 +4,6 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineNuxtConfig({
   compatibilityDate: '2025-09-01',
 
-  // Use Nuxt in SPA mode only
-  ssr: false,
-  spaLoadingTemplate: true,
-
   devServer: {
     host: '0.0.0.0',
   },

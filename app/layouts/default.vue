@@ -6,7 +6,5 @@
     <main class="relative">
       <slot></slot>
     </main>
-
-    <nx-preloader></nx-preloader>
   </div>
 </template>
