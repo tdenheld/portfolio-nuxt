@@ -41,7 +41,7 @@
 @utility focus-ring {
   @apply outline-1
   outline-dashed
-  outline-fg-secondary;
+  outline-fg-primary;
 }
 
 @utility focus-ring-sm {

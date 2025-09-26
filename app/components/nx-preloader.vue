@@ -11,11 +11,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
-    <div v-if="isLoading" class="s-preloader">
-      <div class="grid place-content-center size-20 bg-[#3c796b] rounded-xl">
-        <svg-logo class="w-10 text-preloader-fg pb-1"></svg-logo>
-      </div>
+  <div v-if="isLoading" class="s-preloader">
+    <div class="grid place-content-center size-20 bg-[#3c796b] rounded-xl">
+      <svg-logo class="w-10 text-preloader-fg pb-1"></svg-logo>
     </div>
   </div>
 </template>

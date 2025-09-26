@@ -56,9 +56,7 @@ onUnmounted(() => {
               <nx-hero :data="page" heading-level="h1" pdp></nx-hero>
             </div>
 
-            <div
-              class="pdp-img-fade-up mt-[calc(-32vh+48px)] pb-16 space-y-contain"
-            >
+            <div class="pdp-img-fade-up mt-[calc(-32vh+48px)] pb-16 space-y-contain">
               <nx-image
                 v-for="entry in page.meta.items"
                 :src="entry.src"
@@ -78,6 +76,8 @@ onUnmounted(() => {
         :length="getLength()"
         pdp
       ></nx-counter>
+
+      <nx-description class="pdp-description-fade-out"></nx-description>
     </div>
 
     <div v-else>
@@ -88,7 +88,7 @@ onUnmounted(() => {
 
 <style scoped lang="postcss">
 .pdp-fade-up {
-  animation-duration: 1000ms;
+  animation-duration: 800ms;
   animation-fill-mode: both;
   animation-timing-function: var(--ease-out);
   animation-name: pdp-fade-up;
@@ -105,10 +105,10 @@ onUnmounted(() => {
 .pdp-img-fade-up {
   opacity: 0;
   transform: translateY(80px);
-  animation-duration: 1000ms;
+  animation-duration: 800ms;
   animation-fill-mode: both;
   animation-timing-function: var(--ease-out);
-  animation-delay: 300ms;
+  animation-delay: 200ms;
   animation-name: pdp-img-fade-up;
 }
 
@@ -116,6 +116,21 @@ onUnmounted(() => {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* ---------------------------- */
+
+.pdp-description-fade-out {
+  animation-duration: 1200ms;
+  animation-fill-mode: both;
+  animation-timing-function: var(--ease-out);
+  animation-name: pdp-description-fade-out;
+}
+
+@keyframes pdp-description-fade-out {
+  to {
+    opacity: 0;
   }
 }
 </style>

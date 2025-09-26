@@ -1,7 +1,5 @@
 <script setup lang="ts">
-const props = defineProps<{
-  description?: string;
-}>();
+const page = await queryCollection('content').path('/').first();
 </script>
 
 <template>
@@ -10,7 +8,7 @@ const props = defineProps<{
       <p
         class="text-[0.625rem] sm:text-xs lg:text-sm w-[32ch] text-fg-secondary transition-fg"
       >
-        {{ description }}
+        {{ page?.description }}
       </p>
     </div>
   </div>

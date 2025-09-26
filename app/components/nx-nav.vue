@@ -1,12 +1,8 @@
 <script setup lang="ts"></script>
 
 <template>
-  <nav
-    class="fixed inset-x-0 z-navigation pt-contain px-contain main-grid"
-  >
-    <div>
-      <nx-logo></nx-logo>
-    </div>
+  <nav class="fixed inset-x-0 z-navigation pt-contain px-contain main-grid">
+    <nx-logo></nx-logo>
 
     <div
       class="hidden lg:block col-start-2 absolute top-[calc(var(--spacing-contain)+14px)]"

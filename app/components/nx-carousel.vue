@@ -3,7 +3,6 @@ import type { Project } from '~/interfaces';
 
 const props = defineProps<{
   data: Project[];
-  description?: string;
 }>();
 
 const nuxtApp: any = useNuxtApp();
@@ -95,7 +94,7 @@ onBeforeUnmount(() => {
       :images="getAllImages()"
     ></nx-counter>
 
-    <nx-description :description="description"></nx-description>
+    <nx-description></nx-description>
   </div>
 </template>
 
