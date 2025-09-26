@@ -4,6 +4,16 @@ const props = defineProps<{
   images?: string[];
   pdp?: boolean;
 }>();
+
+const isImage = ref(true);
+
+onMounted(() => {
+  if (props.pdp) {
+    requestAnimationFrame(() => {
+      isImage.value = false;
+    });
+  }
+});
 </script>
 
 <template>
@@ -25,7 +35,8 @@ const props = defineProps<{
         :key="imgIndex"
         class="absolute inset-0 transition-opacity opacity-0 duration-1500"
         :class="{
-          'opacity-100': imgIndex === index - 1 && !pdp,
+          'opacity-100': imgIndex === index - 1 || pdp,
+          'thumb-fade-out': !isImage,
         }"
       >
         <nx-image
@@ -39,3 +50,22 @@ const props = defineProps<{
     </div>
   </div>
 </template>
+
+<style scoped lang="postcss">
+.thumb-fade-out {
+  animation-duration: 2s;
+  animation-fill-mode: both;
+  animation-delay: 50ms;
+  animation-timing-function: var(--ease-out);
+  animation-name: thumb-fade-out;
+}
+
+@keyframes thumb-fade-out {
+  50% {
+    filter: blur(3px);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+</style>
