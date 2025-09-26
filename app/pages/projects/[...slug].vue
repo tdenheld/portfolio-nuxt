@@ -54,6 +54,7 @@ onMounted(() => {
       <nx-counter
         class="hidden md:block"
         :index="getCurrentIndex()"
+        :images="[page.meta.image]"
         :length="getLength()"
         pdp
       ></nx-counter>
