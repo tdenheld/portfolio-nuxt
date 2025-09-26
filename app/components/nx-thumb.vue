@@ -4,16 +4,6 @@ const props = defineProps<{
   images?: string[];
   pdp?: boolean;
 }>();
-
-const isImage = ref(true);
-
-onMounted(() => {
-  if (props.pdp) {
-    requestAnimationFrame(() => {
-      isImage.value = false;
-    });
-  }
-});
 </script>
 
 <template>
@@ -36,7 +26,7 @@ onMounted(() => {
         class="absolute inset-0 transition-opacity opacity-0 duration-1500"
         :class="{
           'opacity-100': imgIndex === index - 1 || pdp,
-          'thumb-fade-out': !isImage,
+          'thumb-fade-out': pdp,
         }"
       >
         <nx-image

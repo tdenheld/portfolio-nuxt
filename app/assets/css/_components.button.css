@@ -23,7 +23,8 @@
 
   &.is-magnet {
     @apply group-focus-visible:focus-ring-md
-    group-hover:bg-fg-secondary/8
+    group-hover:bg-fg-secondary/5
+    group-hover:border-fg-primary/70
     transition
     duration-600;
   }
