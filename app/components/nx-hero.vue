@@ -11,7 +11,6 @@ const props = defineProps<{
 }>();
 
 const hostElement = ref<HTMLElement | null>(null);
-const isAnimating = ref(false);
 
 const createScrollAnimation = () => {
   if (!hostElement.value || props.pdp) return;
@@ -113,11 +112,29 @@ onBeforeUnmount(() => {
       <div>
         <nuxt-link
           :to="data.path"
-          class="transition focus-visible:outline-0 group"
-          :class="{ invisible: pdp, 'opacity-0': isAnimating }"
+          class="inline-block focus-visible:outline-0 group"
+          :class="{ 'cta-fade-out': pdp }"
           ><nx-button>Explore</nx-button>
         </nuxt-link>
       </div>
     </div>
   </div>
 </template>
+
+<style scoped lang="postcss">
+.cta-fade-out {
+  animation-duration: 1200ms;
+  animation-fill-mode: both;
+  animation-timing-function: var(--ease-out);
+  animation-name: cta-fade-out;
+  animation-delay: 50ms;
+}
+
+@keyframes cta-fade-out {
+  to {
+    opacity: 0;
+    transform: scale(0.8);
+    filter: blur(4px);
+  }
+}
+</style>

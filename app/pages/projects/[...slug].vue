@@ -122,14 +122,17 @@ onUnmounted(() => {
 /* ---------------------------- */
 
 .pdp-description-fade-out {
-  animation-duration: 1200ms;
+  animation-duration: 2s;
   animation-fill-mode: both;
   animation-timing-function: var(--ease-out);
   animation-name: pdp-description-fade-out;
 }
 
 @keyframes pdp-description-fade-out {
-  to {
+  50% {
+    filter: blur(8px);
+  }
+  100% {
     opacity: 0;
   }
 }
