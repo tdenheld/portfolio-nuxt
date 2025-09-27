@@ -52,10 +52,11 @@ onMounted(() => {
       </div>
 
       <nx-counter
-        class="hidden md:block"
+        class="hidden lg:block"
         :index="getCurrentIndex()"
         :images="[page.meta.image]"
         :length="getLength()"
+        :highlights="page.meta.highlights"
         pdp
       ></nx-counter>
 

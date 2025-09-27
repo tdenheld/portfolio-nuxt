@@ -5,28 +5,21 @@ const props = defineProps<{
   images?: string[];
   isFadingOut?: boolean;
   pdp?: boolean;
-  featured?: boolean;
+  highlights?: {
+    title: string;
+    items: string[];
+  }[];
 }>();
 </script>
 
 <template>
   <div class="fixed bottom-contain right-contain">
-    <div v-if="pdp">
-      <div class="mb-16">
-        <h3 class="key">Involvement</h3>
+    <div v-if="pdp && highlights">
+      <div class="mb-16" v-for="(highlight, i) in highlights" :key="i">
+        <h3 class="key">{{ highlight.title }}</h3>
 
         <ul class="mt-1 text-sm leading-[1.4] text-fg-secondary">
-          <li>Senior Design Engineer</li>
-          <li>Design Systems</li>
-        </ul>
-      </div>
-
-      <div class="mb-16">
-        <h3 class="key">Featured</h3>
-
-        <ul class="mt-1 text-sm leading-[1.4] text-fg-secondary">
-          <li>Zeroheight Showcase</li>
-          <li>The Component Gallery</li>
+          <li v-for="(item, j) in highlight.items" :key="j">{{ item }}</li>
         </ul>
       </div>
     </div>
