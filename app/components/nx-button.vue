@@ -1,4 +1,5 @@
 <script setup>
+const nuxtApp = useNuxtApp();
 const x = ref(0);
 const y = ref(0);
 const isTouchDevice = ref(false);
@@ -26,7 +27,7 @@ const resetMagnet = () => {
 };
 
 onMounted(() => {
-  isTouchDevice.value = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  isTouchDevice.value = nuxtApp.$isTouchDevice();
 });
 </script>
 

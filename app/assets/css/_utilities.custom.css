@@ -67,3 +67,11 @@
   @apply transition-colors
   duration-800;
 }
+
+@utility key {
+  @apply text-fg-primary
+  text-xs
+  font-mono
+  uppercase
+  tracking-[0.16em];
+}
