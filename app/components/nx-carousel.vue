@@ -94,7 +94,7 @@ onBeforeUnmount(() => {
       :images="getAllImages()"
     ></nx-counter>
 
-    <nx-description></nx-description>
+    <nx-description :isActive="index === 0"></nx-description>
   </div>
 </template>
 

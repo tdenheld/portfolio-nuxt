@@ -59,8 +59,6 @@ onMounted(() => {
         :highlights="page.meta.highlights"
         pdp
       ></nx-counter>
-
-      <nx-description class="pdp-description-fade-out"></nx-description>
     </div>
 
     <div v-else>
@@ -99,24 +97,6 @@ onMounted(() => {
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-/* ---------------------------- */
-
-.pdp-description-fade-out {
-  animation-duration: 2s;
-  animation-fill-mode: both;
-  animation-timing-function: var(--ease-out);
-  animation-name: pdp-description-fade-out;
-}
-
-@keyframes pdp-description-fade-out {
-  50% {
-    filter: blur(8px);
-  }
-  100% {
-    opacity: 0;
   }
 }
 </style>
