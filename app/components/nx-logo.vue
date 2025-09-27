@@ -13,7 +13,7 @@ const scrollToTop = () => {
     <nuxt-link
       v-if="route.path !== '/'"
       to="/"
-      class="inline-block relative text-fg-secondary transition-fg before:absolute before:-inset-2"
+      class="inline-block relative text-fg-primary transition-fg before:absolute before:-inset-2"
       aria-label="Home page"
     >
       <svg-logo class="w-8"></svg-logo>
