@@ -29,7 +29,7 @@ onMounted(() => {
 
       <div
         id="smooth-wrapper"
-        class="fixed inset-0 main-grid px-contain overflow-y-auto no-scrollbar"
+        class="fixed inset-0 lg:main-grid px-contain overflow-y-auto no-scrollbar"
       >
         <div id="smooth-content" class="col-start-2">
           <div class="pdp-fade-up">

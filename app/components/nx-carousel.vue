@@ -80,7 +80,7 @@ onBeforeUnmount(() => {
       <div
         v-for="(entry, i) in carouselData"
         :key="i"
-        class="main-grid h-full snap-center"
+        class="lg:main-grid h-full snap-center"
       >
         <div class="col-start-2 h-full grid items-center">
           <nx-hero :data="entry" :heading-level="index === 0 ? 'h1' : 'h2'"></nx-hero>

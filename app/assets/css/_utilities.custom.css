@@ -7,10 +7,10 @@
 /* ----------------------------------------------- */
 
 @utility main-grid {
-  @apply lg:grid
-  lg:grid-cols-[2fr_9fr_3fr]
-  lg:items-center
-  lg:gap-6;
+  @apply grid
+  grid-cols-[2fr_9fr_3fr]
+  items-center
+  gap-6;
 }
 
 /* ----------------------------------------------- */
