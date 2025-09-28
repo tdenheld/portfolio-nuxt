@@ -74,11 +74,11 @@ const cleanupAnimations = () => {
 onMounted(() => {
   createScrollAnimation();
 
-  setTimeout(() => {
-    if (props.pdp) {
+  if (props.pdp) {
+    setTimeout(() => {
       isCta.value = false;
-    }
-  }, 1250);
+    }, 1250);
+  }
 });
 
 onBeforeUnmount(() => {

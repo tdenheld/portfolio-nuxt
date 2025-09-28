@@ -59,6 +59,8 @@ onMounted(() => {
         :highlights="page.meta.highlights"
         pdp
       ></nx-counter>
+
+      <nx-description></nx-description>
     </div>
 
     <div v-else>
