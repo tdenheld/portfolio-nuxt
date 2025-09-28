@@ -11,6 +11,7 @@ const props = defineProps<{
 }>();
 
 const hostElement = ref<HTMLElement | null>(null);
+const isCta = ref(true);
 
 const createScrollAnimation = () => {
   if (!hostElement.value || props.pdp) return;
@@ -72,6 +73,12 @@ const cleanupAnimations = () => {
 
 onMounted(() => {
   createScrollAnimation();
+
+  setTimeout(() => {
+    if (props.pdp) {
+      isCta.value = false;
+    }
+  }, 1250);
 });
 
 onBeforeUnmount(() => {
@@ -108,8 +115,8 @@ onBeforeUnmount(() => {
       </div>
     </div>
 
-    <div class="mt-8" v-if="data.path" data-hero-scroll>
-      <div>
+    <div class="mt-8 relative h-7" v-if="data.path" data-hero-scroll>
+      <div v-if="isCta" class="absolute">
         <nuxt-link
           :to="data.path"
           class="inline-block focus-visible:outline-0 group"

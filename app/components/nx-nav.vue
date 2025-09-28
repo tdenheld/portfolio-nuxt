@@ -1,7 +1,9 @@
 <script setup lang="ts"></script>
 
 <template>
-  <nav class="fixed inset-x-0 z-navigation pt-contain px-contain grid grid-cols-[max-content_1fr] lg:main-grid">
+  <nav
+    class="fixed inset-x-0 z-navigation pt-contain px-contain lg:main-grid"
+  >
     <nx-logo></nx-logo>
 
     <div class="hidden lg:block col-start-2 relative top-1">
@@ -11,11 +13,23 @@
     </div>
 
     <ul
-      class="text-xs text-fg-secondary uppercase tracking-[0.16em] justify-end flex items-center gap-6 md:gap-12"
+      class="absolute top-contain lg:top-[calc(var(--spacing-contain)+16px)] right-contain text-[10px] md:text-xs text-fg-secondary uppercase tracking-[0.16em] justify-end flex items-center gap-6 md:gap-12"
     >
-      <li>About</li>
-      <li>Work</li>
-      <li>Gallery</li>
+      <li>
+        <nuxt-link class="relative before:absolute before:-inset-2" :to="'/about'"
+          >About</nuxt-link
+        >
+      </li>
+      <li>
+        <nuxt-link class="relative before:absolute before:-inset-2" :to="'/work'"
+          >Work</nuxt-link
+        >
+      </li>
+      <li>
+        <nuxt-link class="relative before:absolute before:-inset-2" :to="'/gallery'"
+          >Gallery</nuxt-link
+        >
+      </li>
     </ul>
   </nav>
 </template>
