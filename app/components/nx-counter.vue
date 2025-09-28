@@ -1,28 +1,19 @@
 <script setup lang="ts">
+import type { Highlight } from '~/interfaces';
+
 const props = defineProps<{
   index: number;
   length: number;
   images?: string[];
   isFadingOut?: boolean;
   pdp?: boolean;
-  highlights?: {
-    title: string;
-    items: string[];
-  }[];
+  highlights?: Highlight[];
 }>();
 </script>
 
 <template>
   <div class="fixed bottom-contain right-contain">
-    <div v-if="pdp && highlights">
-      <div class="mb-16" v-for="(highlight, i) in highlights" :key="i">
-        <h3 class="key">{{ highlight.title }}</h3>
-
-        <ul class="mt-1 text-sm leading-[1.4] text-fg-secondary">
-          <li v-for="(item, j) in highlight.items" :key="j">{{ item }}</li>
-        </ul>
-      </div>
-    </div>
+    <nx-highlights v-if="pdp && highlights" :highlights="highlights"></nx-highlights>
 
     <div class="flex justify-between key text-right">
       <p class="hidden md:block uppercase tracking-[0.16em]">Work item</p>
@@ -38,5 +29,3 @@ const props = defineProps<{
     ></nx-thumb>
   </div>
 </template>
-
-<style scoped lang="postcss"></style>

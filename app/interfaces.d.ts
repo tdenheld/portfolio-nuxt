@@ -23,3 +23,8 @@ export interface Project {
     color?: Color;
   };
 }
+
+export interface Highlight {
+  title: string;
+  items: string[];
+}
