@@ -16,8 +16,9 @@ const isCta = ref(true);
 const createScrollAnimation = () => {
   if (!hostElement.value || props.pdp) return;
   const scrollElements = hostElement.value.querySelectorAll('[data-hero-scroll]');
+  const carousel = document.querySelector('[data-scroller-carousel]');
   const length = scrollElements.length;
-  if (length === 0) return;
+  if (length === 0 && !carousel) return;
 
   const xFactor = -2.8;
   const rotateFactor = 6.7;
@@ -39,7 +40,7 @@ const createScrollAnimation = () => {
         scrub: 1,
         start: 'center 48%',
         end: 'top 4%',
-        scroller: '[data-scroller-carousel]',
+        scroller: carousel,
       },
     });
 
@@ -55,7 +56,7 @@ const createScrollAnimation = () => {
         scrub: 1,
         start: 'bottom 96%',
         end: 'center 52%',
-        scroller: '[data-scroller-carousel]',
+        scroller: carousel,
       },
     });
   });
