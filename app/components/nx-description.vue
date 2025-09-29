@@ -11,7 +11,7 @@ const props = defineProps<{
     <div class="col-start-2 h-full">
       <div class="inline-block origin-top" :class="{ 'd-fade-out': !isActive }">
         <p
-          class="text-[0.625rem] sm:text-xs lg:text-sm w-[30ch] text-fg-secondary transition-fg"
+          class="text-[0.625rem] sm:text-xs lg:text-sm w-[30ch] text-fg-secondary transition-clr"
         >
           {{ page?.description }}
         </p>

@@ -63,7 +63,7 @@
   [&::-webkit-scrollbar]:hidden;
 }
 
-@utility transition-fg {
+@utility transition-clr {
   @apply transition-colors
   duration-800;
 }

@@ -7,7 +7,7 @@
     <nx-logo></nx-logo>
 
     <div class="hidden lg:block col-start-2 relative top-1">
-      <p class="font-mono text-[10px] text-fg-secondary tracking-wider transition-fg">
+      <p class="font-mono text-[10px] text-fg-secondary tracking-wider transition-clr">
         Netherlands, <nx-time></nx-time>
       </p>
     </div>
