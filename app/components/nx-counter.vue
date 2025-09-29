@@ -8,12 +8,17 @@ const props = defineProps<{
   isFadingOut?: boolean;
   pdp?: boolean;
   highlights?: Highlight[];
+  visit?: string;
 }>();
 </script>
 
 <template>
   <div class="fixed bottom-contain right-contain">
-    <nx-highlights v-if="pdp && highlights" :highlights="highlights"></nx-highlights>
+    <nx-highlights
+      v-if="pdp && highlights"
+      :highlights="highlights"
+      :visit="visit"
+    ></nx-highlights>
 
     <div class="flex justify-between key text-right">
       <p class="hidden md:block uppercase tracking-[0.16em]">Work item</p>

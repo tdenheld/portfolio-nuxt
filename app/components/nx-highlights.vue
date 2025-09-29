@@ -3,6 +3,7 @@ import type { Highlight } from '~/interfaces';
 import gsap from 'gsap';
 
 const props = defineProps<{
+  visit?: string;
   highlights: Highlight[];
 }>();
 
@@ -29,6 +30,12 @@ onMounted(() => {
 
 <template>
   <div>
+    <div data-highlight v-if="visit" class="mb-16">
+      <a :href="visit" target="_blank" rel="noreferrer">
+        <nx-button>Visit</nx-button>
+      </a>
+    </div>
+
     <div class="mb-16" v-for="(highlight, i) in highlights" :key="i">
       <h3 data-highlight class="key opacity-0">{{ highlight.title }}</h3>
 

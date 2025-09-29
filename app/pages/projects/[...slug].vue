@@ -19,7 +19,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
+  <div class="host">
     <div v-if="page" :value="page">
       <nx-meta-tags
         :title="page.title"
@@ -28,20 +28,18 @@ onMounted(() => {
       ></nx-meta-tags>
 
       <div class="fixed inset-0 lg:main-grid px-contain overflow-y-auto no-scrollbar">
-        
         <div class="col-start-2">
           <div class="pdp-fade-up">
             <div class="h-[100svh] py-contain grid items-center">
               <nx-hero :data="page" heading-level="h1" pdp></nx-hero>
             </div>
 
-            <div class="pdp-img-fade-up mt-[calc(-32vh+48px)] pb-16 space-y-contain">
+            <div class="pdp-img-fade-up pb-16 space-y-contain">
               <nx-image
                 v-for="entry in page.meta.items"
                 :src="entry.src"
                 :alt="entry.alt"
-                class="rounded-2xl overflow-hidden"
-                :image-class="entry.class"
+                :image-class="'w-full h-auto rounded-2xl'"
                 sizes="60vw"
                 :srcset="[320, 640, 1280, 2100]"
               ></nx-image>
@@ -56,6 +54,7 @@ onMounted(() => {
         :images="[page.meta.image]"
         :length="getLength()"
         :highlights="page.meta.highlights"
+        :visit="page.meta.visit"
         pdp
       ></nx-counter>
 
@@ -69,6 +68,11 @@ onMounted(() => {
 </template>
 
 <style scoped lang="postcss">
+.host {
+  --space-container: calc(-26vh + 4vw + 96px);
+  --space-img: calc(-32vh + 3vw);
+}
+
 .pdp-fade-up {
   animation-duration: 800ms;
   animation-fill-mode: both;
@@ -78,13 +82,14 @@ onMounted(() => {
 
 @keyframes pdp-fade-up {
   to {
-    margin-top: calc(-26vh + 140px);
+    margin-top: var(--space-container);
   }
 }
 
 /* ---------------------------- */
 
 .pdp-img-fade-up {
+  margin-top: var(--space-img);
   opacity: 0;
   transform: translateY(80px);
   animation-duration: 800ms;
