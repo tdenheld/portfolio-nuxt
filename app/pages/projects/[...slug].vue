@@ -27,11 +27,9 @@ onMounted(() => {
         :image="page.meta.image"
       ></nx-meta-tags>
 
-      <div
-        id="smooth-wrapper"
-        class="fixed inset-0 lg:main-grid px-contain overflow-y-auto no-scrollbar"
-      >
-        <div id="smooth-content" class="col-start-2">
+      <div class="fixed inset-0 lg:main-grid px-contain overflow-y-auto no-scrollbar">
+        
+        <div class="col-start-2">
           <div class="pdp-fade-up">
             <div class="h-[100svh] py-contain grid items-center">
               <nx-hero :data="page" heading-level="h1" pdp></nx-hero>
@@ -43,6 +41,7 @@ onMounted(() => {
                 :src="entry.src"
                 :alt="entry.alt"
                 class="rounded-2xl overflow-hidden"
+                :image-class="entry.class"
                 sizes="60vw"
                 :srcset="[320, 640, 1280, 2100]"
               ></nx-image>
