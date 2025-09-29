@@ -34,15 +34,17 @@ onMounted(() => {
               <nx-hero :data="page" heading-level="h1" pdp></nx-hero>
             </div>
 
-            <div class="pdp-img-fade-up pb-16 space-y-contain">
-              <nx-image
-                v-for="entry in page.meta.items"
-                :src="entry.src"
-                :alt="entry.alt"
-                :image-class="'w-full h-auto rounded-2xl'"
-                sizes="60vw"
-                :srcset="[320, 640, 1280, 2100]"
-              ></nx-image>
+            <div class="pdp-img-fade-up pb-16">
+              <div class="space-y-contain">
+                <nx-image
+                  v-for="entry in page.meta.items"
+                  :src="entry.src"
+                  :alt="entry.alt"
+                  :image-class="'w-full h-auto rounded-2xl'"
+                  sizes="60vw"
+                  :srcset="[320, 640, 1280, 2100]"
+                ></nx-image>
+              </div>
 
               <div class="pt-12 lg:hidden">
                 <nx-highlights
@@ -77,7 +79,7 @@ onMounted(() => {
 <style scoped lang="postcss">
 .host {
   --space-container: calc(-26vh + 4vw + 96px);
-  --space-img: calc(-32vh + 3vw);
+  --space-img: calc(-36vh + 64px);
 }
 
 .pdp-fade-up {

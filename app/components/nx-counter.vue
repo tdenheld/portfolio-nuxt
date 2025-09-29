@@ -19,6 +19,7 @@ const props = defineProps<{
       :highlights="highlights"
       :visit="visit"
       animated
+      class="mb-12"
     ></nx-highlights>
 
     <div class="flex justify-between key text-right">

@@ -38,11 +38,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div ref="hostElement">
+  <div ref="hostElement" class="space-y-12">
     <div
       data-highlight
       v-if="visit"
-      class="mb-8 md:mb-16"
       :class="{ 'opacity-0': animated }"
     >
       <a :href="visit" target="_blank" rel="noreferrer">
@@ -50,7 +49,7 @@ onMounted(() => {
       </a>
     </div>
 
-    <div class="mb-8 md:mb-16" v-for="(highlight, i) in highlights" :key="i">
+    <div v-for="(highlight, i) in highlights" :key="i">
       <h3 data-highlight class="key" :class="{ 'opacity-0': animated }">
         {{ highlight.title }}
       </h3>

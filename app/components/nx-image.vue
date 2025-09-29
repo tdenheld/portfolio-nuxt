@@ -99,12 +99,12 @@ useHead({
       :class="getClass()"
       :loading="getLoading()"
       :style="{ visibility: loaded || !placeholder ? 'hidden' : 'visible' }"
+      class="absolute inset-0"
     />
 
     <img
       :width="defaultSize.width"
       :height="defaultSize.height"
-      class="absolute inset-0"
       :src="getSrc({ width: defaultSize.width })"
       :srcset="getSrcset()"
       :sizes="sizes"
