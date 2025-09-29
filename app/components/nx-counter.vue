@@ -18,6 +18,7 @@ const props = defineProps<{
       v-if="pdp && highlights"
       :highlights="highlights"
       :visit="visit"
+      animated
     ></nx-highlights>
 
     <div class="flex justify-between key text-right">

@@ -43,6 +43,14 @@ onMounted(() => {
                 sizes="60vw"
                 :srcset="[320, 640, 1280, 2100]"
               ></nx-image>
+
+              <div class="pt-12">
+                <nx-highlights
+                  :highlights="page.meta.highlights"
+                  :visit="page.meta.visit"
+                  class="lg:hidden"                  
+                ></nx-highlights>
+              </div>
             </div>
           </div>
         </div>

@@ -5,13 +5,18 @@ import gsap from 'gsap';
 const props = defineProps<{
   visit?: string;
   highlights: Highlight[];
+  animated?: boolean;
 }>();
 
-onMounted(() => {
-  if (!document.querySelectorAll('[data-highlight]')) return;
+const hostElement = ref<HTMLElement | null>(null);
+
+const initAnimation = () => {
+  const host = hostElement.value;
+  if (!host || !host.querySelector('[data-highlight]')) return;
+  const elements = host.querySelectorAll('[data-highlight]');
 
   gsap.fromTo(
-    '[data-highlight]',
+    elements,
     {
       opacity: 0,
       x: 32,
@@ -25,24 +30,35 @@ onMounted(() => {
       ease: 'power3.out',
     }
   );
+};
+
+onMounted(() => {
+  if (props.animated) initAnimation();
 });
 </script>
 
 <template>
-  <div>
-    <div data-highlight v-if="visit" class="mb-16">
+  <div ref="hostElement">
+    <div
+      data-highlight
+      v-if="visit"
+      class="mb-8 md:mb-16"
+      :class="{ 'opacity-0': animated }"
+    >
       <a :href="visit" target="_blank" rel="noreferrer">
         <nx-button>Visit</nx-button>
       </a>
     </div>
 
-    <div class="mb-16" v-for="(highlight, i) in highlights" :key="i">
-      <h3 data-highlight class="key opacity-0">{{ highlight.title }}</h3>
+    <div class="mb-8 md:mb-16" v-for="(highlight, i) in highlights" :key="i">
+      <h3 data-highlight class="key" :class="{ 'opacity-0': animated }">
+        {{ highlight.title }}
+      </h3>
 
       <ul class="mt-1 text-sm leading-[1.4] text-fg-secondary">
         <li
           data-highlight
-          class="opacity-0"
+          :class="{ 'opacity-0': animated }"
           v-for="(item, j) in highlight.items"
           :key="j"
         >
