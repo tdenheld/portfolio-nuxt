@@ -1,0 +1,16 @@
+/*/  ========================================================================
+//   #BLOB
+//   ======================================================================== */
+
+.blob {
+  @apply absolute
+  inset-0
+  bg-bg-secondary
+  transition-clr;
+
+  mask: radial-gradient(ellipse 120% 80% at 30% 50%, #000 0%, transparent 100%);
+
+  @media (min-width: theme(--breakpoint-md)) {
+    mask: radial-gradient(ellipse 50% 70% at 30% 50%, #000 0%, transparent 100%);
+  }
+}
