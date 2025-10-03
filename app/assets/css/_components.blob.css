@@ -17,7 +17,7 @@
 @property --blob-2-x-pos {
   syntax: '<percentage>';
   inherits: false;
-  initial-value: 50%;
+  initial-value: 70%;
 }
 
 @property --blob-2-y-pos {
@@ -74,7 +74,7 @@
 
   @media (min-width: theme(--breakpoint-md)) {
     mask: radial-gradient(
-      40% 60% at var(--blob-2-x-pos) var(--blob-2-y-pos),
+      60% 70% at var(--blob-2-x-pos) var(--blob-2-y-pos),
       #000 0%,
       transparent 100%
     );
@@ -100,15 +100,15 @@
 
 @keyframes blob-2 {
   33% {
-    --blob-1-x-pos: 30%;
-    --blob-1-y-pos: 50%;
+    --blob-2-x-pos: 90%;
+    --blob-2-y-pos: 80%;
   }
   67% {
-    --blob-1-x-pos: 50%;
-    --blob-1-y-pos: 10%;
+    --blob-2-x-pos: 50%;
+    --blob-2-y-pos: 20%;
   }
   100% {
-    --blob-1-x-pos: 50%;
-    --blob-1-y-pos: 30%;
+    --blob-2-x-pos: 70%;
+    --blob-2-y-pos: 30%;
   }
 }
