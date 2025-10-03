@@ -41,7 +41,7 @@
   bg-bg-secondary
   transition-clr;
 
-  animation: blob-1 12s linear infinite both;
+  animation: blob-1 15s linear infinite both;
 
   mask: radial-gradient(
     90% 60% at var(--blob-1-x-pos) var(--blob-1-y-pos),
@@ -51,7 +51,7 @@
 
   @media (min-width: theme(--breakpoint-md)) {
     mask: radial-gradient(
-      40% 60% at var(--blob-1-x-pos) var(--blob-1-y-pos),
+      50% 70% at var(--blob-1-x-pos) var(--blob-1-y-pos),
       #000 0%,
       transparent 100%
     );
@@ -74,7 +74,7 @@
 
   @media (min-width: theme(--breakpoint-md)) {
     mask: radial-gradient(
-      60% 70% at var(--blob-2-x-pos) var(--blob-2-y-pos),
+      70% 90% at var(--blob-2-x-pos) var(--blob-2-y-pos),
       #000 0%,
       transparent 100%
     );
