@@ -2,15 +2,113 @@
 //   #BLOB
 //   ======================================================================== */
 
+@property --blob-1-x-pos {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 30%;
+}
+
+@property --blob-1-y-pos {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 50%;
+}
+
+@property --blob-2-x-pos {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 50%;
+}
+
+@property --blob-2-y-pos {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 30%;
+}
+
+/* ---------------------------------------- */
+
 .blob {
+  @apply fixed
+  inset-0
+  overflow-hidden
+  pointer-events-none;
+}
+
+.blob__1 {
   @apply absolute
   inset-0
   bg-bg-secondary
   transition-clr;
 
-  mask: radial-gradient(ellipse 120% 80% at 30% 50%, #000 0%, transparent 100%);
+  animation: blob-1 12s linear infinite both;
+
+  mask: radial-gradient(
+    90% 60% at var(--blob-1-x-pos) var(--blob-1-y-pos),
+    #000 0%,
+    transparent 100%
+  );
 
   @media (min-width: theme(--breakpoint-md)) {
-    mask: radial-gradient(ellipse 50% 70% at 30% 50%, #000 0%, transparent 100%);
+    mask: radial-gradient(
+      40% 60% at var(--blob-1-x-pos) var(--blob-1-y-pos),
+      #000 0%,
+      transparent 100%
+    );
+  }
+}
+
+.blob__2 {
+  @apply absolute
+  inset-0
+  bg-bg-tertiary
+  transition-clr;
+
+  animation: blob-2 12s linear infinite both;
+
+  mask: radial-gradient(
+    90% 60% at var(--blob-2-x-pos) var(--blob-2-y-pos),
+    #000 0%,
+    transparent 100%
+  );
+
+  @media (min-width: theme(--breakpoint-md)) {
+    mask: radial-gradient(
+      40% 60% at var(--blob-2-x-pos) var(--blob-2-y-pos),
+      #000 0%,
+      transparent 100%
+    );
+  }
+}
+
+/* ---------------------------------------- */
+
+@keyframes blob-1 {
+  33% {
+    --blob-1-x-pos: 50%;
+    --blob-1-y-pos: 30%;
+  }
+  67% {
+    --blob-1-x-pos: 0%;
+    --blob-1-y-pos: 90%;
+  }
+  100% {
+    --blob-1-x-pos: 30%;
+    --blob-1-y-pos: 50%;
+  }
+}
+
+@keyframes blob-2 {
+  33% {
+    --blob-1-x-pos: 30%;
+    --blob-1-y-pos: 50%;
+  }
+  67% {
+    --blob-1-x-pos: 50%;
+    --blob-1-y-pos: 10%;
+  }
+  100% {
+    --blob-1-x-pos: 50%;
+    --blob-1-y-pos: 30%;
   }
 }
