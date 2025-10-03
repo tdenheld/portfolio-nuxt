@@ -40,7 +40,7 @@ onMounted(() => {
                   v-for="entry in page.meta.items"
                   :src="entry.src"
                   :alt="entry.alt"
-                  :image-class="'w-full h-auto rounded-2xl'"
+                  :image-class="`w-full h-auto ${entry.rounded === false ? '' : 'rounded-2xl'}`"
                   sizes="60vw"
                   :srcset="[320, 640, 1280, 2100]"
                 ></nx-image>
@@ -49,7 +49,7 @@ onMounted(() => {
               <div class="pt-12 lg:hidden">
                 <nx-highlights
                   :highlights="page.meta.highlights"
-                  :visit="page.meta.visit"                 
+                  :visit="page.meta.visit"
                 ></nx-highlights>
               </div>
             </div>
