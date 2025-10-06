@@ -10,8 +10,12 @@ const props = defineProps<{
   pdp?: boolean;
 }>();
 
+const route = useRoute();
+const router = useRouter();
+const nuxtApp = useNuxtApp();
 const hostElement = ref<HTMLElement | null>(null);
 const isCta = ref(true);
+const isTouchDevice = ref(false);
 
 const createScrollAnimation = () => {
   if (!hostElement.value || props.pdp) return;
@@ -71,9 +75,14 @@ const cleanupAnimations = () => {
     });
   }
 };
+const goto = () => {
+  if (!isTouchDevice.value || props.data.path === route.path) return;
+  router.push(props.data.path || '/');
+};
 
 onMounted(() => {
   createScrollAnimation();
+  isTouchDevice.value = (nuxtApp.$isTouchDevice as () => boolean)();
 
   if (props.pdp) {
     setTimeout(() => {
@@ -88,7 +97,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div ref="hostElement">
+  <div ref="hostElement" @click="goto()">
     <div v-if="data.meta.name || data.meta.period" data-hero-scroll>
       <div>
         <p class="font-serif text-xl md:text-[28px] text-fg-secondary">
