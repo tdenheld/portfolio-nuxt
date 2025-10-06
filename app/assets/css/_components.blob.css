@@ -29,18 +29,13 @@
 /* ---------------------------------------- */
 
 .blob {
-  @apply fixed
-  inset-0
-  overflow-hidden
-  pointer-events-none;
-}
-
-.blob__1 {
   @apply absolute
   inset-0
-  bg-bg-secondary
   transition-clr;
+}
 
+.blob--1 {
+  @apply bg-bg-secondary;
   animation: blob-1 15s linear infinite both;
 
   mask: radial-gradient(
@@ -58,12 +53,8 @@
   }
 }
 
-.blob__2 {
-  @apply absolute
-  inset-0
-  bg-bg-tertiary
-  transition-clr;
-
+.blob--2 {
+  @apply bg-bg-tertiary;
   animation: blob-2 12s linear infinite both;
 
   mask: radial-gradient(

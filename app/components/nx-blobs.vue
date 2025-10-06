@@ -1,8 +1,8 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="blob">
-    <div class="blob__1"></div>
-    <div class="blob__2"></div>
+  <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="blob blob--1"></div>
+    <div class="blob blob--2"></div>
   </div>
 </template>
