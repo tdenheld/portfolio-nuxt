@@ -6,7 +6,6 @@ const nuxtApp: any = useNuxtApp();
 const page: Page | null = await queryCollection('projects').path(route.path).first();
 const projects = await queryCollection('projects').all();
 const scrollContainer = ref<HTMLElement | null>(null);
-const observer = ref<IntersectionObserver | null>(null);
 
 const getCurrentIndex = () => {
   return projects.findIndex((p) => p.path === page?.path) + 1;
@@ -16,54 +15,9 @@ const getLength = () => {
   return projects.length + 1;
 };
 
-const buildThresholdList = () => {
-  const thresholds = [];
-  const numSteps = 10;
-
-  for (let i = 1.0; i <= numSteps; i++) {
-    const ratio = i / numSteps;
-    thresholds.push(ratio);
-  }
-
-  thresholds.push(0);
-  return thresholds;
-};
-
-const getOpacity = (ratio: number) => {
-  return Math.min(1, ratio * 2).toFixed(2);
-};
-
-const getBlur = (ratio: number) => {
-  return Math.max(0, (1 - ratio * 2) * 4).toFixed(2);
-};
-
-const createObserver = () => {
-  observer.value = new IntersectionObserver(
-    (entries: any) => {
-      entries.map((entry: any) => {
-        const ratio = entry.intersectionRatio;
-
-        entry.target.style.opacity = getOpacity(ratio);
-        entry.target.style.filter = `blur(${getBlur(ratio)}px)`;
-      });
-    },
-    {
-      root: scrollContainer.value,
-      rootMargin: '0px',
-      threshold: buildThresholdList(),
-    }
-  );
-
-  scrollContainer.value?.querySelectorAll('[data-reveal]').forEach((el, index) => {
-    if (!observer.value) return;
-    observer.value.observe(el);
-  });
-};
-
 // Set colors on document element when component mounts
 onMounted(() => {
   nuxtApp.$setColor(page?.meta?.color);
-  createObserver();
 });
 </script>
 
@@ -96,7 +50,6 @@ onMounted(() => {
                   sizes="60vw"
                   :srcset="[320, 640, 1280, 2100]"
                   data-reveal
-                  class="transition duration-1200"
                 ></nx-image>
               </div>
 
