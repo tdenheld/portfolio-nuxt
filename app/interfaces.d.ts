@@ -11,20 +11,23 @@ export interface Color {
   };
 }
 
-export interface Project {
-  title: string;
-  description?: string;
-  path?: string;
-  meta: {
-    name?: string;
-    period?: string;
-    descriptionShort?: string;
-    image?: string;
-    color?: Color;
-  };
-}
-
 export interface Highlight {
   title: string;
   items: string[];
+}
+
+export interface Page {
+  path: string;
+  title: string;
+  description?: string;
+  name?: string;
+  meta: {
+    period?: string;
+    descriptionShort?: string;
+    highlights?: Highlight[];
+    image?: string;
+    visit?: string;
+    color?: Color;
+    items?: { src: string; alt: string; rounded: boolean }[];
+  };
 }

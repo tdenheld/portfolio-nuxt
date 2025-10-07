@@ -1,11 +1,13 @@
-<script setup>
+<script setup lang="ts">
+import type { Page } from '~/interfaces';
+
 const route = useRoute();
-const page = await queryCollection('projects').path(route.path).first();
+const nuxtApp: any = useNuxtApp();
+const page: Page | null = await queryCollection('projects').path(route.path).first();
 const projects = await queryCollection('projects').all();
-const nuxtApp = useNuxtApp();
 
 const getCurrentIndex = () => {
-  return projects.findIndex((p) => p.path === page.path) + 1;
+  return projects.findIndex((p) => p.path === page?.path) + 1;
 };
 
 const getLength = () => {
@@ -48,7 +50,7 @@ onMounted(() => {
 
               <div class="pt-12 lg:hidden">
                 <nx-highlights
-                  :highlights="page.meta.highlights"
+                  :highlights="page.meta.highlights || []"
                   :visit="page.meta.visit"
                 ></nx-highlights>
               </div>
@@ -60,9 +62,9 @@ onMounted(() => {
       <nx-counter
         class="hidden lg:block"
         :index="getCurrentIndex()"
-        :images="[page.meta.image]"
+        :images="[page.meta.image || '']"
         :length="getLength()"
-        :highlights="page.meta.highlights"
+        :highlights="page.meta.highlights || []"
         :visit="page.meta.visit"
         pdp
       ></nx-counter>

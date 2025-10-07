@@ -1,6 +1,6 @@
 import type { Color } from '~/interfaces';
 
-export default defineNuxtPlugin((nuxtApp) => {
+export default defineNuxtPlugin((nuxtApp): void => {
   nuxtApp.provide('setColor', (color: Color) => {
     const root = document.documentElement;
 

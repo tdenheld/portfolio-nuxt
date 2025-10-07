@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { Project } from '~/interfaces';
+import type { Page } from '~/interfaces';
 
 const props = defineProps<{
-  data: Project[];
+  data: Page[];
 }>();
 
 const nuxtApp: any = useNuxtApp();
@@ -11,7 +11,7 @@ const element = ref<HTMLElement | null>(null);
 const index = ref(0);
 
 // Create a new array with multiple copies of the data to allow infinite scrolling
-const carouselData = ref<Project[]>([...Array(2).fill(props.data).flat()]);
+const carouselData = ref<Page[]>([...Array(2).fill(props.data).flat()]);
 
 // Calculate the actual height of one item in the carousel
 const getActualItemHeight = () => {
