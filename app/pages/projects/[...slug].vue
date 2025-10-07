@@ -42,7 +42,7 @@ onMounted(() => {
             </div>
 
             <div class="pdp-img-fade-up pb-16">
-              <div class="space-y-contain">
+              <div class="space-y-contain perspective-[calc(80vw+80px)]">
                 <nx-image
                   v-for="entry in page.meta.items"
                   :src="entry.src"
@@ -50,7 +50,7 @@ onMounted(() => {
                   :image-class="`w-full h-auto ${entry.rounded === false ? '' : 'rounded-2xl'}`"
                   sizes="60vw"
                   :srcset="[320, 640, 1280, 2100]"
-                  class="blur-sm [transform:translateY(32px)]"
+                  class="blur-sm [transform:rotate3d(1,0,0,6deg)]"
                   data-reveal-trigger
                   data-reveal
                 ></nx-image>

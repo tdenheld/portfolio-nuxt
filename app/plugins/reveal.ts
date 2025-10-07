@@ -9,7 +9,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     });
 
     const init = (obj: HTMLElement) => {
-      const rootMargin = obj.dataset.revealTrigger || '0px 0px -12%';
+      const rootMargin = obj.dataset.revealTrigger || '0px 0px -2%';
 
       const observer = new IntersectionObserver(
         (entries, self) => {
