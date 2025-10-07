@@ -18,7 +18,7 @@ const getLength = () => {
 
 const buildThresholdList = () => {
   const thresholds = [];
-  const numSteps = 20;
+  const numSteps = 10;
 
   for (let i = 1.0; i <= numSteps; i++) {
     const ratio = i / numSteps;
@@ -96,7 +96,7 @@ onMounted(() => {
                   sizes="60vw"
                   :srcset="[320, 640, 1280, 2100]"
                   data-reveal
-                  class="transition duration-1000"
+                  class="transition duration-1200"
                 ></nx-image>
               </div>
 
