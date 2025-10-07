@@ -18,6 +18,7 @@ const getLength = () => {
 // Set colors on document element when component mounts
 onMounted(() => {
   nuxtApp.$setColor(page?.meta?.color);
+  nuxtApp.$reveal(scrollContainer.value);
 });
 </script>
 
@@ -49,6 +50,8 @@ onMounted(() => {
                   :image-class="`w-full h-auto ${entry.rounded === false ? '' : 'rounded-2xl'}`"
                   sizes="60vw"
                   :srcset="[320, 640, 1280, 2100]"
+                  class="blur-sm [transform:translateY(32px)]"
+                  data-reveal-trigger
                   data-reveal
                 ></nx-image>
               </div>
