@@ -18,7 +18,7 @@ const getLength = () => {
 
 const buildThresholdList = () => {
   const thresholds = [];
-  const numSteps = 10;
+  const numSteps = 16;
 
   for (let i = 1.0; i <= numSteps; i++) {
     const ratio = i / numSteps;
