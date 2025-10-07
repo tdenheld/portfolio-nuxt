@@ -9,11 +9,11 @@ export default defineNuxtConfig({
   spaLoadingTemplate: true,
 
   devServer: {
-    host: 'localhost',
+    host: '0.0.0.0',
   },
 
   devtools: {
-    enabled: true,
+    enabled: false,
   },
 
   app: {
