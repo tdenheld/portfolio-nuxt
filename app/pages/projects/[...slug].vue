@@ -42,18 +42,19 @@ onMounted(() => {
             </div>
 
             <div class="pdp-img-fade-up pb-16">
-              <div class="space-y-contain perspective-[calc(80vw+80px)]">
-                <nx-image
-                  v-for="entry in page.meta.items"
-                  :src="entry.src"
-                  :alt="entry.alt"
-                  :image-class="`w-full h-auto ${entry.rounded === false ? '' : 'rounded-2xl'}`"
-                  sizes="60vw"
-                  :srcset="[320, 640, 1280, 2100]"
-                  class="blur-sm [transform:rotate3d(1,0,0,6deg)]"
-                  data-reveal-trigger
-                  data-reveal
-                ></nx-image>
+              <div class="space-y-contain">
+                <div v-for="entry in page.meta.items" :key="entry.src" class="perspective-[32vw]">
+                  <nx-image
+                    :src="entry.src"
+                    :alt="entry.alt"
+                    :image-class="`w-full h-auto ${entry.rounded === false ? '' : 'rounded-2xl'}`"
+                    sizes="60vw"
+                    :srcset="[320, 640, 1280, 2100]"
+                    class="blur-sm [transform:rotate3d(1,0,0,6deg)]"
+                    data-reveal-trigger
+                    data-reveal
+                  ></nx-image>
+                </div>
               </div>
 
               <div class="pt-12 lg:hidden">
@@ -93,9 +94,9 @@ onMounted(() => {
 }
 
 .pdp-fade-up {
-  animation-duration: 800ms;
+  animation-duration: 900ms;
   animation-fill-mode: both;
-  animation-timing-function: var(--ease-out);
+  animation-timing-function: var(--ease-in-out);
   animation-name: pdp-fade-up;
 }
 
@@ -111,7 +112,7 @@ onMounted(() => {
   margin-top: var(--space-img);
   opacity: 0;
   transform: translateY(80px);
-  animation-duration: 800ms;
+  animation-duration: 1200ms;
   animation-fill-mode: both;
   animation-timing-function: var(--ease-out);
   animation-delay: 200ms;
