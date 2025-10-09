@@ -26,12 +26,13 @@ const props = defineProps<{
   animation-fill-mode: both;
   animation-timing-function: var(--ease-out);
   animation-name: d-fade-out;
+  animation-delay: 500ms;
 }
 
 @keyframes d-fade-out {
   to {
     opacity: 0;
-    filter: blur(16px);
+    filter: blur(4px);
     transform: scale(1.15);
   }
 }
