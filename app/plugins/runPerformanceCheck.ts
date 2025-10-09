@@ -3,7 +3,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     return new Promise<boolean>((resolve) => {
       const times: number[] = [];
       const fpsHistory: number[] = [];
-      const FPS_THRESHOLD = 50; // fps threshold to show blobs
+      const FPS_THRESHOLD = 52; // fps threshold to show blobs
       const STABILITY_THRESHOLD = 5; // fps variance allowed
       const MIN_SAMPLES = 10; // minimum readings before checking stability
       let fps: number;
