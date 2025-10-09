@@ -1,16 +1,16 @@
 export default defineNuxtPlugin((nuxtApp) => {
-  nuxtApp.provide('runPerformanceCheck', () => {
-    return new Promise((resolve) => {
-      const times = [];
-      const fpsHistory = [];
+  nuxtApp.provide('runPerformanceCheck', (): Promise<boolean> => {
+    return new Promise<boolean>((resolve) => {
+      const times: number[] = [];
+      const fpsHistory: number[] = [];
       const FPS_THRESHOLD = 48; // fps threshold to show blobs
       const STABILITY_THRESHOLD = 5; // fps variance allowed
       const MIN_SAMPLES = 10; // minimum readings before checking stability
-      let fps;
-      let rafId;
+      let fps: number;
+      let rafId: number | undefined;
 
-      const fpsLoop = (timestamp) => {
-        while (times.length > 0 && times[0] <= timestamp - 1000) {
+      const fpsLoop = (timestamp: number): void => {
+        while (times.length > 0 && times[0]! <= timestamp - 1000) {
           times.shift();
         }
 
@@ -37,7 +37,7 @@ export default defineNuxtPlugin((nuxtApp) => {
               if (rafId) {
                 cancelAnimationFrame(rafId);
               }
-              
+
               // Resolve with boolean result
               resolve(avgFps >= FPS_THRESHOLD);
               return;

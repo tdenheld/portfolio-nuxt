@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { Project } from '~/interfaces';
+import type { Page } from '~/interfaces';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const props = defineProps<{
-  data: Project;
+  data: Page;
   headingLevel?: 'h1' | 'h2';
   pdp?: boolean;
 }>();
@@ -16,16 +16,18 @@ const nuxtApp = useNuxtApp();
 const hostElement = ref<HTMLElement | null>(null);
 const isCta = ref(true);
 const isTouchDevice = ref(false);
+const isPerformant = ref(false);
 
-const createScrollAnimation = () => {
+const createScrollAnimation = async () => {
   if (!hostElement.value || props.pdp) return;
   const scrollElements = hostElement.value.querySelectorAll('[data-hero-scroll]');
   const carousel = document.querySelector('[data-scroller-carousel]');
   const length = scrollElements.length;
   if (length === 0 && !carousel) return;
 
-  const xFactor = -2.8;
-  const rotateFactor = 6.7;
+  const FILTER = isPerformant.value ? 'blur(6px)' : 'none';
+  const X_FACTOR = -2.8;
+  const ROTATE_FACTOR = 6.7;
 
   scrollElements.forEach((el, index) => {
     const child = el.childNodes[0] as HTMLElement;
@@ -35,9 +37,9 @@ const createScrollAnimation = () => {
     // Up
     gsap.to(child, {
       opacity: 0,
-      filter: 'blur(6px)',
-      rotate: (length - index) * -rotateFactor + 'deg',
-      x: (length - index) * xFactor + '%',
+      filter: FILTER,
+      rotate: (length - index) * -ROTATE_FACTOR + 'deg',
+      x: (length - index) * X_FACTOR + '%',
       ease: 'none',
       scrollTrigger: {
         trigger: hostElement.value,
@@ -51,10 +53,10 @@ const createScrollAnimation = () => {
     // Down
     gsap.from(el, {
       opacity: 0,
-      filter: 'blur(6px)',
+      filter: FILTER,
       ease: 'none',
-      rotate: (index + 1) * rotateFactor + 'deg',
-      x: (index + 1) * xFactor + '%',
+      rotate: (index + 1) * ROTATE_FACTOR + 'deg',
+      x: (index + 1) * X_FACTOR + '%',
       scrollTrigger: {
         trigger: hostElement.value,
         scrub: 1,
@@ -79,6 +81,12 @@ const goto = () => {
   if (!isTouchDevice.value || props.data.path === route.path) return;
   router.push(props.data.path || '/');
 };
+
+onBeforeMount(async () => {
+  isPerformant.value = await (
+    nuxtApp.$runPerformanceCheck as () => Promise<boolean>
+  )();
+});
 
 onMounted(() => {
   createScrollAnimation();

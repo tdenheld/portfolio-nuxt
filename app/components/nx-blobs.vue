@@ -1,6 +1,6 @@
 <script setup>
 const nuxtApp = useNuxtApp();
-const isPerformant = ref(true);
+const isPerformant = ref(false);
 
 onBeforeMount(async () => {
   isPerformant.value = await nuxtApp.$runPerformanceCheck();

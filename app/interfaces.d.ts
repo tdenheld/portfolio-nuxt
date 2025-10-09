@@ -20,7 +20,6 @@ export interface Page {
   path: string;
   title: string;
   description?: string;
-  name?: string;
   meta: {
     period?: string;
     descriptionShort?: string;
@@ -28,6 +27,7 @@ export interface Page {
     image?: string;
     visit?: string;
     color?: Color;
+    name?: string;
     items?: { src: string; alt: string; rounded: boolean }[];
   };
 }
