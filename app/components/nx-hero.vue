@@ -81,7 +81,7 @@ const goto = () => {
   router.push(props.data.path || '/');
 };
 
-onMounted(async () => {
+onMounted(() => {
   createScrollAnimation();
   isTouchDevice.value = (nuxtApp.$isTouchDevice as () => boolean)();
 
