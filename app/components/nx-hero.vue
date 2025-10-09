@@ -16,16 +16,15 @@ const nuxtApp = useNuxtApp();
 const hostElement = ref<HTMLElement | null>(null);
 const isCta = ref(true);
 const isTouchDevice = ref(false);
-const isPerformant = ref(false);
 
-const createScrollAnimation = async () => {
+const createScrollAnimation = () => {
   if (!hostElement.value || props.pdp) return;
   const scrollElements = hostElement.value.querySelectorAll('[data-hero-scroll]');
   const carousel = document.querySelector('[data-scroller-carousel]');
   const length = scrollElements.length;
   if (length === 0 && !carousel) return;
 
-  const FILTER = isPerformant.value ? 'blur(6px)' : 'none';
+  const FILTER = 'blur(6px)';
   const X_FACTOR = -2.8;
   const ROTATE_FACTOR = 6.7;
 
@@ -82,13 +81,7 @@ const goto = () => {
   router.push(props.data.path || '/');
 };
 
-onBeforeMount(async () => {
-  isPerformant.value = await (
-    nuxtApp.$runPerformanceCheck as () => Promise<boolean>
-  )();
-});
-
-onMounted(() => {
+onMounted(async () => {
   createScrollAnimation();
   isTouchDevice.value = (nuxtApp.$isTouchDevice as () => boolean)();
 

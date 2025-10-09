@@ -1,10 +1,5 @@
 <script setup>
-const nuxtApp = useNuxtApp();
-const isPerformant = ref(false);
-
-onBeforeMount(async () => {
-  isPerformant.value = await nuxtApp.$runPerformanceCheck();
-});
+const isPerformant = useState('isPerformant');
 </script>
 
 <template>
