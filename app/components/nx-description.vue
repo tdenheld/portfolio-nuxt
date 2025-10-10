@@ -22,11 +22,11 @@ const props = defineProps<{
 
 <style scoped lang="postcss">
 .d-fade-out {
-  animation-duration: 2.2s;
+  animation-duration: 2s;
   animation-fill-mode: both;
   animation-timing-function: var(--ease-out);
   animation-name: d-fade-out;
-  animation-delay: 500ms;
+  animation-delay: 50ms;
 }
 
 @keyframes d-fade-out {
