@@ -2,7 +2,7 @@
 const page = await queryCollection('content').path('/').first();
 const projects = await queryCollection('projects').all();
 
-const newPage = page ? { ...page, path: undefined } : null;
+const newPage = page ? { ...page, path: '/' } : null;
 const mergedData = [...(newPage ? [newPage] : []), ...(projects || [])];
 </script>
 
