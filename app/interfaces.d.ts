@@ -17,7 +17,7 @@ export interface Highlight {
 }
 
 export interface Page {
-  path: string;
+  path?: string;
   title: string;
   description?: string;
   meta: {

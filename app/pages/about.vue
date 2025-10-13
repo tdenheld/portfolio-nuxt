@@ -23,7 +23,7 @@ onMounted(() => {
           :srcset="[320, 640, 1280]"
         ></nx-image>
 
-        <p class="relative mt-8 lg:mt-0 lg:-ml-16 max-w-sm text-fg-secondary text-lg md:text-xl">
+        <p class="relative mt-8 lg:mt-0 md:-ml-12 lg:-ml-16 max-w-sm text-fg-secondary text-lg md:text-xl">
           {{ page.description }}
         </p>
       </div>
