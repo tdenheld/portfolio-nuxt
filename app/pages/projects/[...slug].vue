@@ -43,7 +43,11 @@ onMounted(() => {
 
             <div class="pdp-img-fade-up pb-16">
               <div class="space-y-contain">
-                <div v-for="entry in page.meta.items" :key="entry.src" class="perspective-[32vw]">
+                <div
+                  v-for="entry in page.meta.items"
+                  :key="entry.src"
+                  class="perspective-[32vw]"
+                >
                   <nx-image
                     :src="entry.src"
                     :alt="entry.alt"
@@ -102,7 +106,7 @@ onMounted(() => {
 
 @keyframes pdp-fade-up {
   to {
-    margin-top: var(--space-container);
+    transform: translateY(var(--space-container));
   }
 }
 
