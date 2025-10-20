@@ -98,6 +98,7 @@ onMounted(() => {
 }
 
 .pdp-fade-up {
+  margin-bottom: var(--space-container);
   animation-duration: 900ms;
   animation-fill-mode: both;
   animation-timing-function: var(--ease-in-out);

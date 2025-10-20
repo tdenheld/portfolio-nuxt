@@ -18,7 +18,7 @@ onMounted(() => {
         <nx-image
           :src="page.meta.image"
           :alt="page.title"
-          class="overflow-hidden rounded-4xl md:max-w-md grow"
+          class="overflow-hidden rounded-4xl md:max-w-lg grow"
           sizes="33vw"
           :srcset="[320, 640, 1280]"
           preload
