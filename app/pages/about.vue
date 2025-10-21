@@ -18,8 +18,8 @@ onMounted(() => {
         <nx-image
           :src="page.meta.image"
           :alt="page.title"
-          class="overflow-hidden rounded-4xl md:max-w-lg grow"
-          sizes="33vw"
+          class="overflow-hidden rounded-4xl md:max-w-lg grow aspect-square"
+          sizes="(min-width: 90rem) 32rem, (min-width: 61.25rem) 33vw, (min-width: 46.25rem) 40vw, 80vw"
           :srcset="[320, 640, 1280]"
           preload
         ></nx-image>
