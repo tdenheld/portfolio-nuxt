@@ -1,14 +1,32 @@
 <script setup>
 import { Gradient } from '../scripts/gradientMesh.js';
 
-const gradient = new Gradient();
+const gradient = ref(null);
 
 const initGradient = () => {
-  gradient.initGradient('#gradient-canvas');
+  if (gradient.value) {
+    gradient.value.disconnect();
+  }
+  gradient.value = new Gradient();
+  gradient.value.initGradient('#gradient-canvas');
 };
 
 onMounted(() => {
   initGradient();
+  
+  // Watch for style attribute changes on document.documentElement
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+        initGradient();
+      }
+    });
+  });
+  
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['style']
+  });
 });
 </script>
 
