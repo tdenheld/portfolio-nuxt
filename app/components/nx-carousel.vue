@@ -6,9 +6,13 @@ const props = defineProps<{
 }>();
 
 const nuxtApp: any = useNuxtApp();
-
 const element = ref<HTMLElement | null>(null);
+
 const index = ref(0);
+watch(index, () => {
+  // Set colors based on current active item
+  setColor();
+});
 
 // Create a new array with multiple copies of the data to allow infinite scrolling
 const carouselData = ref<Page[]>([...Array(2).fill(props.data).flat()]);
@@ -53,9 +57,6 @@ const handleScroll = () => {
       const dataIndex = currentIndex % props.data.length;
       index.value = dataIndex;
     }
-
-    // Set colors based on current active item
-    setColor();
 
     // When reaching cloned items add another array to the carousel
     if (currentIndex >= carouselData.value.length - props.data.length) {
