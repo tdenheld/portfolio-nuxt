@@ -22,7 +22,7 @@ const props = defineProps<{
 
 <style scoped lang="postcss">
 .d-fade-out {
-  animation-duration: 2s;
+  animation-duration: 1.5s;
   animation-fill-mode: both;
   animation-timing-function: var(--ease-out);
   animation-name: d-fade-out;
@@ -32,7 +32,7 @@ const props = defineProps<{
 @keyframes d-fade-out {
   to {
     opacity: 0;
-    filter: blur(4px);
+    filter: blur(8px);
     transform: scale(1.15);
   }
 }
