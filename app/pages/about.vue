@@ -32,9 +32,29 @@ onMounted(() => {
           </div>
         </div>
 
-        <div class="mt-16 about-grid">
+        <div class="my-16 about-grid">
           <div class="col-start-2 relative mt-8 md:mt-0 md:-ml-12 lg:-ml-16">
             <h2 class="font-mono text-xs uppercase tracking-widest">Experience</h2>
+
+            <div
+              v-for="entry in page.meta.experience"
+              :key="entry.title"
+              class="mt-6"
+            >
+              <h3 class="text-fg-secondary text-sm">
+                {{ entry.title }} ({{ entry.period }})
+              </h3>
+
+              <ul>
+                <li
+                  class="text-xs font-mono italic mt-0.5"
+                  v-for="role in entry.roles"
+                  :key="role"
+                >
+                  {{ role }}
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
