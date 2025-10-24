@@ -15,9 +15,7 @@ onMounted(() => {
       <h1 class="sr-only">{{ page.title }}</h1>
 
       <div class="col-start-2 col-span-2">
-        <div
-          class="md:grid md:items-center md:grid-cols-2 lg:grid-cols-[2fr_3fr] xl:grid-cols-[3fr_5fr]"
-        >
+        <div class="about-grid">
           <nx-image
             :src="page.meta.image"
             :alt="page.title"
@@ -34,9 +32,7 @@ onMounted(() => {
           </div>
         </div>
 
-        <div
-          class="mt-16 md:grid md:items-center md:grid-cols-2 lg:grid-cols-[2fr_3fr] xl:grid-cols-[3fr_5fr]"
-        >
+        <div class="mt-16 about-grid">
           <div class="col-start-2 relative mt-8 md:mt-0 md:-ml-12 lg:-ml-16">
             <h2 class="font-mono text-xs uppercase tracking-widest">Experience</h2>
           </div>

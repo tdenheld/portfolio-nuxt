@@ -13,6 +13,14 @@
   gap-6;
 }
 
+@utility about-grid {
+  @apply md:grid
+  md:items-center
+  md:grid-cols-2
+  lg:grid-cols-[2fr_3fr]
+  xl:grid-cols-[3fr_5fr];
+}
+
 /* ----------------------------------------------- */
 /* Links */
 /* ----------------------------------------------- */
