@@ -37,7 +37,9 @@ onMounted(() => {
 
           <div class="my-16 about-grid">
             <div class="col-start-2 relative mt-8 md:mt-0 md:-ml-12 lg:-ml-16">
-              <h2 class="font-mono text-xs uppercase tracking-[0.16em]">Experience</h2>
+              <h2 class="font-mono text-xs uppercase tracking-[0.16em]">
+                Experience
+              </h2>
 
               <div
                 v-for="entry in page.meta.experience"
@@ -54,7 +56,8 @@ onMounted(() => {
                     v-for="role in entry.roles"
                     :key="role"
                   >
-                    {{ role }}
+                    {{ role.name }}
+                    <span class="whitespace-nowrap">({{ role.period }})</span>
                   </li>
                 </ul>
               </div>

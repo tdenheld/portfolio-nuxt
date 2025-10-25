@@ -5,18 +5,24 @@ image: https://res.cloudinary.com/tibor/image/upload/v1760352927/Screenshot_2025
 experience:
   - title: Dutch Railways
     roles:
-      - Senior Design Engineer — Design Systems (2021-Present)
-      - Senior Product Designer & Front-end Developer (2018-2021)
+      - name: Senior Design Engineer — Design Systems
+        period: 2021-Present
+      - name: Senior Product Designer & Front-end Developer
+        period: 2018-2021
   - title: Digitas
     roles:
-      - Senior Designer (2017-2018)
-      - Visual Designer (2016-2017)
+      - name: Senior Designer
+        period: 2017-2018
+      - name: Visual Designer
+        period: 2016-2017
   - title: Freelance
     roles:
-      - Digital Designer (2010-2016)
+      - name: Digital Designer
+        period: 2010-2016
   - title: Bloody Minded
     roles:
-      - Designer & Front-end Developer (2006-2010)
+      - name: Designer & Front-end Developer
+        period: 2006-2010
 
 coverage:
   - Adformatie
