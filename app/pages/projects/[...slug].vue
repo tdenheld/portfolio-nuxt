@@ -49,6 +49,11 @@ onMounted(() => {
                   class="perspective-[32vw]"
                 >
                   <nx-image
+                    v-if="
+                      entry.src.includes('.png') ||
+                      entry.src.includes('.jpg') ||
+                      entry.src.includes('.webp')
+                    "
                     :src="entry.src"
                     :alt="entry.alt"
                     :image-class="`w-full h-auto ${entry.rounded === false ? '' : 'rounded-2xl'}`"
@@ -58,6 +63,14 @@ onMounted(() => {
                     data-reveal-trigger
                     data-reveal
                   ></nx-image>
+
+                  <nx-video
+                    v-if="entry.src.includes('.mp4')"
+                    :src="entry.src.replace(/\.(mp4)$/, '')"
+                    class="blur-sm [transform:rotate3d(1,0,0,6deg)]"
+                    data-reveal-trigger
+                    data-reveal
+                  ></nx-video>
                 </div>
               </div>
 
