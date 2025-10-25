@@ -57,7 +57,7 @@ onMounted(() => {
                     :src="entry.src"
                     :alt="entry.alt"
                     :image-class="`w-full h-auto ${entry.rounded === false ? '' : 'rounded-2xl'}`"
-                    sizes="60vw"
+                    sizes="(min-width: 56rem) 60vw, 80vw"
                     :srcset="[320, 640, 1280, 2100]"
                     class="blur-sm [transform:rotate3d(1,0,0,6deg)]"
                     data-reveal-trigger

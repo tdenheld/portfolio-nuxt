@@ -37,7 +37,7 @@ onUnmounted(() => {
       muted 
       loop 
       playsinline 
-      class="w-full" 
+      class="w-full overflow-hidden rounded-2xl" 
       autoplay
     >
       <source :src="src + '.mp4'" type="video/mp4" />
