@@ -37,7 +37,7 @@ onMounted(() => {
 
           <div class="my-16 about-grid">
             <div class="col-start-2 relative mt-8 md:mt-0 md:-ml-12 lg:-ml-16">
-              <h2 class="font-mono text-xs uppercase tracking-widest">Experience</h2>
+              <h2 class="font-mono text-xs uppercase tracking-[0.16em]">Experience</h2>
 
               <div
                 v-for="entry in page.meta.experience"
@@ -45,7 +45,7 @@ onMounted(() => {
                 class="mt-6"
               >
                 <h3 class="text-fg-secondary text-sm">
-                  {{ entry.title }} ({{ entry.period }})
+                  {{ entry.title }}
                 </h3>
 
                 <ul>
