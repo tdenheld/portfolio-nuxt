@@ -4,25 +4,23 @@ description: At the intersection of design and web development, I'm bridging des
 image: https://res.cloudinary.com/tibor/image/upload/v1760352927/Screenshot_2025-10-13_at_12.54.28_vjkuyy.png
 experience:
   - title: Dutch Railways
+    period: 2018 - Present
     roles:
-      - name: Senior Design Engineer — Design Systems
-        period: 2021-Present
-      - name: Senior Product Designer & Front-end Developer
-        period: 2018-2021
+      - Senior Design Engineer — Design Systems
+      - Senior Product Designer & Front-end Developer
   - title: Digitas
+    period: 2016 - 2018
     roles:
-      - name: Senior Designer
-        period: 2017-2018
-      - name: Visual Designer
-        period: 2016-2017
+      - Senior Designer
+      - Visual Designer
   - title: Freelance
+    period: 2010 - 2016
     roles:
-      - name: Digital Designer
-        period: 2010-2016
+      - Digital Designer
   - title: Bloody Minded
+    period: 2006 - 2010
     roles:
-      - name: Designer & Front-end Developer
-        period: 2006-2010
+      - Designer & Front-end Developer
 
 coverage:
   - Adformatie

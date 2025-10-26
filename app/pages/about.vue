@@ -48,6 +48,7 @@ onMounted(() => {
               >
                 <h3 class="text-fg-secondary text-sm">
                   {{ entry.title }}
+                  <span class="whitespace-nowrap">({{ entry.period }})</span>
                 </h3>
 
                 <ul>
@@ -56,8 +57,7 @@ onMounted(() => {
                     v-for="role in entry.roles"
                     :key="role"
                   >
-                    {{ role.name }}
-                    <span class="whitespace-nowrap">({{ role.period }})</span>
+                    {{ role }}
                   </li>
                 </ul>
               </div>
