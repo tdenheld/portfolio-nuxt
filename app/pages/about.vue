@@ -35,7 +35,7 @@ onMounted(() => {
             </div>
           </div>
 
-          <div class="my-20 about-grid items-start">
+          <div class="my-24 about-grid items-start">
             <div class="relative mt-8 md:mt-0">
               <div>
                 <h2 class="font-mono text-xs uppercase tracking-[0.16em]">
