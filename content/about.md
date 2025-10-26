@@ -38,6 +38,11 @@ brands:
   - KPN
   - Capgemini
   - Talpa
+  - AFAS
+  - Gardena
+  - Endemol
+  - Tivoli Utrecht
+  - Doornroosje
 
 color:
   fg:

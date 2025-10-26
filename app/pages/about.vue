@@ -35,31 +35,63 @@ onMounted(() => {
             </div>
           </div>
 
-          <div class="my-16 about-grid">
-            <div class="col-start-2 relative mt-8 md:mt-0 md:-ml-12 lg:-ml-16">
+          <div class="my-20 about-grid items-start">
+            <div class="relative mt-8 md:mt-0">
+              <div>
+                <h2 class="font-mono text-xs uppercase tracking-[0.16em]">
+                  Brands
+                </h2>
+
+                <p class="mt-4 pr-32 max-w-[48ch] text-fg-secondary text-sm">
+                  <template v-for="(item, index) in page.meta.brands" :key="item">
+                    {{ item
+                    }}<template v-if="index < page.meta.brands.length - 1"
+                      >,
+                    </template>
+                  </template>
+                </p>
+              </div>
+
+              <div class="mt-12">
+                <h2 class="font-mono text-xs uppercase tracking-[0.16em]">
+                  Coverage
+                </h2>
+
+                <p class="mt-4 pr-32 max-w-[48ch] text-fg-secondary text-sm">
+                  <template v-for="(item, index) in page.meta.coverage" :key="item">
+                    {{ item
+                    }}<template v-if="index < page.meta.coverage.length - 1"
+                      >,
+                    </template>
+                  </template>
+                </p>
+              </div>
+            </div>
+
+            <div class="relative mt-16 md:mt-0 md:-ml-12 lg:-ml-16">
               <h2 class="font-mono text-xs uppercase tracking-[0.16em]">
                 Experience
               </h2>
 
-              <div
-                v-for="entry in page.meta.experience"
-                :key="entry.title"
-                class="mt-6"
-              >
-                <h3 class="text-fg-secondary text-sm">
-                  {{ entry.title }}
-                  <span class="whitespace-nowrap">({{ entry.period }})</span>
-                </h3>
-
-                <ul>
-                  <li
-                    class="text-xs font-mono italic mt-0.5"
-                    v-for="role in entry.roles"
-                    :key="role"
-                  >
-                    {{ role }}
-                  </li>
-                </ul>
+              <div class="mt-4 space-y-5">
+                <div
+                  v-for="entry in page.meta.experience"
+                  :key="entry.title"
+                >
+                  <h3 class="text-fg-secondary text-sm">
+                    {{ entry.title }}
+                    <span class="whitespace-nowrap">({{ entry.period }})</span>
+                  </h3>
+                  <ul>
+                    <li
+                      class="text-xs font-mono italic mt-0.5"
+                      v-for="role in entry.roles"
+                      :key="role"
+                    >
+                      {{ role }}
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
