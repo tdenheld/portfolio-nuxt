@@ -42,6 +42,19 @@ const getAllImages = () => {
     .filter((img): img is string => !!img);
 };
 
+// Check if the first item of the active project is a video
+const getVideo = computed(() => {
+  const entry = getActiveEntry();
+  if (!entry || !entry.meta?.items || entry.meta.items.length === 0) return null;
+
+  const firstItem = entry.meta.items[0];
+  if (firstItem && firstItem.src.endsWith('.mp4')) {
+    return firstItem.src.replace('.mp4', ''); // Remove extension for nx-video component
+  }
+
+  return null;
+});
+
 // Handle scroll events to update index and colors
 const handleScroll = () => {
   requestAnimationFrame(() => {
@@ -96,6 +109,7 @@ onBeforeUnmount(() => {
     ></nx-counter>
 
     <nx-description :is-active="true"></nx-description>
+    <nx-video v-if="getVideo" :src="getVideo" :preload="true" class="hidden" />
   </div>
 </template>
 
