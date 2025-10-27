@@ -42,10 +42,10 @@ onUnmounted(() => {
       :autoplay="!preload"
     >
       <source :src="src + '.webm'" type="video/webm" media="(width >= 980px)" />
-      <source :src="src + '-1080p.webm'" type="video/webm" />
+      <source :src="src + '-sm.webm'" type="video/webm" />
 
       <source :src="src + '.mp4'" type="video/mp4" media="(width >= 980px)" />
-      <source :src="src + '-1080p.mp4'" type="video/mp4" />
+      <source :src="src + '-sm.mp4'" type="video/mp4" />
     </video>
   </div>
 </template>
