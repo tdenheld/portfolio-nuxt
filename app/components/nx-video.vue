@@ -1,7 +1,6 @@
 <script setup lang="ts">
 const props = defineProps<{
   src: string;
-  preload?: boolean;
 }>();
 
 const video = ref<HTMLVideoElement | null>(null);
@@ -36,10 +35,10 @@ onUnmounted(() => {
       ref="video"
       preload="auto"
       muted
-      :loop="!preload"
-      :playsinline="!preload"
+      loop
+      playsinline
       class="w-full overflow-hidden rounded-2xl"
-      :autoplay="!preload"
+      autoplay
     >
       <source :src="src + '.webm'" type="video/webm" media="(width >= 980px)" />
       <source :src="src + '-sm.webm'" type="video/webm" />
