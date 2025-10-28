@@ -17,20 +17,26 @@ onMounted(() => {
 
         <div class="col-start-2 col-span-2">
           <div class="about-grid">
-            <div class="md:order-last relative mb-8 md:mb-0 md:-ml-12 lg:-ml-16">
+            <div
+              class="md:order-last relative z-raised mb-8 md:mb-0 md:-ml-12 lg:-ml-16"
+            >
               <p class="max-w-[38ch] text-fg-secondary text-lg xl:text-xl">
                 {{ page.description }}
               </p>
             </div>
 
-            <nx-image
-              :src="page.meta.image"
-              :alt="page.title"
-              class="max-w-md md:max-w-[initial] overflow-hidden rounded-4xl aspect-square"
-              sizes="(min-width: 90rem) 32rem, (min-width: 61.25rem) 33vw, (min-width: 46.25rem) 40vw, 80vw"
-              :srcset="[320, 640, 1280]"
-              preload
-            ></nx-image>
+            <div class="perspective-[32vw]">
+              <div class="about-image">
+                <nx-image
+                  :src="page.meta.image"
+                  :alt="page.title"
+                  class="max-w-md md:max-w-[initial] overflow-hidden rounded-4xl aspect-square"
+                  sizes="(min-width: 90rem) 32rem, (min-width: 61.25rem) 33vw, (min-width: 46.25rem) 40vw, 80vw"
+                  :srcset="[320, 640, 1280]"
+                  preload
+                ></nx-image>
+              </div>
+            </div>
           </div>
 
           <div class="mt-12 mb-14 md:my-24 about-grid items-start">
@@ -93,3 +99,26 @@ onMounted(() => {
     </div>
   </div>
 </template>
+
+<style scoped lang="postcss">
+.about-image {
+  animation-duration: 1500ms;
+  animation-fill-mode: both;
+  animation-timing-function: var(--ease-out);
+  animation-name: about-image;
+  animation-delay: 100ms;
+}
+
+@keyframes about-image {
+  0% {
+    opacity: 0;
+    filter: blur(8px);
+    transform: rotate3d(1, 0, 0, 6deg);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+</style>
