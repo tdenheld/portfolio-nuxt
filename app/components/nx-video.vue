@@ -1,13 +1,14 @@
 <script setup lang="ts">
 const props = defineProps<{
   src: string;
+  preload?: boolean;
 }>();
 
 const video = ref<HTMLVideoElement | null>(null);
 const observer = ref<IntersectionObserver | null>(null);
 
 onMounted(() => {
-  if (!video.value) return;
+  if (!video.value || props.preload) return;
 
   observer.value = new IntersectionObserver(
     (entries) => {
