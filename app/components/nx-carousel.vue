@@ -6,7 +6,6 @@ const props = defineProps<{
 }>();
 
 const nuxtApp: any = useNuxtApp();
-const element = ref<HTMLElement | null>(null);
 
 const index = ref(0);
 watch(index, () => {
@@ -18,8 +17,8 @@ watch(index, () => {
 const carouselData = ref<Page[]>([...Array(2).fill(props.data).flat()]);
 
 // Calculate the actual height of one item in the carousel
-const getActualItemHeight = () => {
-  return element.value ? element.value.scrollHeight / carouselData.value.length : 0;
+const getActualItemHeight = (target: HTMLElement) => {
+  return target ? target.scrollHeight / carouselData.value.length : 0;
 };
 
 // Get the currently active entry based on the index
@@ -56,13 +55,14 @@ const getVideo = computed(() => {
 });
 
 // Handle scroll events to update index and colors
-const handleScroll = () => {
+const handleScroll = (event: Event) => {
   requestAnimationFrame(() => {
-    if (!element.value) return;
+    const target = event.target as HTMLElement;
+    if (!target) return;
 
     // Calculate current index based on scroll position
-    const scrollTop = element.value.scrollTop;
-    const itemHeight = getActualItemHeight();
+    const scrollTop = target.scrollTop;
+    const itemHeight = getActualItemHeight(target);
     const currentIndex = Math.round(scrollTop / itemHeight);
 
     //  Update index
@@ -80,17 +80,16 @@ const handleScroll = () => {
 
 onMounted(() => {
   setColor();
-  element.value?.addEventListener('scroll', handleScroll);
-});
-
-onBeforeUnmount(() => {
-  element.value?.removeEventListener('scroll', handleScroll);
 });
 </script>
 
 <template>
   <div>
-    <div ref="element" data-scroller-carousel class="s-carousel no-scrollbar">
+    <div
+      @scroll="handleScroll($event)"
+      data-scroller-carousel
+      class="s-carousel no-scrollbar"
+    >
       <div
         v-for="(entry, i) in carouselData"
         :key="i"
