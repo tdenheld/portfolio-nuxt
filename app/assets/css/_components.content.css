@@ -3,7 +3,8 @@
 //   ======================================================================== */
 
 .content {
-  @apply max-w-2xl;
+  @apply max-w-2xl
+  py-4;
 
   h1,
   h2,
@@ -11,10 +12,15 @@
   h4,
   h5,
   h6 {
-    @apply font-display font-semibold text-xl md:text-3xl;
+    @apply font-display
+    font-semibold
+    text-xl
+    md:text-3xl;
   }
 
   p {
-    @apply mt-[1.2em] text-sm md:text-base;
+    @apply text-sm
+    md:text-base
+    not-first:mt-[1.2em];
   }
 }
