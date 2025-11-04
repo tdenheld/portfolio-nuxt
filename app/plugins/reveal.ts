@@ -1,7 +1,8 @@
 export default defineNuxtPlugin((nuxtApp) => {
-  nuxtApp.provide('reveal', (root: HTMLElement) => {
+  nuxtApp.provide('reveal', () => {
+    const root = document.querySelector('[data-scroll-container]') as HTMLElement;
     const obj = '[data-reveal-trigger]';
-    if (!document.body.contains(document.querySelector(obj))) return;
+    if (!root || !document.querySelector(obj)) return;
 
     // Add .reveal class on page load
     document.querySelectorAll('[data-reveal]').forEach((el) => {
@@ -24,8 +25,15 @@ export default defineNuxtPlugin((nuxtApp) => {
                   el.classList.add('is-active');
                 });
               }
-
-              self.unobserve(target);
+            // self.unobserve(target);
+            } else {
+              if (target.hasAttribute('data-reveal')) {
+                target.classList.remove('is-active');
+              } else {
+                target.querySelectorAll('[data-reveal]').forEach((el) => {
+                  el.classList.remove('is-active');
+                });
+              }
             }
           });
         },

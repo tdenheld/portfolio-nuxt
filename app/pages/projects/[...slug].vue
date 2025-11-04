@@ -5,7 +5,6 @@ const route = useRoute();
 const nuxtApp: any = useNuxtApp();
 const page: Page | null = await queryCollection('content').path(route.path).first();
 const projects = await queryCollection('projects').all();
-const scrollContainer = ref<HTMLElement | null>(null);
 
 const getCurrentIndex = () => {
   return projects.findIndex((p) => p.path === page?.path) + 1;
@@ -18,7 +17,6 @@ const getLength = () => {
 // Set colors on document element when component mounts
 onMounted(() => {
   nuxtApp.$setColor(page?.meta?.color);
-  nuxtApp.$reveal(scrollContainer.value);
 });
 </script>
 
@@ -32,7 +30,7 @@ onMounted(() => {
       ></nx-meta-tags>
 
       <div
-        ref="scrollContainer"
+        data-scroll-container
         class="fixed inset-0 lg:main-grid px-contain overflow-y-auto no-scrollbar"
       >
         <div class="col-start-2">
@@ -73,7 +71,13 @@ onMounted(() => {
                     data-reveal
                   ></nx-video>
 
-                  <nx-content v-if="entry.copy" :content="entry.copy"></nx-content>
+                  <nx-content
+                    v-if="entry.copy"
+                    :content="entry.copy"
+                    class="blur-sm [transform:rotate3d(1,0,0,9deg)]"
+                    data-reveal-trigger
+                    data-reveal
+                  ></nx-content>
                 </div>
               </div>
 
