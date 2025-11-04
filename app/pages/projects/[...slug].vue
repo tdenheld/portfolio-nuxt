@@ -3,7 +3,7 @@ import type { Page } from '~/interfaces';
 
 const route = useRoute();
 const nuxtApp: any = useNuxtApp();
-const page: Page | null = await queryCollection('projects').path(route.path).first();
+const page: Page | null = await queryCollection('content').path(route.path).first();
 const projects = await queryCollection('projects').all();
 const scrollContainer = ref<HTMLElement | null>(null);
 
