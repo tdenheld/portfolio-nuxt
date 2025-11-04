@@ -28,6 +28,11 @@ export interface Page {
     visit?: string;
     color?: Color;
     name?: string;
-    items?: { src: string; alt: string; rounded: boolean }[];
+    items?: {
+      src?: string;
+      alt?: string;
+      rounded?: boolean;
+      copy?: string;
+    }[];
   };
 }

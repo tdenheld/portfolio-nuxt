@@ -15,4 +15,5 @@
 @import '~/assets/css/_base.transition.css' layer(base);
 
 @import '~/assets/css/_components.button.css' layer(components);
+@import '~/assets/css/_components.content.css' layer(components);
 @import '~/assets/css/_components.blob.css' layer(components);

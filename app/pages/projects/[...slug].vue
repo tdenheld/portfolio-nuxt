@@ -44,15 +44,16 @@ onMounted(() => {
             <div class="pdp-img-fade-up pb-16">
               <div class="space-y-contain">
                 <div
-                  v-for="entry in page.meta.items"
-                  :key="entry.src"
+                  v-for="(entry, index) in page.meta.items"
+                  :key="index"
                   class="perspective-[32vw]"
                 >
                   <nx-image
                     v-if="
-                      entry.src.includes('.png') ||
-                      entry.src.includes('.jpg') ||
-                      entry.src.includes('.webp')
+                      entry.src?.includes('.png') ||
+                      entry.src?.includes('.jpg') ||
+                      entry.src?.includes('.webp') ||
+                      entry.src?.includes('.svg')
                     "
                     :src="entry.src"
                     :alt="entry.alt"
@@ -65,12 +66,14 @@ onMounted(() => {
                   ></nx-image>
 
                   <nx-video
-                    v-if="entry.src.includes('.mp4')"
-                    :src="entry.src.replace(/\.(mp4)$/, '')"
+                    v-if="entry.src?.includes('.mp4')"
+                    :src="entry.src?.replace(/\.(mp4)$/, '')"
                     class="blur-sm [transform:rotate3d(1,0,0,6deg)]"
                     data-reveal-trigger
                     data-reveal
                   ></nx-video>
+
+                  <nx-content v-if="entry.copy" :content="entry.copy"></nx-content>
                 </div>
               </div>
 
