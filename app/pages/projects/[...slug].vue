@@ -17,6 +17,7 @@ const getLength = () => {
 // Set colors on document element when component mounts
 onMounted(() => {
   nuxtApp.$setColor(page?.meta?.color);
+  nuxtApp.$reveal();
 });
 </script>
 
