@@ -62,6 +62,7 @@ onMounted(() => {
                     class="blur-sm [transform:rotate3d(1,0,0,6deg)]"
                     data-reveal-trigger
                     data-reveal
+                    :preload="index === 0"
                   ></nx-image>
 
                   <nx-video
