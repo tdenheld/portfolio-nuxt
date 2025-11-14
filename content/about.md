@@ -44,6 +44,21 @@ brands:
   - Tivoli Utrecht
   - Doornroosje
 
+links:
+  - label: LinkedIn
+    url: https://linkedin.com/in/tibor-den-held
+  - label: GitHub
+    url: https://github.com/tdenheld
+  - label: Dribbble
+    url: https://dribbble.com/tdenheld
+  - label: Soundcloud
+    url: https://soundcloud.com/tiborkocsis
+  - label: Google me
+    url: https://www.google.com/search?q=Tibor+den+Held
+  - label: E-mail
+    url: mailto:contact@tibor.work
+  
+
 color:
   fg:
     primary: "#3D8145"

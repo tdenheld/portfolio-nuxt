@@ -22,7 +22,9 @@ onMounted(() => {
             <div
               class="md:order-last relative z-raised mb-8 md:mb-0 md:-ml-12 lg:-ml-16 a-fi blur-lg md:[animation-delay:200ms]"
             >
-              <p class="max-w-[38ch] text-fg-secondary text-lg xl:text-[calc(16px+0.3vw)]">
+              <p
+                class="max-w-[38ch] text-fg-secondary text-lg xl:text-[calc(16px+0.3vw)]"
+              >
                 {{ page.description }}
               </p>
             </div>
@@ -74,29 +76,48 @@ onMounted(() => {
               </div>
             </div>
 
-            <div
-              class="relative mt-12 md:mt-0 md:-ml-12 lg:-ml-16 blur-sm"
-              data-reveal
-              data-reveal-trigger
-            >
-              <h2 class="font-mono text-xs uppercase tracking-[0.16em]">
-                Experience
-              </h2>
+            <div class="relative mt-12 md:mt-0 md:-ml-12 lg:-ml-16">
+              <div class="blur-sm" data-reveal data-reveal-trigger>
+                <h2 class="font-mono text-xs uppercase tracking-[0.16em]">
+                  Experience
+                </h2>
+                <div class="mt-4 space-y-5">
+                  <div v-for="entry in page.meta.experience" :key="entry.title">
+                    <h3 class="text-fg-secondary text-sm">
+                      {{ entry.title }}
+                      <span class="whitespace-nowrap">({{ entry.period }})</span>
+                    </h3>
 
-              <div class="mt-4 space-y-5">
-                <div v-for="entry in page.meta.experience" :key="entry.title">
-                  <h3 class="text-fg-secondary text-sm">
-                    {{ entry.title }}
-                    <span class="whitespace-nowrap">({{ entry.period }})</span>
-                  </h3>
+                    <ul>
+                      <li
+                        class="text-xs font-mono italic mt-0.5"
+                        v-for="role in entry.roles"
+                        :key="role"
+                      >
+                        {{ role }}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
 
+              <div class="mt-12 blur-sm" data-reveal data-reveal-trigger>
+                <h2 class="font-mono text-xs uppercase tracking-[0.16em]">Links</h2>
+
+                <div class="mt-4 space-y-5">
                   <ul>
                     <li
-                      class="text-xs font-mono italic mt-0.5"
-                      v-for="role in entry.roles"
-                      :key="role"
+                      class="text-fg-secondary text-sm"
+                      v-for="entry in page.meta.links"
+                      :key="entry.label"
                     >
-                      {{ role }}
+                      <a
+                        :href="entry.url"
+                        target="_blank"
+                        rel="noreferrer"
+                        class="inline-block py-0.5 hover:underline underline-offset-2"
+                        >{{ entry.label }}</a
+                      >
                     </li>
                   </ul>
                 </div>
