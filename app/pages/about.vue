@@ -22,7 +22,7 @@ onMounted(() => {
             <div
               class="md:order-last relative z-raised mb-8 md:mb-0 md:-ml-12 lg:-ml-16 a-fi blur-lg md:[animation-delay:200ms]"
             >
-              <p class="max-w-[38ch] text-fg-secondary text-lg xl:text-xl">
+              <p class="max-w-[38ch] text-fg-secondary text-lg xl:text-[calc(16px+0.3vw)]">
                 {{ page.description }}
               </p>
             </div>
@@ -45,78 +45,60 @@ onMounted(() => {
             class="mt-12 mb-14 md:my-24 about-grid items-start a-fi [animation-delay:250ms]"
           >
             <div class="relative mt-8 md:mt-0">
-              <div class="perspective-[32vw]">
-                <div
-                  class="blur-sm [transform:rotate3d(1,0,0,9deg)]"
-                  data-reveal
-                  data-reveal-trigger
-                >
-                  <h2 class="font-mono text-xs uppercase tracking-[0.16em]">
-                    Brands
-                  </h2>
+              <div class="blur-sm" data-reveal data-reveal-trigger>
+                <h2 class="font-mono text-xs uppercase tracking-[0.16em]">Brands</h2>
 
-                  <p class="mt-4 pr-32 max-w-[48ch] text-fg-secondary text-sm">
-                    <template v-for="(item, index) in page.meta.brands" :key="item">
-                      {{ item
-                      }}<template v-if="index < page.meta.brands.length - 1"
-                        >,
-                      </template>
+                <p class="mt-4 pr-32 max-w-[48ch] text-fg-secondary text-sm">
+                  <template v-for="(item, index) in page.meta.brands" :key="item">
+                    {{ item
+                    }}<template v-if="index < page.meta.brands.length - 1"
+                      >,
                     </template>
-                  </p>
-                </div>
+                  </template>
+                </p>
               </div>
 
-              <div class="perspective-[32vw] mt-12">
-                <div
-                  class="blur-sm [transform:rotate3d(1,0,0,9deg)]"
-                  data-reveal
-                  data-reveal-trigger
-                >
-                  <h2 class="font-mono text-xs uppercase tracking-[0.16em]">
-                    Coverage
-                  </h2>
+              <div class="mt-12 blur-sm" data-reveal data-reveal-trigger>
+                <h2 class="font-mono text-xs uppercase tracking-[0.16em]">
+                  Coverage
+                </h2>
 
-                  <p class="mt-4 pr-32 max-w-[48ch] text-fg-secondary text-sm">
-                    <template v-for="(item, index) in page.meta.coverage" :key="item">
-                      {{ item
-                      }}<template v-if="index < page.meta.coverage.length - 1"
-                        >,
-                      </template>
+                <p class="mt-4 pr-32 max-w-[48ch] text-fg-secondary text-sm">
+                  <template v-for="(item, index) in page.meta.coverage" :key="item">
+                    {{ item
+                    }}<template v-if="index < page.meta.coverage.length - 1"
+                      >,
                     </template>
-                  </p>
-                </div>
+                  </template>
+                </p>
               </div>
             </div>
 
             <div
-              class="perspective-[32vw] relative mt-12 md:mt-0 md:-ml-12 lg:-ml-16"
+              class="relative mt-12 md:mt-0 md:-ml-12 lg:-ml-16 blur-sm"
+              data-reveal
+              data-reveal-trigger
             >
-              <div
-                class="blur-sm [transform:rotate3d(1,0,0,6deg)]"
-                data-reveal
-                data-reveal-trigger
-              >
-                <h2 class="font-mono text-xs uppercase tracking-[0.16em]">
-                  Experience
-                </h2>
+              <h2 class="font-mono text-xs uppercase tracking-[0.16em]">
+                Experience
+              </h2>
 
-                <div class="mt-4 space-y-5">
-                  <div v-for="entry in page.meta.experience" :key="entry.title">
-                    <h3 class="text-fg-secondary text-sm">
-                      {{ entry.title }}
-                      <span class="whitespace-nowrap">({{ entry.period }})</span>
-                    </h3>
+              <div class="mt-4 space-y-5">
+                <div v-for="entry in page.meta.experience" :key="entry.title">
+                  <h3 class="text-fg-secondary text-sm">
+                    {{ entry.title }}
+                    <span class="whitespace-nowrap">({{ entry.period }})</span>
+                  </h3>
 
-                    <ul>
-                      <li
-                        class="text-xs font-mono italic mt-0.5"
-                        v-for="role in entry.roles"
-                        :key="role"
-                      >
-                        {{ role }}
-                      </li>
-                    </ul>
-                  </div>
+                  <ul>
+                    <li
+                      class="text-xs font-mono italic mt-0.5"
+                      v-for="role in entry.roles"
+                      :key="role"
+                    >
+                      {{ role }}
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
