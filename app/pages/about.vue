@@ -1,10 +1,11 @@
 <script setup>
 const page = await queryCollection('content').path('/about').first();
 const nuxtApp = useNuxtApp();
+const scrollContainer = ref(null);
 
 onMounted(() => {
   nuxtApp.$setColor(page?.meta?.color);
-  nuxtApp.$reveal();
+  nuxtApp.$reveal(scrollContainer.value);
 });
 </script>
 
@@ -12,7 +13,7 @@ onMounted(() => {
   <div>
     <nx-meta-tags :title="page.title" :description="page.description"></nx-meta-tags>
 
-    <div class="fixed inset-0 overflow-y-auto no-scrollbar" data-scroll-container>
+    <div ref="scrollContainer" class="fixed inset-0 overflow-y-auto no-scrollbar">
       <div class="pt-32 lg:pt-64 px-contain lg:main-grid">
         <h1 class="sr-only">{{ page.title }}</h1>
 
@@ -40,7 +41,9 @@ onMounted(() => {
             </div>
           </div>
 
-          <div class="mt-12 mb-14 md:my-24 about-grid items-start a-fi [animation-delay:250ms]">
+          <div
+            class="mt-12 mb-14 md:my-24 about-grid items-start a-fi [animation-delay:250ms]"
+          >
             <div class="relative mt-8 md:mt-0">
               <div class="perspective-[32vw]">
                 <div
@@ -88,7 +91,11 @@ onMounted(() => {
             <div
               class="perspective-[32vw] relative mt-12 md:mt-0 md:-ml-12 lg:-ml-16"
             >
-              <div class="blur-sm [transform:rotate3d(1,0,0,6deg)]" data-reveal data-reveal-trigger>
+              <div
+                class="blur-sm [transform:rotate3d(1,0,0,6deg)]"
+                data-reveal
+                data-reveal-trigger
+              >
                 <h2 class="font-mono text-xs uppercase tracking-[0.16em]">
                   Experience
                 </h2>
