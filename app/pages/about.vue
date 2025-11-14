@@ -1,4 +1,9 @@
 <script setup>
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollSmoother } from 'gsap/ScrollSmoother';
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
 const page = await queryCollection('content').path('/about').first();
 const nuxtApp = useNuxtApp();
 const scrollContainer = ref(null);
@@ -6,6 +11,11 @@ const scrollContainer = ref(null);
 onMounted(() => {
   nuxtApp.$setColor(page?.meta?.color);
   nuxtApp.$reveal(scrollContainer.value);
+
+  ScrollSmoother.create({
+    smooth: 1, // how long (in seconds) it takes to "catch up" to the native scroll position
+    effects: true, // looks for data-speed and data-lag attributes on elements
+  });
 });
 </script>
 
@@ -13,8 +23,12 @@ onMounted(() => {
   <div>
     <nx-meta-tags :title="page.title" :description="page.description"></nx-meta-tags>
 
-    <div ref="scrollContainer" class="fixed inset-0 overflow-y-auto no-scrollbar">
-      <div class="pt-32 lg:pt-64 px-contain lg:main-grid">
+    <div
+      ref="scrollContainer"
+      class="fixed inset-0 overflow-y-auto no-scrollbar"
+      id="smooth-wrapper"
+    >
+      <div class="pt-32 lg:pt-64 px-contain lg:main-grid" id="smooth-content">
         <h1 class="sr-only">{{ page.title }}</h1>
 
         <div class="col-start-2 col-span-2">
@@ -44,9 +58,9 @@ onMounted(() => {
           </div>
 
           <div
-            class="mt-12 mb-14 md:my-24 about-grid items-start a-fi [animation-delay:250ms]"
+            class="pt-12 pb-14 md:py-24 about-grid items-start a-fi [animation-delay:250ms]"
           >
-            <div class="relative mt-8 md:mt-0">
+            <div class="relative">
               <div class="blur-sm" data-reveal data-reveal-trigger>
                 <h2 class="font-mono text-xs uppercase tracking-[0.16em]">Brands</h2>
 
