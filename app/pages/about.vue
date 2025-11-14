@@ -104,7 +104,7 @@ onMounted(() => {
               <div class="mt-12 blur-sm" data-reveal data-reveal-trigger>
                 <h2 class="font-mono text-xs uppercase tracking-[0.16em]">Links</h2>
 
-                <div class="mt-4 space-y-5">
+                <div class="mt-3.5">
                   <ul>
                     <li
                       class="text-fg-secondary text-sm"
