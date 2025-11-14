@@ -13,8 +13,23 @@ onMounted(() => {
   nuxtApp.$reveal(scrollContainer.value);
 
   ScrollSmoother.create({
-    smooth: 1, // how long (in seconds) it takes to "catch up" to the native scroll position
+    smooth: 0.8, // how long (in seconds) it takes to "catch up" to the native scroll position
     effects: true, // looks for data-speed and data-lag attributes on elements
+  });
+
+  document.querySelectorAll('[data-parallax]').forEach((el) => {
+    // Disable on small devices
+    if (innerWidth < 740) return;
+
+    gsap.to(el, {
+      scrollTrigger: {
+        scrub: 1,
+        scroller: scrollContainer.value,
+      },
+      y: (index, target) =>
+        -ScrollTrigger.maxScroll(scrollContainer.value) * target.dataset.parallax,
+      ease: 'none',
+    });
   });
 });
 </script>
@@ -38,12 +53,13 @@ onMounted(() => {
             >
               <p
                 class="max-w-[38ch] text-fg-secondary text-lg xl:text-[calc(16px+0.3vw)]"
+                data-parallax="0.1"
               >
                 {{ page.description }}
               </p>
             </div>
 
-            <div class="perspective-[32vw]">
+            <div class="perspective-[32vw]" data-parallax="0.3">
               <div class="about-image">
                 <nx-image
                   :src="page.meta.image"
@@ -90,7 +106,7 @@ onMounted(() => {
               </div>
             </div>
 
-            <div class="relative mt-12 md:mt-0 md:-ml-12 lg:-ml-16">
+            <div class="relative mt-12 md:mt-0 md:-ml-12 lg:-ml-16" data-parallax="0.15">
               <div class="blur-sm" data-reveal data-reveal-trigger>
                 <h2 class="font-mono text-xs uppercase tracking-[0.16em]">
                   Experience
