@@ -1,5 +1,5 @@
 export default defineNuxtPlugin((nuxtApp) => {
-  nuxtApp.provide('reveal', () => {
+  nuxtApp.provide('reveal', (observer: IntersectionObserver) => {
     const root = document.querySelector('[data-scroll-container]') as HTMLElement;
     const obj = '[data-reveal-trigger]';
     if (!root || !document.querySelector(obj)) return;
@@ -12,7 +12,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     const init = (obj: HTMLElement) => {
       const rootMargin = obj.dataset.revealTrigger || '0px 0px -2%';
 
-      const observer = new IntersectionObserver(
+      observer = new IntersectionObserver(
         (entries, self) => {
           entries.map((entry) => {
             const target = entry.target as HTMLElement;
