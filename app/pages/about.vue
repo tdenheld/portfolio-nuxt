@@ -12,10 +12,11 @@ onMounted(() => {
   nuxtApp.$setColor(page?.meta?.color);
   nuxtApp.$reveal(scrollContainer.value);
 
-  ScrollSmoother.create({
-    smooth: 0.8, // how long (in seconds) it takes to "catch up" to the native scroll position
-    effects: true, // looks for data-speed and data-lag attributes on elements
-  });
+  if (!nuxtApp.$isTouchDevice()) {
+    ScrollSmoother.create({
+      smooth: 0.8,
+    });
+  }
 
   document.querySelectorAll('[data-parallax]').forEach((el) => {
     // Disable on small devices
@@ -106,7 +107,10 @@ onMounted(() => {
               </div>
             </div>
 
-            <div class="relative mt-12 md:mt-0 md:-ml-12 lg:-ml-16" data-parallax="0.15">
+            <div
+              class="relative mt-12 md:mt-0 md:-ml-12 lg:-ml-16"
+              data-parallax="0.15"
+            >
               <div class="blur-sm" data-reveal data-reveal-trigger>
                 <h2 class="font-mono text-xs uppercase tracking-[0.16em]">
                   Experience
@@ -131,7 +135,7 @@ onMounted(() => {
                 </div>
               </div>
 
-              <div class="mt-12 blur-sm" data-reveal data-reveal-trigger>
+              <div class="mt-12 md:mt-16 blur-sm" data-reveal data-reveal-trigger>
                 <h2 class="font-mono text-xs uppercase tracking-[0.16em]">Links</h2>
 
                 <div class="mt-3.5">
