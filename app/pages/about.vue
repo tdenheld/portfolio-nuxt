@@ -41,7 +41,7 @@ onMounted(() => {
 
     <div
       ref="scrollContainer"
-      class="fixed inset-0 overflow-y-auto no-scrollbar"
+      class="fixed inset-0 overflow-y-auto overflow-x-hidden no-scrollbar"
       id="smooth-wrapper"
     >
       <div class="pt-32 lg:pt-64 px-contain lg:main-grid" id="smooth-content">
