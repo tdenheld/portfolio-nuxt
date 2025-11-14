@@ -9,6 +9,10 @@ const mergedData = [...(newPage ? [newPage] : []), ...(projects || [])];
 <template>
   <div>
     <nx-meta-tags></nx-meta-tags>
-    <nx-carousel :data="mergedData"></nx-carousel>
+    
+    <nx-carousel
+      class="a-fi [animation-delay:100ms]"
+      :data="mergedData"
+    ></nx-carousel>
   </div>
 </template>
