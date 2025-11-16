@@ -1,6 +1,6 @@
 ---
 title: About Tibor den Held
-description: At the intersection of design and web development, I'm bridging design and tech collaborating with major platforms and creating immersive experiences via campaign and micro sites.
+description: At the intersection of design and technology, I specialize in design systems, product design and creative development. I help teams ship consistent products faster while maintaining brand integrity.
 image: https://res.cloudinary.com/tibor/image/upload/v1760352927/Screenshot_2025-10-13_at_12.54.28_vjkuyy.png
 experience:
   - title: Dutch Railways

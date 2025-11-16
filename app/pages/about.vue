@@ -53,7 +53,7 @@ onMounted(() => {
               class="md:order-last relative z-raised mb-8 md:mb-0 md:-ml-12 lg:-ml-16 a-fi blur-lg md:[animation-delay:200ms]"
             >
               <p
-                class="max-w-[38ch] text-fg-secondary text-lg xl:text-[calc(16px+0.3vw)]"
+                class="max-w-[42ch] text-fg-secondary text-lg xl:text-[calc(16px+0.3vw)]"
                 data-parallax="0.1"
               >
                 {{ page.description }}
@@ -158,6 +158,10 @@ onMounted(() => {
               </div>
             </div>
           </div>
+
+          <footer class="pb-contain font-mono text-[10px] text-fg-secondary tracking-wider">
+            © {{ new Date().getFullYear() }} — Tibor den Held
+          </footer>
         </div>
       </div>
     </div>
