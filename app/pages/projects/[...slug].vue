@@ -33,7 +33,7 @@ onMounted(() => {
 
       <div
         ref="scrollContainer"
-        class="fixed inset-0 lg:main-grid px-contain overflow-y-auto no-scrollbar"
+        class="fixed inset-0 lg:main-grid px-contain overflow-y-auto overflow-x-hidden no-scrollbar"
       >
         <div class="col-start-2">
           <div class="pdp-fade-up">
@@ -41,7 +41,7 @@ onMounted(() => {
               <nx-hero :data="page" heading-level="h1" pdp></nx-hero>
             </div>
 
-            <div class="pdp-img-fade-up pb-16">
+            <div class="pdp-img-fade-up lg:pb-contain">
               <div class="space-y-contain">
                 <div
                   v-for="(entry, index) in page.meta.items"
