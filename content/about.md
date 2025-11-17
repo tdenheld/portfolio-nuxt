@@ -1,6 +1,6 @@
 ---
 title: About Tibor den Held
-description: At the intersection of design and technology, I specialize in design systems, product design and creative development. I help teams ship consistent products faster while maintaining brand integrity.
+description: At the intersection of design and technology, I specialize in design systems, product design and creative development. Helping teams and organizations ship consistent products faster while maintaining brand integrity.
 image: https://res.cloudinary.com/tibor/image/upload/v1760352927/Screenshot_2025-10-13_at_12.54.28_vjkuyy.png
 experience:
   - title: Dutch Railways
@@ -43,6 +43,16 @@ brands:
   - Endemol
   - Tivoli Utrecht
   - Doornroosje
+
+expertise:
+  - Design Systems
+  - Front-end Development
+  - Product Design  
+  - Creative Coding
+  - UX/UI
+  - Branding
+  - Motion Design
+  - Prototyping
 
 links:
   - label: LinkedIn

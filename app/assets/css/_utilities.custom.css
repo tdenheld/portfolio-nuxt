@@ -83,3 +83,10 @@
   uppercase
   tracking-[0.16em];
 }
+
+@utility eyebrow {
+  @apply font-mono
+  text-xs
+  uppercase
+  tracking-[0.16em];
+}

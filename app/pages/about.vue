@@ -53,8 +53,8 @@ onMounted(() => {
               class="md:order-last relative z-raised mb-8 md:mb-0 md:-ml-12 lg:-ml-16 a-fi blur-lg md:[animation-delay:200ms]"
             >
               <p
-                class="max-w-[42ch] text-fg-secondary text-lg xl:text-[calc(16px+0.3vw)]"
                 data-parallax="0.1"
+                class="max-w-[44ch] text-fg-secondary text-lg xl:text-[calc(16px+0.3vw)]"
               >
                 {{ page.description }}
               </p>
@@ -79,9 +79,9 @@ onMounted(() => {
           >
             <div class="relative">
               <div class="blur-sm" data-reveal data-reveal-trigger>
-                <h2 class="font-mono text-xs uppercase tracking-[0.16em]">Brands</h2>
+                <h2 class="eyebrow">Brands</h2>
 
-                <p class="mt-4 pr-32 max-w-[48ch] text-fg-secondary text-sm">
+                <p class="mt-4 pr-16 md:pr-32 max-w-[48ch] text-fg-secondary text-sm">
                   <template v-for="(item, index) in page.meta.brands" :key="item">
                     {{ item
                     }}<template v-if="index < page.meta.brands.length - 1"
@@ -92,11 +92,9 @@ onMounted(() => {
               </div>
 
               <div class="mt-12 blur-sm" data-reveal data-reveal-trigger>
-                <h2 class="font-mono text-xs uppercase tracking-[0.16em]">
-                  Coverage
-                </h2>
+                <h2 class="eyebrow">Coverage</h2>
 
-                <p class="mt-4 pr-32 max-w-[48ch] text-fg-secondary text-sm">
+                <p class="mt-4 pr-16 md:pr-32 max-w-[48ch] text-fg-secondary text-sm">
                   <template v-for="(item, index) in page.meta.coverage" :key="item">
                     {{ item
                     }}<template v-if="index < page.meta.coverage.length - 1"
@@ -105,16 +103,28 @@ onMounted(() => {
                   </template>
                 </p>
               </div>
+
+              <div class="mt-12 blur-sm" data-reveal data-reveal-trigger>
+                <h2 class="eyebrow">Expertise</h2>
+
+                <p class="mt-4 pr-16 md:pr-32 max-w-[48ch] text-fg-secondary text-sm">
+                  <template v-for="(item, index) in page.meta.expertise" :key="item">
+                    {{ item
+                    }}<template v-if="index < page.meta.expertise.length - 1"
+                      >,
+                    </template>
+                  </template>
+                </p>
+              </div>
             </div>
 
             <div
-              class="relative mt-12 md:mt-0 md:-ml-12 lg:-ml-16"
+              class="relative max-md:mt-12 md:-ml-12 lg:-ml-16"
               data-parallax="0.15"
             >
               <div class="blur-sm" data-reveal data-reveal-trigger>
-                <h2 class="font-mono text-xs uppercase tracking-[0.16em]">
-                  Experience
-                </h2>
+                <h2 class="eyebrow">Experience</h2>
+
                 <div class="mt-4 space-y-5">
                   <div v-for="entry in page.meta.experience" :key="entry.title">
                     <h3 class="text-fg-secondary text-sm">
@@ -124,7 +134,7 @@ onMounted(() => {
 
                     <ul>
                       <li
-                        class="text-xs font-mono italic mt-0.5"
+                        class="text-xs font-mono italic tracking-tight mt-0.5"
                         v-for="role in entry.roles"
                         :key="role"
                       >
@@ -135,8 +145,8 @@ onMounted(() => {
                 </div>
               </div>
 
-              <div class="mt-12 md:mt-16 blur-sm" data-reveal data-reveal-trigger>
-                <h2 class="font-mono text-xs uppercase tracking-[0.16em]">Links</h2>
+              <div class="mt-12 md:mt-14 blur-sm" data-reveal data-reveal-trigger>
+                <h2 class="eyebrow">Links</h2>
 
                 <div class="mt-3.5">
                   <ul>
@@ -159,8 +169,10 @@ onMounted(() => {
             </div>
           </div>
 
-          <footer class="pb-contain font-mono text-[10px] text-fg-secondary tracking-wider">
-            © {{ new Date().getFullYear() }} — Tibor den Held
+          <footer
+            class="pb-contain font-mono text-[10px] text-fg-secondary tracking-wider"
+          >
+            © {{ new Date().getFullYear() }} — {{ page.title.replace('About ', '') }}
           </footer>
         </div>
       </div>
