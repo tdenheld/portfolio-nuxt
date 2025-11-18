@@ -54,7 +54,7 @@ onMounted(() => {
             >
               <p
                 data-parallax="0.1"
-                class="max-w-[44ch] text-fg-secondary text-lg xl:text-[calc(16px+0.3vw)]"
+                class="max-w-[45ch] text-fg-secondary text-lg xl:text-[calc(16px+0.3vw)]"
               >
                 {{ page.description }}
               </p>
