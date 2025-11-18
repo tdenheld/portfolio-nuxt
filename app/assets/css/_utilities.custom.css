@@ -26,20 +26,26 @@
 /* ----------------------------------------------- */
 
 @utility link {
-  @apply underline
-  underline-offset-2
-  touch-manipulation;
-}
+  @apply relative
+  touch-manipulation
+  before:absolute
+  before:top-[-3px]
+  before:bottom-[-5px]
+  before:inset-x-[-7px]
+  before:transition
+  before:bg-fg-primary
+  before:rounded-sm
+  before:opacity-0
+  before:blur-xs
+  before:scale-115
+  hover:text-bg-secondary
+  hover:before:opacity-100
+  hover:before:blur-none
+  hover:before:scale-100;
 
-@utility link-hover {
-  @apply hover:underline
-  underline-offset-2
-  touch-manipulation;
-}
-
-@utility link-group-hover {
-  @apply group-hover:underline
-  underline-offset-2;
+  span {
+    @apply relative;
+  }
 }
 
 /* ----------------------------------------------- */
