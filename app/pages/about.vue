@@ -77,40 +77,14 @@ onMounted(() => {
           <div
             class="pt-12 pb-14 md:py-24 about-grid items-start a-fi [animation-delay:250ms]"
           >
-            <div class="relative">
-              <div class="blur-sm" data-reveal data-reveal-trigger>
-                <h2 class="eyebrow">Brands</h2>
+            <div class="relative space-y-12">
+              <div v-for="entry in page.meta.data" class="blur-sm" data-reveal data-reveal-trigger>
+                <h2 class="eyebrow">{{ entry.title }}</h2>
 
-                <p class="mt-4 pr-16 md:pr-32 max-w-[48ch] text-fg-secondary text-sm">
-                  <template v-for="(item, index) in page.meta.brands" :key="item">
+                <p class="mt-3 pr-16 md:pr-32 max-w-[48ch] text-fg-secondary text-sm">
+                  <template v-for="(item, index) in entry.items" :key="item">
                     {{ item
-                    }}<template v-if="index < page.meta.brands.length - 1"
-                      >,
-                    </template>
-                  </template>
-                </p>
-              </div>
-
-              <div class="mt-12 blur-sm" data-reveal data-reveal-trigger>
-                <h2 class="eyebrow">Coverage</h2>
-
-                <p class="mt-4 pr-16 md:pr-32 max-w-[48ch] text-fg-secondary text-sm">
-                  <template v-for="(item, index) in page.meta.coverage" :key="item">
-                    {{ item
-                    }}<template v-if="index < page.meta.coverage.length - 1"
-                      >,
-                    </template>
-                  </template>
-                </p>
-              </div>
-
-              <div class="mt-12 blur-sm" data-reveal data-reveal-trigger>
-                <h2 class="eyebrow">Expertise</h2>
-
-                <p class="mt-4 pr-16 md:pr-32 max-w-[48ch] text-fg-secondary text-sm">
-                  <template v-for="(item, index) in page.meta.expertise" :key="item">
-                    {{ item
-                    }}<template v-if="index < page.meta.expertise.length - 1"
+                    }}<template v-if="index < entry.items.length - 1"
                       >,
                     </template>
                   </template>
@@ -125,7 +99,7 @@ onMounted(() => {
               <div class="blur-sm" data-reveal data-reveal-trigger>
                 <h2 class="eyebrow">Experience</h2>
 
-                <div class="mt-4 space-y-5">
+                <div class="mt-3 space-y-4">
                   <div v-for="entry in page.meta.experience" :key="entry.title">
                     <h3 class="text-fg-secondary text-sm">
                       {{ entry.title }}
@@ -134,7 +108,7 @@ onMounted(() => {
 
                     <ul>
                       <li
-                        class="text-xs font-mono italic tracking-tight mt-0.5"
+                        class="text-[11px] font-mono italic tracking-tight mt-0.5"
                         v-for="role in entry.roles"
                         :key="role"
                       >
@@ -148,7 +122,7 @@ onMounted(() => {
               <div class="mt-12 md:mt-14 blur-sm" data-reveal data-reveal-trigger>
                 <h2 class="eyebrow">Links</h2>
 
-                <div class="mt-3.5">
+                <div class="mt-3">
                   <ul>
                     <li
                       class="text-fg-secondary text-sm"
