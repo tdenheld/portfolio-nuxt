@@ -29,8 +29,8 @@
   @apply relative
   touch-manipulation
   before:absolute
-  before:top-[-3px]
-  before:bottom-[-5px]
+  before:-top-0.5
+  before:-bottom-1
   before:inset-x-[-7px]
   before:transition
   before:bg-fg-primary
