@@ -6,6 +6,7 @@ const nuxtApp: any = useNuxtApp();
 const page: Page | null = await queryCollection('content').path(route.path).first();
 const projects = await queryCollection('projects').all();
 const scrollContainer = ref<HTMLElement | null>(null);
+const otherProjects = computed(() => projects.filter((p) => p.path !== page?.path));
 
 const getCurrentIndex = () => {
   return projects.findIndex((p) => p.path === page?.path) + 1;
@@ -90,6 +91,23 @@ onMounted(() => {
                   :visit="page.meta.visit"
                 ></nx-highlights>
               </div>
+            </div>
+
+            <div class="lg:py-contain">
+              <h2 class="font-display font-semibold text-xl md:text-3xl">
+                More work
+              </h2>
+              <ul class="mt-8 space-y-2">
+                <li v-for="entry in otherProjects" :key="entry.path">
+                  <nuxt-link
+                    class="text-fg-secondary link"
+                    :key="entry.path"
+                    :to="entry.path"
+                  >
+                    <span>{{ entry.title }}</span>
+                  </nuxt-link>
+                </li>
+              </ul>
             </div>
           </div>
         </div>

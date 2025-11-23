@@ -27,6 +27,7 @@
 
 @utility link {
   @apply relative
+  inline-block
   touch-manipulation
   before:absolute
   before:-top-0.5
@@ -38,6 +39,8 @@
   before:opacity-0
   before:blur-xs
   before:scale-115
+  after:absolute
+  after:-inset-3
   hover:text-bg-secondary
   hover:before:opacity-100
   hover:before:blur-none
