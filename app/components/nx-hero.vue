@@ -10,6 +10,7 @@ const props = defineProps<{
   pdp?: boolean;
 }>();
 
+const fromHome = useState('fromHome');
 const route = useRoute();
 const router = useRouter();
 const nuxtApp = useNuxtApp();
@@ -127,7 +128,7 @@ onBeforeUnmount(() => {
     </div>
 
     <div class="mt-8 relative h-7" v-if="data.path" data-hero-scroll>
-      <div v-if="isCta" class="absolute">
+      <div v-if="isCta && fromHome" class="absolute">
         <nuxt-link
           :to="data.path"
           class="inline-block focus-visible:outline-0 group"

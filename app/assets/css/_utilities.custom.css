@@ -30,15 +30,16 @@
   inline-block
   touch-manipulation
   before:absolute
-  before:-top-0.5
+  before:top-[-3px]
   before:-bottom-1
-  before:inset-x-[-7px]
+  before:inset-x-[-11px]
   before:transition
+  before:duration-500
   before:bg-fg-primary
-  before:rounded-sm
+  before:rounded-full
   before:opacity-0
   before:blur-xs
-  before:scale-115
+  before:scale-110
   after:absolute
   after:-inset-3
   hover:text-bg-secondary

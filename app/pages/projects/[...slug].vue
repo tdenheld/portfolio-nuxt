@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Page } from '~/interfaces';
 
+const fromHome = useState('fromHome');
 const route = useRoute();
 const nuxtApp: any = useNuxtApp();
 const page: Page | null = await queryCollection('content').path(route.path).first();
@@ -43,7 +44,10 @@ onMounted(() => {
       >
         <div class="col-start-2">
           <div class="pdp-fade-up">
-            <div class="h-[100svh] py-contain grid items-center">
+            <div
+              class="h-[100svh] py-contain grid items-center"
+              :class="{ 'a-fi blur-md': !fromHome }"
+            >
               <nx-hero :data="page" heading-level="h1" pdp></nx-hero>
             </div>
 
@@ -116,7 +120,7 @@ onMounted(() => {
         pdp
       ></nx-counter>
 
-      <nx-description></nx-description>
+      <nx-description v-if="fromHome"></nx-description>
     </div>
 
     <div v-else>

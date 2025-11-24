@@ -44,7 +44,7 @@ onMounted(() => {
       v-if="visit"
       :class="{ 'opacity-0': animated }"
     >
-      <a :href="visit" target="_blank" rel="noreferrer">
+      <a :href="visit" target="_blank" rel="noreferrer" class="group">
         <nx-button>Visit</nx-button>
       </a>
     </div>
