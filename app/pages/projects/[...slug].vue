@@ -6,7 +6,12 @@ const nuxtApp: any = useNuxtApp();
 const page: Page | null = await queryCollection('content').path(route.path).first();
 const projects = await queryCollection('projects').all();
 const scrollContainer = ref<HTMLElement | null>(null);
-const otherProjects = computed(() => projects.filter((p) => p.path !== page?.path));
+
+const nextProject = computed(() => {
+  const currentIndex = getCurrentIndex();
+  const nextIndex = currentIndex % projects.length;
+  return projects[nextIndex];
+});
 
 const getCurrentIndex = () => {
   return projects.findIndex((p) => p.path === page?.path) + 1;
@@ -96,7 +101,7 @@ onMounted(() => {
               </div>
             </div>
 
-            <nx-more :projects="otherProjects"></nx-more>
+            <nx-next :project="nextProject"></nx-next>
           </div>
         </div>
       </div>
