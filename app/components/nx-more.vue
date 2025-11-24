@@ -20,6 +20,7 @@ const props = defineProps({
               class="grayscale-100 mix-blend-screen"
             ></nx-image>
           </div>
+          
           <h3
             class="mt-1.5 text-[10px] md:text-xs tracking-widest uppercase font-mono text-fg-secondary"
           >
