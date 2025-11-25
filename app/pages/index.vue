@@ -1,5 +1,7 @@
 <script setup lang="ts">
 const fromHome = useState('fromHome');
+const projectIndex = useState<number>('projectIndex');
+
 const page = await queryCollection('content').path('/').first();
 const projects = await queryCollection('projects').all();
 
@@ -8,6 +10,7 @@ const mergedData = [...(newPage ? [newPage] : []), ...(projects || [])];
 
 onBeforeMount(() => {
   fromHome.value = true;
+  projectIndex.value = 0;
 });
 </script>
 

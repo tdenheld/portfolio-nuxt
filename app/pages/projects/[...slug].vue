@@ -2,6 +2,9 @@
 import type { Page } from '~/interfaces';
 
 const fromHome = useState('fromHome');
+const counterData = useState('counterData');
+const projectIndex = useState<number>('projectIndex');
+
 const route = useRoute();
 const nuxtApp: any = useNuxtApp();
 const page: Page | null = await queryCollection('content').path(route.path).first();
@@ -9,23 +12,24 @@ const projects = await queryCollection('projects').all();
 const scrollContainer = ref<HTMLElement | null>(null);
 
 const nextProject = computed(() => {
-  const currentIndex = getCurrentIndex();
-  const nextIndex = currentIndex % projects.length;
+  const nextIndex = projectIndex.value % projects.length;
   return projects[nextIndex];
 });
 
-const getCurrentIndex = () => {
-  return projects.findIndex((p) => p.path === page?.path) + 1;
-};
+onBeforeMount(() => {
+  projectIndex.value = projects.findIndex((p) => p.path === page?.path) + 1;
+});
 
-const getLength = () => {
-  return projects.length + 1;
-};
-
-// Set colors on document element when component mounts
 onMounted(() => {
   nuxtApp.$setColor(page?.meta?.color);
   nuxtApp.$reveal(scrollContainer.value);
+
+  // Update counter data for the layout component
+  counterData.value = {
+    highlights: page?.meta?.highlights || [],
+    visit: page?.meta?.visit || '',
+    pdp: true,
+  };
 });
 </script>
 
@@ -109,16 +113,6 @@ onMounted(() => {
           </div>
         </div>
       </div>
-
-      <nx-counter
-        class="hidden lg:block"
-        :index="getCurrentIndex()"
-        :images="[page.meta.image || '']"
-        :length="getLength()"
-        :highlights="page.meta.highlights || []"
-        :visit="page.meta.visit"
-        pdp
-      ></nx-counter>
 
       <nx-description v-if="fromHome"></nx-description>
     </div>
