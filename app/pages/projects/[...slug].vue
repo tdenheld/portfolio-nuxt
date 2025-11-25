@@ -45,7 +45,7 @@ onMounted(() => {
         <div class="col-start-2">
           <div class="pdp-fade-up">
             <div
-              class="h-[100svh] py-contain grid items-center"
+              class="h-svh py-contain grid items-center"
               :class="{ 'a-fi blur-md': !fromHome }"
             >
               <nx-hero :data="page" heading-level="h1" pdp></nx-hero>
@@ -70,7 +70,7 @@ onMounted(() => {
                     :image-class="`w-full h-auto ${entry.rounded === false ? '' : 'rounded-2xl'}`"
                     sizes="(min-width: 56rem) 60vw, 80vw"
                     :srcset="[320, 640, 1280, 1600, 2200]"
-                    class="blur-sm [transform:rotate3d(1,0,0,6deg)]"
+                    class="blur-sm transform-[rotate3d(1,0,0,6deg)]"
                     data-reveal-trigger
                     data-reveal
                     :preload="index === 0"
@@ -79,7 +79,7 @@ onMounted(() => {
                   <nx-video
                     v-if="entry.src?.includes('.mp4')"
                     :src="entry.src?.replace(/\.(mp4)$/, '')"
-                    class="blur-sm [transform:rotate3d(1,0,0,6deg)]"
+                    class="blur-sm transform-[rotate3d(1,0,0,6deg)]"
                     data-reveal-trigger
                     data-reveal
                   ></nx-video>
@@ -87,7 +87,7 @@ onMounted(() => {
                   <nx-content
                     v-if="entry.copy"
                     :content="entry.copy"
-                    class="blur-sm [transform:rotate3d(1,0,0,9deg)]"
+                    class="blur-sm transform-[rotate3d(1,0,0,9deg)]"
                     data-reveal-trigger
                     data-reveal
                   ></nx-content>
@@ -98,7 +98,7 @@ onMounted(() => {
                 <nx-highlights
                   :highlights="page.meta.highlights || []"
                   :visit="page.meta.visit"
-                  class="blur-sm [transform:rotate3d(1,0,0,6deg)]"
+                  class="blur-sm transform-[rotate3d(1,0,0,6deg)]"
                   data-reveal-trigger
                   data-reveal
                 ></nx-highlights>

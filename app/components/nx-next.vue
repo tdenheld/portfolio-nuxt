@@ -1,15 +1,15 @@
 <script setup>
-const fromHome = useState('fromHome');
-
 const props = defineProps({
   project: Object,
   root: HTMLElement | undefined,
 });
 
+const fromHome = useState('fromHome');
 const element = ref(null);
+const observer = ref(null);
 
-const init = ({ element, onScreen, offScreen, rootMargin = '0px 0px -10%' }) => {
-  const observer = new IntersectionObserver(
+const initObserver = ({ onScreen, offScreen }) => {
+  observer.value = new IntersectionObserver(
     (entries, self) => {
       entries.map((entry) => {
         if (entry.isIntersecting) {
@@ -19,15 +19,14 @@ const init = ({ element, onScreen, offScreen, rootMargin = '0px 0px -10%' }) => 
         }
       });
     },
-    { root: props.root, rootMargin }
+    { root: props.root, rootMargin: '0px 0px -10%' }
   );
 
-  observer.observe(element);
+  observer.value.observe(element.value);
 };
 
 onMounted(() => {
-  init({
-    element: element.value,
+  initObserver({
     onScreen: () => {
       console.log('on screen');
     },
@@ -35,6 +34,12 @@ onMounted(() => {
       console.log('off screen');
     },
   });
+});
+
+onUnmounted(() => {
+  if (observer.value && element.value) {
+    observer.value.unobserve(element.value);
+  }
 });
 </script>
 
