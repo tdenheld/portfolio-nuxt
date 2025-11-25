@@ -44,5 +44,6 @@ const getImages = () => {
     </main>
 
     <nx-preloader></nx-preloader>
+    <nx-veil></nx-veil>
   </div>
 </template>
