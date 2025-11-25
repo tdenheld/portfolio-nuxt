@@ -56,6 +56,7 @@ onUnmounted(() => {
         >
           Next
         </h2>
+
         <p class="text-sm md:text-base md:-mt-4 text-fg-secondary">
           {{ project.title }}
         </p>
