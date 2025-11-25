@@ -24,25 +24,20 @@ const fromHome = useState('fromHome');
 
       <div
         v-if="fromHome"
-        class="transition duration-[2s]"
-        :class="{ 'opacity-0': pdp }"
+        v-for="(image, imgIndex) in images"
+        :key="imgIndex"
+        class="absolute inset-0 transition-opacity opacity-0 duration-1500"
+        :class="{
+          'opacity-100': imgIndex === index - 1 && !pdp,
+        }"
       >
-        <div
-          v-for="(image, imgIndex) in images"
-          :key="imgIndex"
-          class="absolute inset-0 transition-opacity opacity-0 duration-1500"
-          :class="{
-            'opacity-100': imgIndex === index - 1,
-          }"
-        >
-          <nx-image
-            :src="image"
-            :srcset="[240, 400, 640]"
-            :lazy="false"
-            sizes="(min-width: 81.25rem) 14rem, (min-width: 46.25rem) 12rem, 6rem"
-            class="size-full"
-          ></nx-image>
-        </div>
+        <nx-image
+          :src="image"
+          :srcset="[240, 400, 640]"
+          :lazy="false"
+          sizes="(min-width: 81.25rem) 14rem, (min-width: 46.25rem) 12rem, 6rem"
+          class="size-full"
+        ></nx-image>
       </div>
     </div>
   </div>
