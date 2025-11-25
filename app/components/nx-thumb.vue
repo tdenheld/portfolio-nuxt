@@ -4,6 +4,8 @@ const props = defineProps<{
   images?: string[];
   pdp?: boolean;
 }>();
+
+const fromHome = useState('fromHome');
 </script>
 
 <template>
@@ -21,6 +23,7 @@ const props = defineProps<{
       </div>
 
       <div
+        v-if="fromHome"
         v-for="(image, imgIndex) in images"
         :key="imgIndex"
         class="absolute inset-0 transition-opacity opacity-0 duration-1500"
