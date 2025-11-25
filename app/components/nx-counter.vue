@@ -5,7 +5,6 @@ const props = defineProps<{
   index: number;
   length: number;
   images?: string[];
-  isFadingOut?: boolean;
   pdp?: boolean;
   highlights?: Highlight[];
   visit?: string;
@@ -31,7 +30,6 @@ const props = defineProps<{
       :images="images"
       :index="index"
       class="mt-2"
-      :is-fading-out="isFadingOut"
       :pdp="pdp"
     ></nx-thumb>
   </div>
