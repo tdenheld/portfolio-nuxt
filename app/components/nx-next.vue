@@ -7,6 +7,7 @@ const props = defineProps({
 const fromHome = useState('fromHome');
 const element = ref(null);
 const observer = ref(null);
+const isActive = ref(false);
 
 const initObserver = ({ onScreen, offScreen }) => {
   observer.value = new IntersectionObserver(
@@ -28,10 +29,14 @@ const initObserver = ({ onScreen, offScreen }) => {
 onMounted(() => {
   initObserver({
     onScreen: () => {
-      console.log('on screen');
+      if (!isActive.value) {
+        isActive.value = true;
+      }
     },
     offScreen: () => {
-      console.log('off screen');
+      if (isActive.value) {
+        isActive.value = false;
+      }
     },
   });
 });
@@ -52,12 +57,21 @@ onUnmounted(() => {
         @click.native="fromHome = false"
       >
         <h2
-          class="font-display font-[150] group-hover:font-[750] transition-all duration-600 text-[calc(3rem+10vw)] leading-[0.8]"
+          class="font-display font-[150] group-hover:font-[750] transition-all duration-600 text-[calc(3rem+10vw)] leading-[0.8] tracking-tighter"
         >
-          Next
+          <span
+            v-for="(char, index) in 'Next'.split('')"
+            :key="index"
+            class="inline-block reveal reveal--stag blur-md last:ml-[0.04em]"
+            :class="{ 'is-active': isActive }"
+            >{{ char }}</span
+          >
         </h2>
 
-        <p class="text-sm md:text-base md:-mt-4 text-fg-secondary">
+        <p
+          class="text-sm md:text-base md:-mt-4 text-fg-secondary reveal blur-xs delay-350"
+          :class="{ 'is-active': isActive }"
+        >
           {{ project.title }}
         </p>
       </nuxt-link>
