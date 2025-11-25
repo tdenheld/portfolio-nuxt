@@ -2,7 +2,7 @@
 import type { Page } from '~/interfaces';
 
 const fromHome = useState('fromHome');
-const counterData = useState('counterData');
+const counterData = useState<any>('counterData');
 const projectIndex = useState<number>('projectIndex');
 
 const route = useRoute();
