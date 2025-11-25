@@ -105,7 +105,7 @@ onMounted(() => {
               </div>
             </div>
 
-            <nx-next :project="nextProject"></nx-next>
+            <nx-next :project="nextProject" :root="scrollContainer"></nx-next>
           </div>
         </div>
       </div>
