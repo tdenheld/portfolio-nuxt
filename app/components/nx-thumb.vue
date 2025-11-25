@@ -11,7 +11,7 @@ const fromHome = useState('fromHome');
 <template>
   <div>
     <div
-      class="w-[clamp(6rem,calc(48px+10vw),14rem)] aspect-video rounded-md md:rounded-lg overflow-hidden relative"
+      class="relative w-[clamp(6rem,calc(48px+10vw),14rem)] aspect-video rounded-md md:rounded-lg overflow-hidden"
     >
       <div
         class="absolute inset-0 transition-opacity duration-1500 opacity-0"
@@ -28,8 +28,7 @@ const fromHome = useState('fromHome');
         :key="imgIndex"
         class="absolute inset-0 transition-opacity opacity-0 duration-1500"
         :class="{
-          'opacity-100': imgIndex === index - 1 || pdp,
-          'thumb-fade-out': pdp,
+          'opacity-100': imgIndex === index - 1 && !pdp,
         }"
       >
         <nx-image
@@ -43,22 +42,3 @@ const fromHome = useState('fromHome');
     </div>
   </div>
 </template>
-
-<style scoped lang="postcss">
-.thumb-fade-out {
-  animation-duration: 2s;
-  animation-fill-mode: both;
-  animation-delay: 50ms;
-  animation-timing-function: var(--ease-out);
-  animation-name: thumb-fade-out;
-}
-
-@keyframes thumb-fade-out {
-  50% {
-    filter: blur(3px);
-  }
-  100% {
-    opacity: 0;
-  }
-}
-</style>

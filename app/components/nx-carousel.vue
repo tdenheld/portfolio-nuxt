@@ -6,12 +6,23 @@ const props = defineProps<{
 }>();
 
 const nuxtApp: any = useNuxtApp();
+const counterData = useState('counterData');
 
-const index = ref(0);
+const index = useState<number>('projectIndex');
 watch(index, () => {
   // Set colors based on current active item
   setColor();
+
+  // Update counter data for the layout component
+  setCounterData();
 });
+
+const setCounterData = () => {
+  counterData.value = {
+    images: getAllImages(),
+    pdp: false,
+  };
+};
 
 // Create a new array with multiple copies of the data to allow infinite scrolling
 const carouselData = ref<Page[]>([...Array(2).fill(props.data).flat()]);
@@ -80,6 +91,7 @@ const handleScroll = (event: Event) => {
 
 onMounted(() => {
   setColor();
+  setCounterData();
 });
 </script>
 
@@ -100,12 +112,6 @@ onMounted(() => {
         </div>
       </div>
     </div>
-
-    <nx-counter
-      :index="index"
-      :length="data.length"
-      :images="getAllImages()"
-    ></nx-counter>
 
     <nx-description :is-active="true"></nx-description>
     <nx-video v-if="getVideo" :src="getVideo" :preload="true" class="hidden" />
