@@ -6,28 +6,14 @@ const props = defineProps({
 
 const fromHome = useState('fromHome');
 const element = ref(null);
-const observer = ref(null);
 const isActive = ref(false);
-
-const initObserver = ({ onScreen, offScreen }) => {
-  observer.value = new IntersectionObserver(
-    (entries, self) => {
-      entries.map((entry) => {
-        if (entry.isIntersecting) {
-          onScreen();
-        } else {
-          offScreen();
-        }
-      });
-    },
-    { root: props.root, rootMargin: '0px 0px -10%' }
-  );
-
-  observer.value.observe(element.value);
-};
+const nuxtApp = useNuxtApp();
+let observer;
 
 onMounted(() => {
-  initObserver({
+  observer = nuxtApp.$intersectionObserver({
+    root: props.root,
+    element: element.value,
     onScreen: () => {
       if (!isActive.value) {
         isActive.value = true;
@@ -41,10 +27,8 @@ onMounted(() => {
   });
 });
 
-onUnmounted(() => {
-  if (observer.value && element.value) {
-    observer.value.unobserve(element.value);
-  }
+onBeforeUnmount(() => {
+  observer?.cleanup();
 });
 </script>
 
