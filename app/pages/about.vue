@@ -7,10 +7,13 @@ gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 const page = await queryCollection('content').path('/about').first();
 const nuxtApp = useNuxtApp();
 const scrollContainer = ref(null);
+let revealCleanup;
 
 onMounted(() => {
   nuxtApp.$setColor(page?.meta?.color);
-  nuxtApp.$reveal(scrollContainer.value);
+
+  const revealInstance = nuxtApp.$reveal(scrollContainer.value);
+  revealCleanup = revealInstance.cleanup;
 
   if (!nuxtApp.$isTouchDevice()) {
     ScrollSmoother.create({
@@ -32,6 +35,10 @@ onMounted(() => {
       ease: 'none',
     });
   });
+});
+
+onBeforeUnmount(() => {
+  if (revealCleanup) revealCleanup();
 });
 </script>
 
@@ -78,15 +85,18 @@ onMounted(() => {
             class="pt-12 pb-14 md:py-24 about-grid items-start a-fi [animation-delay:250ms]"
           >
             <div class="relative space-y-12">
-              <div v-for="entry in page.meta.data" class="blur-sm" data-reveal data-reveal-trigger>
+              <div
+                v-for="entry in page.meta.data"
+                class="blur-sm"
+                data-reveal
+                data-reveal-trigger
+              >
                 <h2 class="eyebrow">{{ entry.title }}</h2>
 
                 <p class="mt-3 pr-16 md:pr-32 max-w-[48ch] text-fg-secondary text-sm">
                   <template v-for="(item, index) in entry.items" :key="item">
                     {{ item
-                    }}<template v-if="index < entry.items.length - 1"
-                      >,
-                    </template>
+                    }}<template v-if="index < entry.items.length - 1">, </template>
                   </template>
                 </p>
               </div>

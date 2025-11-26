@@ -10,6 +10,7 @@ const nuxtApp: any = useNuxtApp();
 const page: Page | null = await queryCollection('content').path(route.path).first();
 const projects = await queryCollection('projects').all();
 const scrollContainer = ref<HTMLElement | null>(null);
+let revealCleanup: (() => void) | null = null;
 
 const nextProject = computed(() => {
   const nextIndex = projectIndex.value % projects.length;
@@ -22,7 +23,8 @@ onBeforeMount(() => {
 
 onMounted(() => {
   nuxtApp.$setColor(page?.meta?.color);
-  nuxtApp.$reveal(scrollContainer.value);
+  const revealInstance = nuxtApp.$reveal(scrollContainer.value);
+  revealCleanup = revealInstance.cleanup;
 
   // Update counter data for the layout component
   counterData.value = {
@@ -30,6 +32,10 @@ onMounted(() => {
     visit: page?.meta?.visit || '',
     pdp: true,
   };
+});
+
+onBeforeUnmount(() => {
+  if (revealCleanup) revealCleanup();
 });
 </script>
 

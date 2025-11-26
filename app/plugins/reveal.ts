@@ -1,5 +1,6 @@
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.provide('reveal', (root: HTMLElement) => {
+    const { $intersectionObserver } = useNuxtApp() as any;
     const obj = '[data-reveal-trigger]';
     if (!document.querySelector(obj)) return;
 
@@ -8,40 +9,49 @@ export default defineNuxtPlugin((nuxtApp) => {
       el.classList.add('reveal');
     });
 
-    const init = (obj: HTMLElement) => {
-      const rootMargin = obj.dataset.revealTrigger || '0px 0px -2%';
+    const observers: Array<{ cleanup: () => void }> = [];
 
-     const observer = new IntersectionObserver(
-        (entries, self) => {
-          entries.map((entry) => {
-            const target = entry.target as HTMLElement;
+    const init = (element: HTMLElement) => {
+      const rootMargin = element.dataset.revealTrigger || '0px 0px -2%';
 
-            if (entry.isIntersecting) {
-              if (target.hasAttribute('data-reveal')) {
-                target.classList.add('is-active');
-              } else {
-                target.querySelectorAll('[data-reveal]').forEach((el) => {
-                  el.classList.add('is-active');
-                });
-              }
-            // self.unobserve(target);
-            } else {
-              if (target.hasAttribute('data-reveal')) {
-                target.classList.remove('is-active');
-              } else {
-                target.querySelectorAll('[data-reveal]').forEach((el) => {
-                  el.classList.remove('is-active');
-                });
-              }
-            }
+      const onScreen = () => {
+        if (element.hasAttribute('data-reveal')) {
+          element.classList.add('is-active');
+        } else {
+          element.querySelectorAll('[data-reveal]').forEach((el) => {
+            el.classList.add('is-active');
           });
-        },
-        { root, rootMargin }
-      );
+        }
+      };
 
-      observer.observe(obj);
+      const offScreen = () => {
+        if (element.hasAttribute('data-reveal')) {
+          element.classList.remove('is-active');
+        } else {
+          element.querySelectorAll('[data-reveal]').forEach((el) => {
+            el.classList.remove('is-active');
+          });
+        }
+      };
+
+      const observerInstance = $intersectionObserver({
+        root,
+        element,
+        rootMargin,
+        onScreen,
+        offScreen,
+      });
+
+      observers.push(observerInstance);
     };
 
     document.querySelectorAll(obj).forEach((el) => init(el as HTMLElement));
+
+    // Return cleanup function for all observers
+    return {
+      cleanup() {
+        observers.forEach(obs => obs.cleanup());
+      }
+    };
   });
 });
