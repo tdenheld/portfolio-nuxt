@@ -33,7 +33,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="pt-24 pb-2 lg:pt-32 lg:pb-48">
+  <div class="pt-16 pb-2 lg:pt-32 lg:pb-48">
     <div ref="element">
       <nuxt-link
         :to="project.path"
@@ -53,7 +53,7 @@ onBeforeUnmount(() => {
         </h2>
 
         <p
-          class="text-sm md:text-base md:-mt-4 text-fg-secondary reveal blur-xs delay-350"
+          class="text-sm md:text-base -mt-1 md:-mt-2 lg:-mt-4 text-fg-secondary reveal blur-xs delay-350"
           :class="{ 'is-active': isActive }"
         >
           {{ project.title }}

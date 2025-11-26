@@ -9,6 +9,8 @@ const props = defineProps<{
 }>();
 
 const hostElement = ref<HTMLElement | null>(null);
+const nuxtApp: any = useNuxtApp();
+let observer: any;
 
 const initAnimation = () => {
   const host = hostElement.value;
@@ -25,7 +27,7 @@ const initAnimation = () => {
       opacity: 1,
       x: 0,
       stagger: -0.1,
-      delay: 0.4,
+      delay: props.animated ? 0.4 : 0,
       duration: 1.5,
       ease: 'power3.out',
     }
@@ -33,17 +35,27 @@ const initAnimation = () => {
 };
 
 onMounted(() => {
-  if (props.animated) initAnimation();
+  if (props.animated) {
+    initAnimation();
+  } else {
+    observer = nuxtApp.$intersectionObserver({
+      element: hostElement.value,
+      onScreen: () => {
+        initAnimation();
+        observer?.cleanup();
+      },
+    });
+  }
+});
+
+onBeforeUnmount(() => {
+  if (observer) observer.cleanup();
 });
 </script>
 
 <template>
   <div ref="hostElement" class="space-y-12">
-    <div
-      data-highlight
-      v-if="visit"
-      :class="{ 'opacity-0': animated }"
-    >
+    <div data-highlight v-if="visit" :class="{ 'opacity-0': animated }">
       <a :href="visit" target="_blank" rel="noreferrer" class="group">
         <nx-button>Visit</nx-button>
       </a>

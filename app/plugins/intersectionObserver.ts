@@ -19,11 +19,8 @@ export default defineNuxtPlugin((nuxtApp) => {
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              onScreen();
-            } else {
-              offScreen();
-            }
+            if (entry.isIntersecting && onScreen) onScreen();
+            if (!entry.isIntersecting && offScreen) offScreen();
           });
         },
         { root, rootMargin }
@@ -36,7 +33,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         cleanup() {
           observer.unobserve(element);
           observer.disconnect();
-        }
+        },
       };
     }
   );
