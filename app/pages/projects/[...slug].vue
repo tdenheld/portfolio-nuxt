@@ -104,13 +104,10 @@ onBeforeUnmount(() => {
                 </div>
               </div>
 
-              <div class="pt-12 lg:hidden perspective-[32vw]">
+              <div class="pt-12 lg:hidden">
                 <nx-highlights
                   :highlights="page.meta.highlights || []"
                   :visit="page.meta.visit"
-                  class="blur-sm transform-[rotate3d(1,0,0,6deg)]"
-                  data-reveal-trigger
-                  data-reveal
                 ></nx-highlights>
               </div>
             </div>

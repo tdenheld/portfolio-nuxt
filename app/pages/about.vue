@@ -52,7 +52,11 @@ onBeforeUnmount(() => {
       id="smooth-wrapper"
     >
       <div class="pt-32 lg:pt-64 px-contain lg:main-grid" id="smooth-content">
-        <h1 class="sr-only">{{ page.title }}</h1>
+        <h1
+          class="md:sr-only font-display font-semibold text-5xl text-fg-secondary a-fi blur-lg md:[animation-delay:200ms] mb-6"
+        >
+          About
+        </h1>
 
         <div class="col-start-2 col-span-2">
           <div class="about-grid">
@@ -72,7 +76,7 @@ onBeforeUnmount(() => {
                 <nx-image
                   :src="page.meta.image"
                   :alt="page.title"
-                  class="max-w-md md:max-w-[initial] overflow-hidden rounded-4xl aspect-square"
+                  class="max-w-lg md:max-w-[initial] overflow-hidden rounded-4xl aspect-square"
                   sizes="(min-width: 90rem) 32rem, (min-width: 61.25rem) 33vw, (min-width: 46.25rem) 40vw, 80vw"
                   :srcset="[320, 640, 1280]"
                   preload
