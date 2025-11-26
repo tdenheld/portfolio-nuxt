@@ -28,7 +28,7 @@ const initAnimation = () => {
       x: 0,
       stagger: -0.1,
       delay: props.animated ? 0.4 : 0,
-      duration: props.animated ? 1.5 : 1,
+      duration: props.animated ? 1.5 : 0.8,
       ease: 'power3.out',
     }
   );
@@ -55,21 +55,21 @@ onBeforeUnmount(() => {
 
 <template>
   <div ref="hostElement" class="space-y-12">
-    <div data-highlight v-if="visit" :class="{ 'opacity-0': animated }">
+    <div data-highlight v-if="visit" class="opacity-0">
       <a :href="visit" target="_blank" rel="noreferrer" class="group">
         <nx-button>Visit</nx-button>
       </a>
     </div>
 
     <div v-for="(highlight, i) in highlights" :key="i">
-      <h3 data-highlight class="key" :class="{ 'opacity-0': animated }">
+      <h3 data-highlight class="key opacity-0">
         {{ highlight.title }}
       </h3>
 
       <ul class="mt-1 text-sm leading-[1.4] text-fg-secondary">
         <li
           data-highlight
-          :class="{ 'opacity-0': animated }"
+          class="opacity-0"
           v-for="(item, j) in highlight.items"
           :key="j"
         >
