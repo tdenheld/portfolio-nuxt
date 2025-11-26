@@ -26,7 +26,7 @@ const initAnimation = () => {
     {
       opacity: 1,
       x: 0,
-      stagger: -0.1,
+      stagger: props.animated ? -0.1 : 0.08,
       delay: props.animated ? 0.4 : 0,
       duration: props.animated ? 1.5 : 0.8,
       ease: 'power3.out',
