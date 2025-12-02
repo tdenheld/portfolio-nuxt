@@ -51,7 +51,7 @@ onBeforeUnmount(() => {
       class="fixed inset-0 overflow-y-auto overflow-x-hidden no-scrollbar"
       id="smooth-wrapper"
     >
-      <div class="pt-32 lg:pt-64 px-contain lg:main-grid" id="smooth-content">
+      <div class="pt-32 lg:pt-[calc(48px+10vw)] px-contain lg:main-grid" id="smooth-content">
         <h1
           class="md:sr-only font-display font-semibold text-5xl text-fg-secondary a-fi blur-lg md:[animation-delay:200ms] mb-6"
         >
