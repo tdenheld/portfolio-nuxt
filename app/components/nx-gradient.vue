@@ -13,7 +13,7 @@ const initGradient = () => {
 
 onMounted(() => {
   initGradient();
-  
+
   // Watch for style attribute changes on document.documentElement
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
@@ -22,10 +22,10 @@ onMounted(() => {
       }
     });
   });
-  
+
   observer.observe(document.documentElement, {
     attributes: true,
-    attributeFilter: ['style']
+    attributeFilter: ['style'],
   });
 });
 </script>

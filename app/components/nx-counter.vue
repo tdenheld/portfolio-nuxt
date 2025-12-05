@@ -26,11 +26,6 @@ const props = defineProps<{
       <p class="grow text-right tracking-normal">{{ index }} / {{ length - 1 }}</p>
     </div>
 
-    <nx-thumb
-      :images="images"
-      :index="index"
-      class="mt-2"
-      :pdp="pdp"
-    ></nx-thumb>
+    <nx-thumb :images="images" :index="index" class="mt-2" :pdp="pdp"></nx-thumb>
   </div>
 </template>

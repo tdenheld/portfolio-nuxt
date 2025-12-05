@@ -50,8 +50,8 @@ export default defineNuxtPlugin((nuxtApp) => {
     // Return cleanup function for all observers
     return {
       cleanup() {
-        observers.forEach(obs => obs.cleanup());
-      }
+        observers.forEach((obs) => obs.cleanup());
+      },
     };
   });
 });

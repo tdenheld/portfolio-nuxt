@@ -7,7 +7,9 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="fixed inset-x-0 bottom-contain px-contain lg:main-grid z-raised pointer-events-none">
+  <div
+    class="fixed inset-x-0 bottom-contain px-contain lg:main-grid z-raised pointer-events-none"
+  >
     <div class="col-start-2 h-full">
       <div class="inline-block origin-top" :class="{ 'd-fade-out': !isActive }">
         <p
