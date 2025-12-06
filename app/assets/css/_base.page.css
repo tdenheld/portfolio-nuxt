@@ -20,7 +20,8 @@ html {
 a,
 button {
   @apply cursor-pointer
-  focus-visible:focus-ring-sm;
+  focus-visible:focus-ring-sm
+  hover:focus-visible:outline-0;
   -webkit-tap-highlight-color: transparent;
 
   /* :where is less specific than :not and can be

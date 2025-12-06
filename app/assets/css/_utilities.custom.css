@@ -55,7 +55,7 @@
   hover:before:blur-none
   hover:before:scale-100;
 
-  span {
+  > * {
     @apply relative;
   }
 }
