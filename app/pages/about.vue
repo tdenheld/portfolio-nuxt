@@ -150,7 +150,7 @@ onBeforeUnmount(() => {
                         :href="entry.url"
                         target="_blank"
                         rel="noreferrer"
-                        class="inline-block py-0.5 hover:underline underline-offset-2"
+                        class="inline-block py-0.5 relative before:absolute before:inset-x-0 before:bottom-0.5 before:border-b before:border-current/70 before:origin-left before:transition before:scale-x-0 hover:before:scale-x-100"
                         >{{ entry.label }}</a
                       >
                     </li>
