@@ -37,7 +37,7 @@
 
 .blob--1 {
   @apply bg-bg-secondary;
-  /* animation: blob-1 15s linear infinite both; */
+  animation: blob-1 15s linear infinite both;
 
   mask: radial-gradient(
     90% 60% at var(--blob-1-x-pos) var(--blob-1-y-pos),
@@ -56,7 +56,7 @@
 
 .blob--2 {
   @apply bg-bg-tertiary;
-  /* animation: blob-2 12s linear infinite both; */
+  animation: blob-2 12s linear infinite both;
 
   mask: radial-gradient(
     90% 60% at var(--blob-2-x-pos) var(--blob-2-y-pos),
