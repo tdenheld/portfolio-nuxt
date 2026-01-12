@@ -56,7 +56,7 @@ onBeforeUnmount(() => {
         id="smooth-content"
       >
         <h1
-          class="md:sr-only font-display font-semibold text-4xl text-fg-secondary a-fi blur-lg md:[animation-delay:200ms] mb-6"
+          class="sr-only font-display font-semibold text-4xl text-fg-secondary a-fi blur-lg md:[animation-delay:200ms] mb-6"
         >
           About
         </h1>
