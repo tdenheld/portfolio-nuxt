@@ -114,6 +114,7 @@ onMounted(() => {
     </div>
 
     <nx-description :is-active="true"></nx-description>
+    <nx-scroll-indicator></nx-scroll-indicator>
     <nx-video v-if="getVideo" :src="getVideo" :preload="true" class="hidden" />
   </div>
 </template>

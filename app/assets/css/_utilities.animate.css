@@ -22,3 +22,17 @@
     filter: none;
   }
 }
+
+@utility a-si {
+  @apply a;
+  animation-name: scale-in;
+  scale: 1.5;
+}
+
+@keyframes scale-in {
+  to {
+    opacity: 1;
+    filter: none;
+    scale: 1;
+  }
+}
