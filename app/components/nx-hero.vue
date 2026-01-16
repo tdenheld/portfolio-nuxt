@@ -99,7 +99,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div ref="hostElement" @click="goto()">
+  <div ref="hostElement" @click="goto()" class="pb-4 lg:pb-8">
     <div v-if="data.meta.name || data.meta.period" data-hero-scroll>
       <div>
         <p class="font-serif text-xl md:text-[28px] text-fg-secondary">

@@ -129,7 +129,7 @@ onBeforeUnmount(() => {
 <style scoped lang="postcss">
 .host {
   --space-container: calc(-26vh + 4vw + 96px);
-  --space-img: calc(-36vh + 64px);
+  --space-img: calc(-36vh + 48px);
 }
 
 .pdp-fade-up {
