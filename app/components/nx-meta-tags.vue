@@ -10,7 +10,7 @@ const props = defineProps({
   image: {
     type: String,
     default:
-      'https://res.cloudinary.com/tibor/image/upload/c_scale,q_60,w_1280/v1731878159/tape_bnpcrx.png',
+      'https://res.cloudinary.com/tibor/image/upload/c_scale,q_60,w_1280/v1768571325/Tibor-den-Held-_-Design-Engineer-Creative-Developer-01-16-2026_02_48_PM_gxsoqc.png'
   },
 });
 
