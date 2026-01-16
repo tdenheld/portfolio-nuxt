@@ -1,11 +1,7 @@
 ---
-email: hoi@tk305.com
+email: contact@tibor.work
 
 nav:
-- name: About
-  url: /about
-- name: Work
-  url: /work
-- name: Gallery
-  url: /gallery
+  - name: About
+    url: /about
 ---
