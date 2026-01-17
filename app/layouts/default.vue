@@ -43,6 +43,7 @@ const getImages = () => {
       ></nx-counter>
     </main>
 
+    <nx-rotate-device></nx-rotate-device>
     <nx-preloader></nx-preloader>
     <nx-veil></nx-veil>
   </div>

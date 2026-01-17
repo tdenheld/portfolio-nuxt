@@ -26,7 +26,7 @@
 @utility a-si {
   @apply a;
   animation-name: scale-in;
-  scale: 1.5;
+  scale: 1.8;
 }
 
 @keyframes scale-in {
