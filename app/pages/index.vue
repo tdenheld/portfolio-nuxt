@@ -22,5 +22,7 @@ onBeforeMount(() => {
       class="a-fi [animation-delay:100ms]"
       :data="mergedData"
     ></nx-carousel>
+
+		<nx-rotate-device></nx-rotate-device>
   </div>
 </template>
