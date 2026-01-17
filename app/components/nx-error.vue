@@ -2,7 +2,7 @@
   <div>
     <nx-meta-tags title="404"></nx-meta-tags>
 
-    <div class="pt-48 lg:pt-72 px-contain lg:main-gridy">
+    <div class="pt-48 lg:pt-72 px-contain">
       <div class="grid justify-center text-center">
         <h1
           class="font-semibold text-[calc(24px+4.5vw)] leading-[1.1] font-display max-w-[18ch]"

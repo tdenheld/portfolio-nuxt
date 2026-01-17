@@ -8,7 +8,7 @@ onMounted(() => {
   const handleScroll = () => {
     if (!el.value) return;
     console.log('scrolling');
-    el.value.classList.add('opacity-0');
+    el.value.classList.add('opacity-0', '-translate-y-24');
     scroller.removeEventListener('scroll', handleScroll, true);
   };
 
@@ -18,10 +18,10 @@ onMounted(() => {
 
 <template>
   <div>
-    <div ref="el" class="transition duration-700 md:hidden">
-      <div
-        class="text-center fixed right-contain top-[23%] -translate-y-1/2 pointer-events-none a-si [animation-delay:700ms] [animation-duration:1s] blur-sm"
-      >
+    <div
+      class="md:hidden text-center fixed right-contain top-[23%] -translate-y-1/2 pointer-events-none a-si [animation-delay:700ms] [animation-duration:1s] blur-sm"
+    >
+      <div ref="el" class="transition duration-500">
         <div
           class="bg-fg-primary/8 rotate-12 rounded-full grid place-content-center size-18 md:size-24 transition-clr"
         >
