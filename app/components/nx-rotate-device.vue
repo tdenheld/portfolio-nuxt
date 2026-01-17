@@ -1,6 +1,5 @@
 <template>
-  <div class="s-rotate bg-bg-primary">
-    <nx-blobs :animation="false"></nx-blobs>
+  <div class="s-rotate bg-[var(--preloader-bg)]">
     <p
       class="relative font-extrabold font-display text-4xl text-center leading-tight text-elevated"
     >
