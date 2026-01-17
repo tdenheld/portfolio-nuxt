@@ -1,5 +1,5 @@
 <template>
-  <div class="s-rotate bg-[var(--preloader-bg)]">
+  <div class="s-rotate bg-[var(--color-preloader-bg)]">
     <p
       class="relative font-extrabold font-display text-4xl text-center leading-tight text-elevated"
     >
