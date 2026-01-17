@@ -25,14 +25,17 @@
   /* ------------------------------------------- */
   --color-*: initial;
 
-  --color-preloader-bg: #232927;
-  --color-preloader-fg: #cdd388;
+  --color-brand-primary: #3c796b;
+  --color-brand-secondary: #cdd388;
 
-  --color-fg-primary: #cdd388;
+  --color-preloader-bg: #232927;
+  --color-preloader-fg: var(--color-brand-secondary);
+
+  --color-fg-primary: var(--color-brand-secondary);
   --color-fg-secondary: #f5f2e3;
   --color-fg-tertiary: #f5f2e3;
 
-  --color-bg-primary: #3c796b;
+  --color-bg-primary: var(--color-brand-primary);
   --color-bg-secondary: #51793c;
   --color-bg-tertiary: #437182;
 
@@ -48,6 +51,8 @@
 
   /* Z Index */
   /* ------------------------------------------- */
+  --z-index-veil: 9999;
+  --z-index-preloader: 5000;
   --z-index-modal: 999;
   --z-index-navigation: 100;
   --z-index-messages: 50;

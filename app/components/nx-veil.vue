@@ -13,10 +13,11 @@
   .veil {
     position: sticky;
     top: 0;
-    z-index: 9999;
+    z-index: var(--z-index-veil);
     display: block;
     pointer-events: none;
   }
+  
   .veil-overlay {
     position: fixed;
     inset: 0;

@@ -1,5 +1,5 @@
 <template>
-  <div class="s-rotate bg-preloader-bg text-preloader-fg">
+  <div class="s-rotate bg-brand-primary text-preloader-fg">
     <p
       class="relative font-extrabold font-display text-4xl text-center leading-tight text-elevated"
     >
@@ -14,7 +14,7 @@
   position: fixed;
   inset: 0;
   place-content: center;
-  z-index: 998;
+  z-index: var(--z-index-modal);
 
   @media (height < 36rem) and (aspect-ratio >= 3/2) {
     display: grid;

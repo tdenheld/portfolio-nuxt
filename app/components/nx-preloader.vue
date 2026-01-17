@@ -23,7 +23,7 @@ onMounted(() => {
   position: fixed;
   inset: 0;
   background-color: var(--color-preloader-bg);
-  z-index: 999;
+  z-index: var(--z-index-preloader);
   pointer-events: none;
   display: grid;
   place-content: center;
