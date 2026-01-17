@@ -25,4 +25,9 @@
     leading-relaxed
     not-first:mt-[1.2em];
   }
+
+  a {
+    @apply underline
+    underline-offset-3;
+  }
 }
