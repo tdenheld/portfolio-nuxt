@@ -15,7 +15,7 @@
   position: fixed;
   inset: 0;
   place-content: center;
-  z-index: 9999;
+  z-index: 99;
 
   @media (height < 36rem) and (aspect-ratio >= 3/2) {
     display: grid;
