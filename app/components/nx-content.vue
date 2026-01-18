@@ -1,11 +1,22 @@
 <script setup>
 import md from 'markdown-it';
+import la from 'markdown-it-link-attributes';
 
 const props = defineProps({
   content: String,
 });
 
-const renderedContent = md().render(props.content);
+const renderedContent = md()
+  .use(la, {
+    matcher(href) {
+      return href.startsWith('https:');
+    },
+    attrs: {
+      target: '_blank',
+      rel: 'noopener noreferrer',
+    },
+  })
+  .render(props.content);
 </script>
 
 <template>

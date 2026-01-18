@@ -21,6 +21,7 @@
     "vue-router": "latest"
   },
   "devDependencies": {
+    "markdown-it-link-attributes": "^4.0.1",
     "prettier": "^3.6.2",
     "tailwindcss": "^4.1.17"
   }
