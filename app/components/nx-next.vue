@@ -37,7 +37,7 @@ onBeforeUnmount(() => {
     <div ref="element">
       <nuxt-link
         :to="project.path"
-        class="group cursor-pointer touch-manipulation inline-block"
+        class="group cursor-pointer touch-manipulation inline-block outline-offset-16"
         @click.native="fromHome = false"
       >
         <h2
