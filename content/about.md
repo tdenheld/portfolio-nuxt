@@ -51,7 +51,7 @@ experience:
   - title: Freelance
     period: 2010 - 2016
     roles:
-      - Digital & Developer
+      - Designer / Owner
   - title: Bloody Minded
     period: 2006 - 2010
     roles:
