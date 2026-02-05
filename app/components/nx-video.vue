@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const props = defineProps<{
   src: string;
+  poster?: string;
   preload?: boolean;
 }>();
 
@@ -40,6 +41,7 @@ onUnmounted(() => {
       playsinline
       class="w-full overflow-hidden rounded-2xl"
       autoplay
+      :poster="poster"
     >
       <source :src="src + '.webm'" type="video/webm" media="(width >= 980px)" />
       <source :src="src + '-sm.webm'" type="video/webm" />

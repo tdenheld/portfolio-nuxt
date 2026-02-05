@@ -30,6 +30,7 @@ export interface Page {
     name?: string;
     items?: {
       src?: string;
+      poster?: string;
       alt?: string;
       rounded?: boolean;
       copy?: string;

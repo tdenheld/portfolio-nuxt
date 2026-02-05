@@ -89,6 +89,7 @@ onBeforeUnmount(() => {
                   <nx-video
                     v-if="entry.src?.includes('.mp4')"
                     :src="entry.src?.replace(/\.(mp4)$/, '')"
+                    :poster="entry.poster"
                     class="blur-sm transform-[rotate3d(1,0,0,6deg)]"
                     data-reveal-trigger
                     data-reveal
