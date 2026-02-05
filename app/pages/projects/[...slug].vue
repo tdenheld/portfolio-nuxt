@@ -10,6 +10,8 @@ const nuxtApp: any = useNuxtApp();
 const page: Page | null = await queryCollection('content').path(route.path).first();
 const projects = await queryCollection('projects').all();
 const scrollContainer = ref<HTMLElement | null>(null);
+
+// Cleanup function for reveal animations
 let revealCleanup: (() => void) | null = null;
 
 const nextProject = computed(() => {
