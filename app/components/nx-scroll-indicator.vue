@@ -7,7 +7,6 @@ onMounted(() => {
 
   const handleScroll = () => {
     if (!el.value) return;
-    console.log('scrolling');
     el.value.classList.add('opacity-0', '-translate-y-24');
     scroller.removeEventListener('scroll', handleScroll, true);
   };
