@@ -35,7 +35,7 @@ onUnmounted(() => {
   <div>
     <video
       ref="video"
-      preload="auto"
+      preload="metadata"
       muted
       loop
       playsinline
@@ -43,11 +43,11 @@ onUnmounted(() => {
       autoplay
       :poster="poster"
     >
-      <source :src="src + '.webm'" type="video/webm" media="(width >= 980px)" />
-      <source :src="src + '-sm.webm'" type="video/webm" />
+      <source :src="src + '.webm#t=0.001'" type="video/webm" media="(width >= 980px)" />
+      <source :src="src + '-sm.webm#t=0.001'" type="video/webm" />
 
-      <source :src="src + '.mp4'" type="video/mp4" media="(width >= 980px)" />
-      <source :src="src + '-sm.mp4'" type="video/mp4" />
+      <source :src="src + '.mp4#t=0.001'" type="video/mp4" media="(width >= 980px)" />
+      <source :src="src + '-sm.mp4#t=0.001'" type="video/mp4" />
     </video>
   </div>
 </template>
