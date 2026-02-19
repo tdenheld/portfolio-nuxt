@@ -1,5 +1,6 @@
 <script setup>
-const title = 'Tibor den Held — Design Engineer & Creative Developer';
+const title = 'Tibor den Held';
+const subtitle = 'Design Engineer & Creative Developer';
 
 const props = defineProps({
   title: String,
@@ -15,7 +16,7 @@ const props = defineProps({
 });
 
 const getTitle = () => {
-  return props.title ? `${props.title} — ${title}` : title;
+  return props.title ? `${props.title} – ${title}` : `${title} – ${subtitle}`;
 };
 
 useHead({
