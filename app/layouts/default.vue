@@ -10,6 +10,7 @@ const counterData = useState<{
 
 const route = useRoute();
 const projects = await queryCollection('projects').all();
+const isProjectDetail = computed(() => /^\/projects\/.+/.test(route.path));
 
 const getImages = () => {
   // Return an array of all images from the data array
@@ -30,9 +31,7 @@ const getImages = () => {
       <slot></slot>
 
       <nx-counter
-        v-if="
-          counterData && (route.path === '/' || route.path.startsWith('/projects/'))
-        "
+        v-if="counterData && (route.path === '/' || isProjectDetail)"
         :class="{ 'hidden lg:block': counterData.pdp }"
         :index="projectIndex"
         :images="getImages()"
@@ -43,7 +42,7 @@ const getImages = () => {
       ></nx-counter>
     </main>
 
-		<nx-rotate-device></nx-rotate-device>
+    <nx-rotate-device></nx-rotate-device>
     <nx-preloader></nx-preloader>
     <nx-veil></nx-veil>
   </div>
