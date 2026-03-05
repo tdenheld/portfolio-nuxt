@@ -42,16 +42,16 @@ experience:
     period: 2018 - Present
     roles:
       - Senior Design Engineer — Design Systems
-      - Senior Product Designer & Front-end Developer
+      - Senior Product Designer & Engineer
   - title: Digitas
     period: 2016 - 2018
     roles:
-      - Senior Designer
-      - Visual Designer
+      - Senior Product Designer & Engineer
+      - Product Designer
   - title: Freelance
     period: 2010 - 2016
     roles:
-      - Designer / Owner
+      - Founder & Digital Designer
   - title: Bloody Minded
     period: 2006 - 2010
     roles:
