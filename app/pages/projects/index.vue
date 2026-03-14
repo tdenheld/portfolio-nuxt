@@ -7,12 +7,20 @@ gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 const projects = await queryCollection('projects').all();
 const nuxtApp = useNuxtApp();
 const scrollContainer = ref(null);
+const smoothContent = ref(null);
+let smoother;
+
+onBeforeUnmount(() => {
+  smoother?.kill();
+});
 
 onMounted(() => {
   nuxtApp.$setColor();
 
   if (!nuxtApp.$isTouchDevice()) {
-    ScrollSmoother.create({
+    smoother = ScrollSmoother.create({
+      wrapper: scrollContainer.value,
+      content: smoothContent.value,
       smooth: 0.8,
     });
   }
@@ -24,10 +32,10 @@ onMounted(() => {
     gsap.to(el, {
       scrollTrigger: {
         scrub: 1,
-        scroller: scrollContainer.value,
+        ...(smoother ? {} : { scroller: scrollContainer.value }),
       },
       y: (index, target) =>
-        -ScrollTrigger.maxScroll(scrollContainer.value) * target.dataset.parallax,
+        -ScrollTrigger.maxScroll(smoother ? window : scrollContainer.value) * target.dataset.parallax,
       ease: 'none',
     });
   });
@@ -101,10 +109,10 @@ onMounted(() => {
 
     <h1 class="sr-only">Selected Work</h1>
 
-    <div class="s-scroller no-scrollbar" ref="scrollContainer" id="smooth-wrapper">
-      <div data-border class="s-border origin-top [transform:scaleY(0)]"></div>
+    <div data-border class="s-border origin-top [transform:scaleY(0)]"></div>
 
-      <div id="smooth-content">
+    <div class="s-scroller no-scrollbar" ref="scrollContainer">
+      <div ref="smoothContent">
         <div class="grid justify-center xl:gap-[calc(3vw+3vh)] py-[calc(8vw+4rem)]">
           <div
             class="group grid grid-cols-2"

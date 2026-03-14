@@ -7,7 +7,9 @@ gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 const page = await queryCollection('content').path('/about').first();
 const nuxtApp = useNuxtApp();
 const scrollContainer = ref(null);
+const smoothContent = ref(null);
 let revealCleanup;
+let smoother;
 
 onMounted(() => {
   nuxtApp.$setColor(page?.meta?.color);
@@ -16,7 +18,9 @@ onMounted(() => {
   revealCleanup = revealInstance.cleanup;
 
   if (!nuxtApp.$isTouchDevice()) {
-    ScrollSmoother.create({
+    smoother = ScrollSmoother.create({
+      wrapper: scrollContainer.value,
+      content: smoothContent.value,
       smooth: 0.8,
     });
   }
@@ -28,10 +32,10 @@ onMounted(() => {
     gsap.to(el, {
       scrollTrigger: {
         scrub: 1,
-        scroller: scrollContainer.value,
+        ...(smoother ? {} : { scroller: scrollContainer.value }),
       },
       y: (index, target) =>
-        -ScrollTrigger.maxScroll(scrollContainer.value) * target.dataset.parallax,
+        -ScrollTrigger.maxScroll(smoother ? window : scrollContainer.value) * target.dataset.parallax,
       ease: 'none',
     });
   });
@@ -39,6 +43,7 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   if (revealCleanup) revealCleanup();
+  smoother?.kill();
 });
 </script>
 
@@ -49,11 +54,10 @@ onBeforeUnmount(() => {
     <div
       ref="scrollContainer"
       class="fixed inset-0 overflow-y-auto overflow-x-hidden no-scrollbar"
-      id="smooth-wrapper"
     >
       <div
+        ref="smoothContent"
         class="pt-32 lg:pt-[calc(48px+10vw)] px-contain lg:main-grid"
-        id="smooth-content"
       >
         <h1
           class="sr-only font-display font-semibold text-4xl text-fg-secondary a-fi blur-lg md:[animation-delay:200ms] mb-6"
