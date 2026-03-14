@@ -31,6 +31,67 @@ onMounted(() => {
       ease: 'none',
     });
   });
+
+  gsap.to('[data-border]', {
+    scaleY: 1,
+    ease: 'power4.inOut',
+    duration: 1,
+  });
+
+  document.querySelectorAll('[data-card]').forEach((el) => {
+    let tl = gsap.timeline();
+    gsap.set(el, { opacity: 1 });
+
+    tl.fromTo(
+      el.querySelector('[data-card-border]'),
+      {
+        scaleX: 0,
+        ease: 'power4.out',
+      },
+      {
+        scaleX: 1,
+        delay: 0.5,
+        duration: 0.2,
+      }
+    )
+      .fromTo(
+        el.querySelector('[data-card-image]'),
+        {
+          scaleX: 0,
+          ease: 'power4.out',
+        },
+        {
+          scaleX: 1,
+          duration: 0.2,
+        }
+      )
+      .fromTo(
+        el.querySelector('[data-card-heading]'),
+        {
+          opacity: 0,
+          filter: 'blur(6px)',
+          ease: 'power4.out',
+        },
+        {
+          opacity: 1,
+          filter: 'blur(0px)',
+          duration: 0.2,
+        }
+      )
+      .fromTo(
+        el.querySelector('[data-card-description]'),
+        {
+          opacity: 0,
+          filter: 'blur(6px)',
+          ease: 'power4.out',
+        },
+        {
+          opacity: 1,
+          filter: 'blur(0px)',
+          duration: 0.2,
+        }
+      );
+  });
 });
 </script>
 
@@ -41,40 +102,48 @@ onMounted(() => {
     <h1 class="sr-only">Selected Work</h1>
 
     <div class="s-scroller no-scrollbar" ref="scrollContainer" id="smooth-wrapper">
-      <div class="s-border"></div>
-      
+      <div data-border class="s-border origin-top [transform:scaleY(0)]"></div>
+
       <div id="smooth-content">
         <div class="grid justify-center xl:gap-[calc(3vw+3vh)] py-[calc(8vw+4rem)]">
           <div
             class="group grid grid-cols-2"
             v-for="(entry, index) in projects"
             :key="entry.title"
+            :data-parallax="0.7 + index * -0.1"
           >
             <nuxt-link
+              data-card
               :to="entry.path"
-              class="group-odd:col-start-2 flex flex-col-reverse gap-4 lg:gap-6 xl:flex-row group-odd:xl:flex-row-reverse group-odd:justify-self-end group-even:justify-self-start"
-              :data-parallax="0.7 + index * -0.1"
+              class="opacity-0 group-odd:col-start-2 flex flex-col-reverse gap-4 lg:gap-6 xl:flex-row group-odd:xl:flex-row-reverse group-odd:justify-self-end group-even:justify-self-start"
             >
               <div
                 class="max-w-3xs max-xl:group-odd:ml-[6vw] max-xl:group-even:mr-[6vw] group-even:xl:text-right relative xl:-top-[3px]"
               >
                 <h2
+                  data-card-heading
                   class="font-display text-2xl lg:text-3xl hyphens-auto leading-[1.15] font-[850]"
                 >
                   {{ entry.title }}
                 </h2>
 
-                <p class="mt-2 text-sm text-fg-secondary/70 leading-normal">
+                <p
+                  data-card-description
+                  class="mt-2 text-sm text-fg-secondary/70 leading-normal"
+                >
                   {{ entry.meta.descriptionShort }}
                 </p>
               </div>
 
               <div class="flex items-center group-even:flex-row-reverse">
                 <div
-                  class="border-t shrink-0 border-fg-primary opacity-30 border-dashed w-[6vw]"
+                  data-card-border
+                  class="origin-right group-odd:origin-left border-t shrink-0 border-fg-primary opacity-30 border-dashed w-[6vw]"
                 ></div>
 
                 <nx-image
+                  data-card-image
+                  class="origin-right group-odd:origin-left"
                   :src="entry.meta.image"
                   alt=""
                   image-class="w-full aspect-video rounded-lg object-cover"
