@@ -41,6 +41,8 @@ onMounted(() => {
     <h1 class="sr-only">Selected Work</h1>
 
     <div class="s-scroller no-scrollbar" ref="scrollContainer" id="smooth-wrapper">
+      <div class="s-border"></div>
+      
       <div id="smooth-content">
         <div class="grid justify-center xl:gap-[calc(3vw+3vh)] py-[calc(8vw+4rem)]">
           <div
@@ -96,16 +98,15 @@ onMounted(() => {
   padding: var(--spacing-contain);
   overflow-x: hidden;
   overflow-y: scroll;
+}
 
-  &:before {
-    content: '';
-    position: fixed;
-    inset-block: 0;
-    left: 50%;
-    translate: -50% 0;
-    pointer-events: none;
-    border-left: 1px dashed var(--color-fg-primary);
-    opacity: 0.3;
-  }
+.s-border {
+  position: fixed;
+  inset-block: 0;
+  left: 50%;
+  translate: -50% 0;
+  pointer-events: none;
+  border-left: 1px dashed var(--color-fg-primary);
+  opacity: 0.3;
 }
 </style>
