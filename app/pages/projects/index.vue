@@ -6,6 +6,7 @@ gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
 const projects = await queryCollection('projects').all();
 const nuxtApp = useNuxtApp();
+const refresh = useState('refresh');
 const scrollContainer = ref(null);
 const smoothContent = ref(null);
 let smoother;
@@ -35,71 +36,43 @@ onMounted(() => {
         ...(smoother ? {} : { scroller: scrollContainer.value }),
       },
       y: (index, target) =>
-        -ScrollTrigger.maxScroll(smoother ? window : scrollContainer.value) * target.dataset.parallax,
+        -ScrollTrigger.maxScroll(smoother ? window : scrollContainer.value) *
+        target.dataset.parallax,
       ease: 'none',
     });
   });
+
+  // Animate border and cards
+  // ------------------------------------------------------------
+
+  // Add (more) delay on initial page load
+  const delayBorder = refresh.value ? 0.5 : 0;
+  const delayCard = refresh.value ? 0.7 : 0.3;
 
   gsap.to('[data-border]', {
     scaleY: 1,
     ease: 'power4.inOut',
     duration: 1,
+    delay: delayBorder,
   });
 
-  document.querySelectorAll('[data-card]').forEach((el) => {
-    let tl = gsap.timeline();
-    gsap.set(el, { opacity: 1 });
-
-    tl.fromTo(
-      el.querySelector('[data-card-border]'),
-      {
-        scaleX: 0,
-        ease: 'power4.out',
-      },
-      {
-        scaleX: 1,
-        delay: 0.5,
-        duration: 0.2,
-      }
-    )
-      .fromTo(
-        el.querySelector('[data-card-image]'),
-        {
-          scaleX: 0,
-          ease: 'power4.out',
-        },
-        {
-          scaleX: 1,
-          duration: 0.2,
-        }
-      )
-      .fromTo(
-        el.querySelector('[data-card-heading]'),
-        {
-          opacity: 0,
-          filter: 'blur(6px)',
-          ease: 'power4.out',
-        },
-        {
-          opacity: 1,
-          filter: 'blur(0px)',
-          duration: 0.2,
-        }
-      )
-      .fromTo(
-        el.querySelector('[data-card-description]'),
-        {
-          opacity: 0,
-          filter: 'blur(6px)',
-          ease: 'power4.out',
-        },
-        {
-          opacity: 1,
-          filter: 'blur(0px)',
-          duration: 0.2,
-        }
-      );
-  });
+  gsap.fromTo(
+    '[data-card]',
+    {
+      y: -32,
+      opacity: 0,
+      filter: 'blur(8px)',
+    },
+    {
+      y: 0,
+      opacity: 1,
+      filter: 'blur(0px)',
+      ease: 'power4.out',
+      duration: 2.5,
+      delay: delayCard,
+      stagger: 0.1,
+    }
+  );
 });
 </script>
 
@@ -129,32 +102,25 @@ onMounted(() => {
                 class="max-w-3xs max-xl:group-odd:ml-[6vw] max-xl:group-even:mr-[6vw] group-even:xl:text-right relative xl:-top-[3px]"
               >
                 <h2
-                  data-card-heading
                   class="font-display text-2xl lg:text-3xl hyphens-auto leading-[1.15] font-[850]"
                 >
                   {{ entry.title }}
                 </h2>
 
-                <p
-                  data-card-description
-                  class="mt-2 text-sm text-fg-secondary/70 leading-normal"
-                >
+                <p class="mt-2 text-sm text-fg-secondary/70 leading-normal">
                   {{ entry.meta.descriptionShort }}
                 </p>
               </div>
 
               <div class="flex items-center group-even:flex-row-reverse">
                 <div
-                  data-card-border
-                  class="origin-right group-odd:origin-left border-t shrink-0 border-fg-primary opacity-30 border-dashed w-[6vw]"
+                  class="border-t shrink-0 border-fg-primary opacity-30 border-dashed w-[6vw]"
                 ></div>
 
                 <nx-image
-                  data-card-image
-                  class="origin-right group-odd:origin-left"
                   :src="entry.meta.image"
                   alt=""
-                  image-class="w-full aspect-video rounded-lg object-cover"
+                  image-class="w-full aspect-video object-cover rounded-lg"
                   sizes="15rem"
                   :srcset="[320, 640, 1280, 1600]"
                   :preload="true"

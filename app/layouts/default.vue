@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const fromHome = useState('fromHome', () => null);
+const refresh = useState('refresh', () => true);
 const projectIndex = useState('projectIndex', () => 0);
 
 const counterData = useState<{
@@ -18,6 +19,15 @@ const getImages = () => {
     .map((entry) => entry.meta?.image)
     .filter((img): img is string => !!img);
 };
+
+onMounted(() => {
+  refresh.value = true;
+});
+
+// prettier-ignore
+watch(() => route.path, () => {
+  refresh.value = false;
+});
 </script>
 
 <template>
