@@ -46,8 +46,8 @@ onMounted(() => {
   // ------------------------------------------------------------
 
   // Add (more) delay on initial page load
-  const delayBorder = refresh.value ? 0.5 : 0;
-  const delayCard = refresh.value ? 0.7 : 0.3;
+  const delayBorder = refresh.value ? 0.4 : 0;
+  const delayCard = refresh.value ? 0.6 : 0.2;
 
   gsap.to('[data-border]', {
     scaleY: 1,
@@ -59,7 +59,7 @@ onMounted(() => {
   gsap.fromTo(
     '[data-card]',
     {
-      y: -32,
+      y: -16,
       opacity: 0,
       filter: 'blur(8px)',
     },
@@ -67,6 +67,7 @@ onMounted(() => {
       y: 0,
       opacity: 1,
       filter: 'blur(0px)',
+      rotateX: '0deg',
       ease: 'power4.out',
       duration: 2.5,
       delay: delayCard,
@@ -82,13 +83,13 @@ onMounted(() => {
 
     <h1 class="sr-only">Selected Work</h1>
 
-    <div data-border class="s-border origin-top [transform:scaleY(0)]"></div>
+    <div data-border class="s-border origin-top transform-[scaleY(0)]"></div>
 
     <div class="s-scroller no-scrollbar" ref="scrollContainer">
       <div ref="smoothContent">
         <div class="grid justify-center xl:gap-[calc(3vw+3vh)] py-[calc(8vw+4rem)]">
           <div
-            class="group grid grid-cols-2"
+            class="group grid grid-cols-2 perspective-[32vw]"
             v-for="(entry, index) in projects"
             :key="entry.title"
             :data-parallax="0.7 + index * -0.1"
@@ -96,7 +97,7 @@ onMounted(() => {
             <nuxt-link
               data-card
               :to="entry.path"
-              class="opacity-0 group-odd:col-start-2 flex flex-col-reverse gap-4 lg:gap-6 xl:flex-row group-odd:xl:flex-row-reverse group-odd:justify-self-end group-even:justify-self-start"
+              class="transform-[rotateX(5deg)] lg:transform-[rotateX(9deg)] opacity-0 group-odd:col-start-2 flex flex-col-reverse gap-4 lg:gap-6 xl:flex-row group-odd:xl:flex-row-reverse group-odd:justify-self-end group-even:justify-self-start"
             >
               <div
                 class="max-w-3xs max-xl:group-odd:ml-[6vw] max-xl:group-even:mr-[6vw] group-even:xl:text-right relative xl:-top-[3px]"
