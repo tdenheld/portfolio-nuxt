@@ -30,14 +30,17 @@ onMounted(() => {
     // Disable on small devices
     if (innerWidth < 740) return;
 
+    const maxScroll = ScrollTrigger.maxScroll(scrollContainer.value);
+    const scroll = maxScroll > 200 ? maxScroll : 200;
+
+    console.log(scroll);
+
     gsap.to(el, {
       scrollTrigger: {
         scrub: 1,
         ...(smoother ? {} : { scroller: scrollContainer.value }),
       },
-      y: (index, target) =>
-        -ScrollTrigger.maxScroll(smoother ? window : scrollContainer.value) *
-        target.dataset.parallax,
+      y: (index, target) => -scroll * target.dataset.parallax,
       ease: 'none',
     });
   });
@@ -89,7 +92,7 @@ onMounted(() => {
       <div ref="smoothContent">
         <div class="grid justify-center xl:gap-[calc(3vw+3vh)] py-[calc(8vw+4rem)]">
           <div
-            class="group grid grid-cols-2 perspective-[32vw]"
+            class="group grid grid-cols-2 perspective-[32vw] max-xl:not-first:-mt-8"
             v-for="(entry, index) in projects"
             :key="entry.title"
             :data-parallax="0.7 + index * -0.1"
@@ -97,7 +100,7 @@ onMounted(() => {
             <nuxt-link
               data-card
               :to="entry.path"
-              class="transform-[rotateX(5deg)] lg:transform-[rotateX(9deg)] opacity-0 group-odd:col-start-2 flex flex-col-reverse gap-4 lg:gap-6 xl:flex-row group-odd:xl:flex-row-reverse group-odd:justify-self-end group-even:justify-self-start"
+              class="transform-[rotateX(5deg)] lg:transform-[rotateX(9deg)] opacity-0 group-odd:col-start-2 flex flex-col-reverse gap-3 lg:gap-6 xl:flex-row group-odd:xl:flex-row-reverse group-odd:justify-self-end group-even:justify-self-start"
             >
               <div
                 class="max-w-3xs max-xl:group-odd:ml-[6vw] max-xl:group-even:mr-[6vw] group-even:xl:text-right relative xl:-top-[3px]"
@@ -108,7 +111,9 @@ onMounted(() => {
                   {{ entry.title }}
                 </h2>
 
-                <p class="mt-2 text-sm text-fg-secondary/70 leading-normal">
+                <p
+                  class="mt-1 lg:mt-2 text-xs md:text-sm text-fg-secondary/70 leading-normal"
+                >
                   {{ entry.meta.descriptionShort }}
                 </p>
               </div>
