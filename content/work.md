@@ -2,11 +2,11 @@
 title: Selected Work
 color:
   fg:
-    primary: "#cdd388"
-    secondary: "#f5f2e3"
-    tertiary: "#f5f2e3"
+    primary: "#FFE29E"
+    secondary: "#FFF"
+    tertiary: "#FFF"
   bg:
-    primary: "#205141"
-    secondary: "#427948"
-    tertiary: "#397877"
+    primary: "#35296B"
+    secondary: "#4c509d"
+    tertiary: "#63366f"
 ---
