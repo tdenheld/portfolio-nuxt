@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollSmoother } from 'gsap/ScrollSmoother';
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
+const page = await queryCollection('content').path('/work').first();
 const projects = await queryCollection('projects').all();
 const nuxtApp = useNuxtApp();
 const refresh = useState('refresh');
@@ -16,7 +17,7 @@ onBeforeUnmount(() => {
 });
 
 onMounted(() => {
-  nuxtApp.$setColor();
+  nuxtApp.$setColor(page.meta.color);
 
   if (!nuxtApp.$isTouchDevice()) {
     smoother = ScrollSmoother.create({
@@ -32,8 +33,6 @@ onMounted(() => {
 
     const maxScroll = ScrollTrigger.maxScroll(scrollContainer.value);
     const scroll = maxScroll > 200 ? maxScroll : 200;
-
-    console.log(scroll);
 
     gsap.to(el, {
       scrollTrigger: {
