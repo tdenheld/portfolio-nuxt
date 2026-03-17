@@ -104,7 +104,7 @@ onMounted(() => {
                 class="max-w-3xs max-xl:group-odd:ml-[6vw] max-xl:group-even:mr-[6vw] group-even:xl:text-right relative xl:-top-px"
               >
                 <h2
-                  class="font-display text-2xl lg:text-3xl hyphens-auto leading-[1.15] font-[850]"
+                  class="font-display text-2xl lg:text-3xl leading-[1.15] font-[850]"
                 >
                   {{ entry.title }}
                 </h2>
@@ -122,7 +122,7 @@ onMounted(() => {
                 ></div>
 
                 <nx-image
-                  class="xl:w-[13vw] xl:min-w-max"
+                  class="grow xl:min-w-56 xl:w-[13vw]"
                   :src="entry.meta.image"
                   alt=""
                   image-class="w-full aspect-video object-cover rounded-lg outline outline-fg-primary/10"
