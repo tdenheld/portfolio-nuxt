@@ -98,7 +98,7 @@ onMounted(() => {
               data-card
               :to="entry.path"
               @click.native="fromHome = false"
-              class="transform-[rotateX(5deg)] lg:transform-[rotateX(9deg)] opacity-0 group-odd:col-start-2 flex flex-col-reverse gap-3 lg:gap-6 xl:flex-row group-odd:xl:flex-row-reverse group-odd:justify-self-end group-even:justify-self-start before:absolute before:-inset-y-4 before:left-[calc(6vw-1rem)] before:-right-4 group-even:before:-left-4 group-even:before:right-[calc(6vw-1rem)] before:rounded-2xl before:bg-fg-primary/8 before:opacity-0 before:scale-[103%] before:blur-md before:transition before:duration-1000 hover:before:opacity-100 hover:before:scale-100 hover:before:blur-none hover:before:duration-500"
+              class="transform-[rotateX(5deg)] lg:transform-[rotateX(9deg)] opacity-0 group-odd:col-start-2 flex flex-col-reverse gap-3 lg:gap-6 xl:flex-row group-odd:xl:flex-row-reverse group-odd:justify-self-end group-even:justify-self-start before:absolute before:-inset-y-4 before:left-[calc(6vw-1rem)] before:-right-4 group-even:before:-left-4 group-even:before:right-[calc(6vw-1rem)] before:rounded-2xl before:bg-fg-secondary/8 before:opacity-0 before:scale-[103%] before:blur-md before:transition before:duration-1000 hover:before:opacity-100 hover:before:scale-100 hover:before:blur-none hover:before:duration-500"
             >
               <div
                 class="max-w-3xs max-xl:group-odd:ml-[6vw] max-xl:group-even:mr-[6vw] group-even:xl:text-right relative xl:-top-px"
@@ -122,11 +122,12 @@ onMounted(() => {
                 ></div>
 
                 <nx-image
+                  class="xl:w-[13vw] xl:min-w-max"
                   :src="entry.meta.image"
                   alt=""
                   image-class="w-full aspect-video object-cover rounded-lg outline outline-fg-primary/10"
-                  sizes="15rem"
-                  :srcset="[320, 640, 1280, 1600]"
+                  sizes="(min-width: 81,25rem) 13vw, (min-width: 30rem) 15rem, 40vw"
+                  :srcset="[320, 480, 640]"
                   :preload="true"
                 ></nx-image>
               </div>
