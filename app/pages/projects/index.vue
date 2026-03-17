@@ -8,6 +8,7 @@ const page = await queryCollection('content').path('/work').first();
 const projects = await queryCollection('projects').all();
 const nuxtApp = useNuxtApp();
 const refresh = useState('refresh');
+const fromHome = useState('fromHome');
 const scrollContainer = ref(null);
 const smoothContent = ref(null);
 let smoother;
@@ -28,9 +29,6 @@ onMounted(() => {
   }
 
   document.querySelectorAll('[data-parallax]').forEach((el) => {
-    // Disable on small devices
-    if (innerWidth < 740) return;
-
     const maxScroll = ScrollTrigger.maxScroll(scrollContainer.value);
     const scroll = maxScroll > 200 ? maxScroll : 200;
 
@@ -99,6 +97,7 @@ onMounted(() => {
             <nuxt-link
               data-card
               :to="entry.path"
+              @click.native="fromHome = false"
               class="transform-[rotateX(5deg)] lg:transform-[rotateX(9deg)] opacity-0 group-odd:col-start-2 flex flex-col-reverse gap-3 lg:gap-6 xl:flex-row group-odd:xl:flex-row-reverse group-odd:justify-self-end group-even:justify-self-start before:absolute before:-inset-y-4 before:left-[calc(6vw-1rem)] before:-right-4 group-even:before:-left-4 group-even:before:right-[calc(6vw-1rem)] before:rounded-2xl before:bg-fg-primary/8 before:opacity-0 before:scale-[103%] before:blur-md before:transition before:duration-1000 hover:before:opacity-100 hover:before:scale-100 hover:before:blur-none hover:before:duration-500"
             >
               <div
