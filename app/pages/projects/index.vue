@@ -87,7 +87,7 @@ onMounted(() => {
 
     <div class="s-scroller no-scrollbar" ref="scrollContainer">
       <div ref="smoothContent">
-        <div class="grid justify-center xl:gap-[calc(3vw+3vh)] py-[calc(8vw+4rem)]">
+        <div class="grid justify-center xl:gap-[calc(3vw+3vh)] pb-8 pt-[calc(8vw+4rem)] md:pb-[calc(8vw+2rem)]">
           <div
             class="group grid grid-cols-2 perspective-[32vw] max-xl:not-first:-mt-8"
             v-for="(entry, index) in projects"
