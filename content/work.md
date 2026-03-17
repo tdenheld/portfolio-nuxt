@@ -6,7 +6,7 @@ color:
     secondary: "#FFF"
     tertiary: "#FFF"
   bg:
-    primary: "#35296B"
-    secondary: "#4c509d"
-    tertiary: "#63366f"
+    primary: "#6b2945"
+    secondary: "#9d5c4c"
+    tertiary: "#6f3665"
 ---
