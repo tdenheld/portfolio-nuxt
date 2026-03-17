@@ -71,12 +71,7 @@ onBeforeUnmount(() => {
                   class="perspective-[32vw]"
                 >
                   <nx-image
-                    v-if="
-                      entry.src?.includes('.png') ||
-                      entry.src?.includes('.jpg') ||
-                      entry.src?.includes('.webp') ||
-                      entry.src?.includes('.svg')
-                    "
+                    v-if="entry.src && !entry.src.includes('.mp4')"
                     :src="entry.src"
                     :alt="entry.alt"
                     :image-class="`w-full h-auto ${entry.rounded === false ? '' : 'rounded-2xl'}`"

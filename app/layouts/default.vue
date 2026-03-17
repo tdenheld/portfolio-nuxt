@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const fromHome = useState('fromHome', () => null);
+const refresh = useState('refresh', () => true);
 const projectIndex = useState('projectIndex', () => 0);
 
 const counterData = useState<{
@@ -10,6 +11,7 @@ const counterData = useState<{
 
 const route = useRoute();
 const projects = await queryCollection('projects').all();
+const isProjectDetail = computed(() => /^\/projects\/.+/.test(route.path));
 
 const getImages = () => {
   // Return an array of all images from the data array
@@ -17,6 +19,15 @@ const getImages = () => {
     .map((entry) => entry.meta?.image)
     .filter((img): img is string => !!img);
 };
+
+onMounted(() => {
+  refresh.value = true;
+});
+
+// prettier-ignore
+watch(() => route.path, () => {
+  refresh.value = false;
+});
 </script>
 
 <template>
@@ -30,9 +41,7 @@ const getImages = () => {
       <slot></slot>
 
       <nx-counter
-        v-if="
-          counterData && (route.path === '/' || route.path.startsWith('/projects/'))
-        "
+        v-if="counterData && (route.path === '/' || isProjectDetail)"
         :class="{ 'hidden lg:block': counterData.pdp }"
         :index="projectIndex"
         :images="getImages()"
@@ -43,7 +52,7 @@ const getImages = () => {
       ></nx-counter>
     </main>
 
-		<nx-rotate-device></nx-rotate-device>
+    <nx-rotate-device></nx-rotate-device>
     <nx-preloader></nx-preloader>
     <nx-veil></nx-veil>
   </div>
