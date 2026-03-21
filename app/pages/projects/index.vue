@@ -50,7 +50,7 @@ onMounted(() => {
   const delayCard = refresh.value ? 0.6 : 0.2;
 
   gsap.to('[data-border]', {
-    scaleY: 1,
+    y: 0,
     ease: 'power4.inOut',
     duration: 1,
     delay: delayBorder,
@@ -83,7 +83,7 @@ onMounted(() => {
 
     <h1 class="sr-only">Selected Work</h1>
 
-    <div data-border class="s-border origin-top transform-[scaleY(0)]"></div>
+    <div data-border class="s-border origin-top transform-[translateY(-100%)]"></div>
 
     <div class="s-scroller no-scrollbar" ref="scrollContainer">
       <div ref="smoothContent">
