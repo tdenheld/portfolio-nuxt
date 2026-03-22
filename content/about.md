@@ -48,7 +48,7 @@ experience:
     roles:
       - Senior Product Designer & Engineer
       - Product Designer
-  - title: Freelance
+  - title: TK305 (Freelance)
     period: 2010 - 2016
     roles:
       - Founder & Digital Designer
