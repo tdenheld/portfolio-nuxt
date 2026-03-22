@@ -48,10 +48,10 @@ experience:
     roles:
       - Senior Product Designer & Engineer
       - Product Designer
-  - title: TK305 (Freelance)
+  - title: TK305
     period: 2010 - 2016
     roles:
-      - Founder & Digital Designer
+      - Founder & Digital Designer (Freelance)
   - title: Bloody Minded
     period: 2006 - 2010
     roles:
