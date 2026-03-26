@@ -3,7 +3,7 @@ const data = await queryCollection('content').path('/global').first();
 </script>
 
 <template>
-  <nav class="fixed inset-x-0 z-navigation pt-contain px-contain lg:main-grid">
+  <header class="fixed inset-x-0 z-navigation pt-contain px-contain lg:main-grid">
     <nx-logo></nx-logo>
 
     <div class="hidden lg:block col-start-2 relative top-1">
@@ -23,5 +23,5 @@ const data = await queryCollection('content').path('/global').first();
         >
       </li>
     </ul>
-  </nav>
+  </header>
 </template>
