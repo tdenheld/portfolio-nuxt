@@ -35,7 +35,8 @@ onMounted(() => {
         ...(smoother ? {} : { scroller: scrollContainer.value }),
       },
       y: (index, target) =>
-        -ScrollTrigger.maxScroll(smoother ? window : scrollContainer.value) * target.dataset.parallax,
+        -ScrollTrigger.maxScroll(smoother ? window : scrollContainer.value) *
+        target.dataset.parallax,
       ease: 'none',
     });
   });
@@ -49,7 +50,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div>
-    <nx-meta-tags :title="page.title" :description="page.description"></nx-meta-tags>
+    <nx-meta-tags :title="page.title"></nx-meta-tags>
 
     <div
       ref="scrollContainer"

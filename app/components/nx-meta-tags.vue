@@ -6,7 +6,7 @@ const props = defineProps({
   title: String,
   description: {
     type: String,
-    default: 'This is the default description for the website.',
+    default: 'Tibor crafts scalable and accessible experiences. He specializes in design systems, product design and engineering.',
   },
   image: {
     type: String,
