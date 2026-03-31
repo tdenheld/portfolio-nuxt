@@ -22,10 +22,6 @@ const getTitle = () => {
 useHead({
   titleTemplate: () => getTitle(),
 
-  htmlAttrs: {
-    lang: 'nl',
-  },
-
   meta: [
     {
       name: 'description',
