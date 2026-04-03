@@ -5,7 +5,7 @@
 .content {
   @apply max-w-prose
   py-4
-  text-balance;
+  text-pretty;
 
   h1,
   h2,
