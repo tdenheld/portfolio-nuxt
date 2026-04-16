@@ -33,7 +33,7 @@ watch(() => route.path, () => {
 <template>
   <div>
     <nx-nav></nx-nav>
-    <div class="fixed inset-0 bg-bg-primary transition duration-1500"></div>
+    <div class="fixed inset-0 bg-bg-primary transition-colors duration-1500 [will-change:background-color]"></div>
     <nx-blobs></nx-blobs>
     <!-- <nx-gradient></nx-gradient> -->
 

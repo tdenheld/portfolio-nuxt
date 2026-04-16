@@ -32,7 +32,7 @@
   @apply absolute
   inset-0
   transition-clr
-  will-change-contents;
+  will-change-transform;
 }
 
 .blob--1 {
