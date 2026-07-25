@@ -121,15 +121,14 @@ onMounted(() => {
       data-scroller-carousel
       role="region"
       aria-label="Featured projects"
-      tabindex="0"
       class="s-carousel no-scrollbar"
     >
       <!-- Keep cloned, off-screen actions out of the keyboard and accessibility trees. -->
       <div
         v-for="(entry, i) in carouselData"
         :key="i"
-        :aria-hidden="i !== activeSlideIndex"
-        :inert="i !== activeSlideIndex"
+        :aria-hidden="i >= data.length ? true : undefined"
+        :inert="i >= data.length ? true : undefined"
         class="lg:main-grid h-full snap-center"
       >
         <div class="col-start-2 h-full grid items-center">

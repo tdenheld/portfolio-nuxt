@@ -25,7 +25,9 @@ test.describe('portfolio routes', () => {
   }
 });
 
-test('carousel exposes only its active slide', async ({ page }) => {
+test('carousel keeps only cloned slides out of the keyboard tree', async ({
+  page,
+}) => {
   await page.goto('/');
 
   const carousel = page.locator('[data-scroller-carousel]');
@@ -34,8 +36,43 @@ test('carousel exposes only its active slide', async ({ page }) => {
   await expect(carousel).toBeVisible();
   const slideCount = await slides.count();
   expect(slideCount).toBeGreaterThan(1);
-  await expect(carousel.locator(':scope > [aria-hidden="false"]')).toHaveCount(1);
-  expect(await carousel.locator(':scope > [inert]').count()).toBe(slideCount - 1);
+  expect(await carousel.locator(':scope > [inert]').count()).toBe(slideCount / 2);
+});
+
+test('carousel Explore link supports pointer navigation', async ({ page }) => {
+  await page.goto('/');
+
+  const carousel = page.locator('[data-scroller-carousel]');
+  await carousel.evaluate((element) => {
+    const nextSlide = element.children[1] as HTMLElement;
+    element.scrollTo({ top: nextSlide.offsetTop - element.offsetTop });
+  });
+
+  const exploreLink = carousel.locator(
+    ':scope > :not([inert]) a[href="/projects/dutch-railways"]'
+  );
+  await expect(exploreLink).toBeVisible();
+  await exploreLink.click();
+  await expect(page).toHaveURL(/\/projects\/dutch-railways$/);
+});
+
+test('carousel Explore link supports keyboard navigation', async ({ page }) => {
+  await page.goto('/');
+
+  const carousel = page.locator('[data-scroller-carousel]');
+  const firstExploreLink = carousel.locator(
+    ':scope > :not([inert]) a[href="/projects/dutch-railways"]'
+  );
+  const nextExploreLink = carousel.locator(
+    ':scope > :not([inert]) a[href="/projects/vpro"]'
+  );
+
+  await firstExploreLink.focus();
+  await expect(firstExploreLink).toBeFocused();
+  await page.keyboard.press('Tab');
+  await expect(nextExploreLink).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(/\/projects\/vpro$/);
 });
 
 for (const { path, name } of [
