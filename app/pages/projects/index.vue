@@ -49,6 +49,7 @@ useSmoothParallax({
     );
   },
 });
+
 usePageColor(() => page.color);
 </script>
 
