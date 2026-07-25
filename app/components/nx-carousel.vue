@@ -70,9 +70,7 @@ usePageColor(() => getActiveEntry()?.color);
 
 const getAllImages = () => {
   // Return an array of all images from the data array
-  return props.data
-    .map((entry) => entry.image)
-    .filter((img): img is string => !!img);
+  return props.data.map((entry) => entry.image).filter((img): img is string => !!img);
 };
 
 // Check if the first item of the active project is a video
@@ -121,6 +119,9 @@ onMounted(() => {
       @scroll="handleScroll($event)"
       @scrollend="handleScrollEnd($event)"
       data-scroller-carousel
+      role="region"
+      aria-label="Featured projects"
+      tabindex="0"
       class="s-carousel no-scrollbar"
     >
       <!-- Keep cloned, off-screen actions out of the keyboard and accessibility trees. -->

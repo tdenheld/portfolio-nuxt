@@ -45,9 +45,7 @@ export default defineContentConfig({
         name: z.string().optional(),
         email: z.string().optional(),
         image: z.string().optional(),
-        nav: z
-          .array(z.object({ name: z.string(), url: z.string() }))
-          .optional(),
+        nav: z.array(z.object({ name: z.string(), url: z.string() })).optional(),
         data: z
           .array(z.object({ title: z.string(), items: z.array(z.string()) }))
           .optional(),
@@ -60,9 +58,7 @@ export default defineContentConfig({
             })
           )
           .optional(),
-        links: z
-          .array(z.object({ label: z.string(), url: z.string() }))
-          .optional(),
+        links: z.array(z.object({ label: z.string(), url: z.string() })).optional(),
         color: colorSchema.optional(),
       }),
     }),

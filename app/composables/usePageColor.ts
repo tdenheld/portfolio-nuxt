@@ -2,9 +2,7 @@ import type { MaybeRefOrGetter, WatchStopHandle } from 'vue';
 
 import type { Color } from '~/interfaces';
 
-export const usePageColor = (
-  color: MaybeRefOrGetter<Color | null | undefined>
-) => {
+export const usePageColor = (color: MaybeRefOrGetter<Color | null | undefined>) => {
   let stopWatching: WatchStopHandle | undefined;
 
   const applyColor = (value: Color | null | undefined) => {

@@ -3,9 +3,7 @@ import type { MaybeRefOrGetter } from 'vue';
 const REVEAL_SELECTOR = '[data-reveal]';
 const TRIGGER_SELECTOR = '[data-reveal-trigger]';
 
-export const useReveal = (
-  root: MaybeRefOrGetter<HTMLElement | null | undefined>
-) => {
+export const useReveal = (root: MaybeRefOrGetter<HTMLElement | null | undefined>) => {
   const getRoot = () => toValue(root);
   const getTriggers = () => {
     const rootElement = getRoot();

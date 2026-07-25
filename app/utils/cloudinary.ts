@@ -18,7 +18,5 @@ export const getCloudinaryImageUrl = (
 
 export const getCloudinarySrcset = (source: string, widths: number[]) =>
   widths
-    .map(
-      (width) => `${getCloudinaryImageUrl(source, { width })} ${width}w`
-    )
+    .map((width) => `${getCloudinaryImageUrl(source, { width })} ${width}w`)
     .join(',\n    ');

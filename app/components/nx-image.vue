@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import {
-  getCloudinaryImageUrl,
-  getCloudinarySrcset,
-} from '~/utils/cloudinary';
+import { getCloudinaryImageUrl, getCloudinarySrcset } from '~/utils/cloudinary';
 
 const props = defineProps({
   src: {
@@ -19,7 +16,7 @@ const props = defineProps({
   },
   srcset: {
     type: Array as PropType<number[]>,
-    default: [160, 320, 640, 960, 1280],
+    default: () => [160, 320, 640, 960, 1280],
   },
   ariaHidden: Boolean,
   imageClass: String,
@@ -96,7 +93,7 @@ useHead({
       :srcset="getSrcset()"
       :sizes="sizes"
       :alt="alt"
-      :aria-hidden="ariaHidden"
+      :aria-hidden="ariaHidden || undefined"
       :class="getClass()"
       :loading="getLoading()"
       @load="loaded = true"

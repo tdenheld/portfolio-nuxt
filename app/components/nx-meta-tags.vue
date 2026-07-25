@@ -1,12 +1,13 @@
 <script setup>
-const title = 'Tibor den Held';
+const siteTitle = 'Tibor den Held';
 const subtitle = 'Design Engineer & Creative Developer';
 
 const props = defineProps({
   title: String,
   description: {
     type: String,
-    default: 'Tibor crafts scalable and accessible experiences. He specializes in design systems, product design and engineering.',
+    default:
+      'Tibor crafts scalable and accessible experiences. He specializes in design systems, product design and engineering.',
   },
   image: {
     type: String,
@@ -16,7 +17,7 @@ const props = defineProps({
 });
 
 const getTitle = () => {
-  return props.title ? `${props.title} – ${title}` : `${title} – ${subtitle}`;
+  return props.title ? `${props.title} – ${siteTitle}` : `${siteTitle} – ${subtitle}`;
 };
 
 useHead({

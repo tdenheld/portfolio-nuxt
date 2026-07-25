@@ -60,11 +60,10 @@ export const useIntersectionObserver = ({
   };
 
   onMounted(() => {
-    stopWatching = watch(
-      [() => toValue(element), () => toValue(root)],
-      observe,
-      { immediate: true, flush: 'post' }
-    );
+    stopWatching = watch([() => toValue(element), () => toValue(root)], observe, {
+      immediate: true,
+      flush: 'post',
+    });
   });
 
   onBeforeUnmount(() => {

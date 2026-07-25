@@ -1,8 +1,10 @@
-<script setup>
-const props = defineProps({
-  project: Object,
-  root: HTMLElement | undefined,
-});
+<script setup lang="ts">
+import type { ProjectsCollectionItem } from '@nuxt/content';
+
+const props = defineProps<{
+  project: ProjectsCollectionItem;
+  root?: HTMLElement | null;
+}>();
 
 const fromHome = useState('fromHome');
 const element = ref(null);
@@ -26,7 +28,7 @@ useIntersectionObserver({
       <nuxt-link
         :to="project.path"
         class="group cursor-pointer touch-manipulation inline-block outline-offset-16"
-        @click.native="fromHome = false"
+        @click="fromHome = false"
       >
         <h2
           class="font-display font-[150] group-hover:font-[750] transition-all duration-600 text-[calc(3rem+10vw)] leading-[0.8] tracking-tighter"

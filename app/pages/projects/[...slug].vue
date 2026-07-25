@@ -1,6 +1,12 @@
 <script setup lang="ts">
+import type { Highlight } from '~/interfaces';
+
 const fromHome = useState('fromHome');
-const counterData = useState<any>('counterData');
+const counterData = useState<{
+  highlights?: Highlight[];
+  visit?: string;
+  pdp?: boolean;
+}>('counterData');
 const projectIndex = useState<number>('projectIndex');
 
 const route = useRoute();
@@ -15,13 +21,13 @@ if (!page) {
 
 const projects = await queryCollection('projects').all();
 const scrollContainer = ref<HTMLElement | null>(null);
-  
+
 useReveal(scrollContainer);
 usePageColor(() => page.color);
 
 const nextProject = computed(() => {
   const nextIndex = projectIndex.value % projects.length;
-  return projects[nextIndex];
+  return projects[nextIndex] ?? page;
 });
 
 onBeforeMount(() => {

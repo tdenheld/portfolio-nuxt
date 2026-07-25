@@ -15,7 +15,8 @@ onMounted(() => {
     (entries) => {
       entries.forEach((entry) => {
         const target = entry.target as HTMLVideoElement;
-        entry.isIntersecting ? target.play() : target.pause();
+        if (entry.isIntersecting) target.play();
+        else target.pause();
       });
     },
     { rootMargin: '-10% 0px' }
@@ -43,7 +44,11 @@ onUnmounted(() => {
       autoplay
       :poster="poster"
     >
-      <source :src="src + '.webm#t=0.001'" type="video/webm" media="(width >= 980px)" />
+      <source
+        :src="src + '.webm#t=0.001'"
+        type="video/webm"
+        media="(width >= 980px)"
+      />
       <source :src="src + '-sm.webm#t=0.001'" type="video/webm" />
 
       <source :src="src + '.mp4#t=0.001'" type="video/mp4" media="(width >= 980px)" />

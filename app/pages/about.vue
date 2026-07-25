@@ -67,6 +67,7 @@ usePageColor(() => page?.color);
             <div class="relative space-y-12">
               <div
                 v-for="entry in page.data"
+                :key="entry.title"
                 class="blur-sm"
                 data-reveal
                 data-reveal-trigger

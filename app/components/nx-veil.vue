@@ -17,7 +17,7 @@
     display: block;
     pointer-events: none;
   }
-  
+
   .veil-overlay {
     position: fixed;
     inset: 0;

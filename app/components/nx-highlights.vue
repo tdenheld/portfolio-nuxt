@@ -48,7 +48,12 @@ onMounted(() => {
 <template>
   <div ref="hostElement" class="space-y-12">
     <div data-highlight v-if="visit" class="opacity-0">
-      <a :href="visit" target="_blank" rel="noopener noreferrer" class="group focus:outline-none">
+      <a
+        :href="visit"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group focus:outline-none"
+      >
         <nx-button>Visit</nx-button>
       </a>
     </div>
