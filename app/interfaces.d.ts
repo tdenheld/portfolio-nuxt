@@ -1,39 +1,7 @@
-export interface Color {
-  fg: {
-    primary: string;
-    secondary: string;
-    tertiary: string;
-  };
-  bg: {
-    primary: string;
-    secondary: string;
-    tertiary: string;
-  };
-}
+import type { PagesCollectionItem, ProjectsCollectionItem } from '@nuxt/content';
 
-export interface Highlight {
-  title: string;
-  items: string[];
-}
-
-export interface Page {
-  path?: string;
-  title: string;
-  description?: string;
-  meta: {
-    period?: string;
-    descriptionShort?: string;
-    highlights?: Highlight[];
-    image?: string;
-    visit?: string;
-    color?: Color;
-    name?: string;
-    items?: {
-      src?: string;
-      poster?: string;
-      alt?: string;
-      rounded?: boolean;
-      copy?: string;
-    }[];
-  };
-}
+export type Color = ProjectsCollectionItem['color'];
+export type Highlight = ProjectsCollectionItem['highlights'][number];
+export type Page =
+	| (Omit<PagesCollectionItem, 'path'> & { path?: string })
+	| ProjectsCollectionItem;

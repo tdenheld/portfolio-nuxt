@@ -4,52 +4,59 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollSmoother } from 'gsap/ScrollSmoother';
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
-const page = await queryCollection('content').path('/about').first();
+const page = await queryCollection('pages').path('/about').first();
 const nuxtApp = useNuxtApp();
+const hostElement = ref(null);
 const scrollContainer = ref(null);
 const smoothContent = ref(null);
 let revealCleanup;
 let smoother;
+let animationContext;
 
 onMounted(() => {
-  nuxtApp.$setColor(page?.meta?.color);
+  nuxtApp.$setColor(page?.color);
 
   const revealInstance = nuxtApp.$reveal(scrollContainer.value);
   revealCleanup = revealInstance.cleanup;
 
-  if (!nuxtApp.$isTouchDevice()) {
-    smoother = ScrollSmoother.create({
-      wrapper: scrollContainer.value,
-      content: smoothContent.value,
-      smooth: 0.8,
-    });
-  }
+  animationContext = gsap.context(() => {
+    if (!nuxtApp.$isTouchDevice()) {
+      smoother = ScrollSmoother.create({
+        wrapper: scrollContainer.value,
+        content: smoothContent.value,
+        smooth: 0.8,
+      });
+    }
 
-  document.querySelectorAll('[data-parallax]').forEach((el) => {
-    // Disable on small devices
-    if (innerWidth < 740) return;
+    gsap.utils
+      .toArray('[data-parallax]', hostElement.value)
+      .forEach((element) => {
+        // Disable on small devices
+        if (innerWidth < 740) return;
 
-    gsap.to(el, {
-      scrollTrigger: {
-        scrub: 1,
-        ...(smoother ? {} : { scroller: scrollContainer.value }),
-      },
-      y: (index, target) =>
-        -ScrollTrigger.maxScroll(smoother ? window : scrollContainer.value) *
-        target.dataset.parallax,
-      ease: 'none',
-    });
-  });
+        gsap.to(element, {
+          scrollTrigger: {
+            scrub: 1,
+            ...(smoother ? {} : { scroller: scrollContainer.value }),
+          },
+          y: () =>
+            -ScrollTrigger.maxScroll(smoother ? window : scrollContainer.value) *
+            Number(element.dataset.parallax),
+          ease: 'none',
+        });
+      });
+  }, hostElement.value);
 });
 
 onBeforeUnmount(() => {
   if (revealCleanup) revealCleanup();
   smoother?.kill();
+  animationContext?.revert();
 });
 </script>
 
 <template>
-  <div>
+  <div ref="hostElement">
     <nx-meta-tags :title="page.title"></nx-meta-tags>
 
     <div
@@ -82,7 +89,7 @@ onBeforeUnmount(() => {
             <div class="perspective-[32vw]" data-parallax="0.3">
               <div class="about-image">
                 <nx-image
-                  :src="page.meta.image"
+                  :src="page.image"
                   :alt="page.title"
                   class="max-w-lg md:max-w-[initial] overflow-hidden rounded-4xl aspect-square"
                   sizes="(min-width: 90rem) 32rem, (min-width: 61.25rem) 33vw, (min-width: 46.25rem) 40vw, 80vw"
@@ -98,7 +105,7 @@ onBeforeUnmount(() => {
           >
             <div class="relative space-y-12">
               <div
-                v-for="entry in page.meta.data"
+                v-for="entry in page.data"
                 class="blur-sm"
                 data-reveal
                 data-reveal-trigger
@@ -122,7 +129,7 @@ onBeforeUnmount(() => {
                 <h2 class="eyebrow">Experience</h2>
 
                 <div class="mt-3 space-y-4">
-                  <div v-for="entry in page.meta.experience" :key="entry.title">
+                  <div v-for="entry in page.experience" :key="entry.title">
                     <h3 class="text-fg-secondary text-sm">
                       {{ entry.title }}
                       <span class="whitespace-nowrap">({{ entry.period }})</span>
@@ -148,7 +155,7 @@ onBeforeUnmount(() => {
                   <ul>
                     <li
                       class="text-fg-secondary text-sm"
-                      v-for="entry in page.meta.links"
+                      v-for="entry in page.links"
                       :key="entry.label"
                     >
                       <a

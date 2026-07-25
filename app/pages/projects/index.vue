@@ -4,81 +4,88 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollSmoother } from 'gsap/ScrollSmoother';
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
-const page = await queryCollection('content').path('/work').first();
+const page = await queryCollection('pages').path('/work').first();
 const projects = await queryCollection('projects').all();
 const nuxtApp = useNuxtApp();
 const refresh = useState('refresh');
 const fromHome = useState('fromHome');
+const hostElement = ref(null);
 const scrollContainer = ref(null);
 const smoothContent = ref(null);
 let smoother;
+let animationContext;
 
 onBeforeUnmount(() => {
   smoother?.kill();
+  animationContext?.revert();
 });
 
 onMounted(() => {
-  nuxtApp.$setColor(page.meta.color);
+  nuxtApp.$setColor(page.color);
 
-  if (!nuxtApp.$isTouchDevice()) {
-    smoother = ScrollSmoother.create({
-      wrapper: scrollContainer.value,
-      content: smoothContent.value,
-      smooth: 0.8,
-    });
-  }
-
-  document.querySelectorAll('[data-parallax]').forEach((el) => {
-    const maxScroll = ScrollTrigger.maxScroll(scrollContainer.value);
-    const scroll = maxScroll > 200 ? maxScroll : 200;
-
-    gsap.to(el, {
-      scrollTrigger: {
-        scrub: 1,
-        ...(smoother ? {} : { scroller: scrollContainer.value }),
-      },
-      y: (index, target) => -scroll * target.dataset.parallax,
-      ease: 'none',
-    });
-  });
-
-  // Animate border and cards
-  // ------------------------------------------------------------
-
-  // Add (more) delay on initial page load
-  const delayBorder = refresh.value ? 0.4 : 0;
-  const delayCard = refresh.value ? 0.6 : 0.2;
-
-  gsap.to('[data-border]', {
-    y: 0,
-    ease: 'power4.inOut',
-    duration: 1,
-    delay: delayBorder,
-  });
-
-  gsap.fromTo(
-    '[data-card]',
-    {
-      y: -16,
-      opacity: 0,
-      filter: 'blur(8px)',
-    },
-    {
-      y: 0,
-      opacity: 1,
-      filter: 'blur(0px)',
-      rotateX: '0deg',
-      ease: 'power4.out',
-      duration: 2.5,
-      delay: delayCard,
-      stagger: 0.12,
+  animationContext = gsap.context(() => {
+    if (!nuxtApp.$isTouchDevice()) {
+      smoother = ScrollSmoother.create({
+        wrapper: scrollContainer.value,
+        content: smoothContent.value,
+        smooth: 0.8,
+      });
     }
-  );
+
+    gsap.utils
+      .toArray('[data-parallax]', hostElement.value)
+      .forEach((element) => {
+        const maxScroll = ScrollTrigger.maxScroll(scrollContainer.value);
+        const scroll = maxScroll > 200 ? maxScroll : 200;
+
+        gsap.to(element, {
+          scrollTrigger: {
+            scrub: 1,
+            ...(smoother ? {} : { scroller: scrollContainer.value }),
+          },
+          y: () => -scroll * element.dataset.parallax,
+          ease: 'none',
+        });
+      });
+
+    // Animate border and cards
+    // ------------------------------------------------------------
+
+    // Add (more) delay on initial page load
+    const delayBorder = refresh.value ? 0.4 : 0;
+    const delayCard = refresh.value ? 0.6 : 0.2;
+
+    gsap.to('[data-border]', {
+      y: 0,
+      ease: 'power4.inOut',
+      duration: 1,
+      delay: delayBorder,
+    });
+
+    gsap.fromTo(
+      '[data-card]',
+      {
+        y: -16,
+        opacity: 0,
+        filter: 'blur(8px)',
+      },
+      {
+        y: 0,
+        opacity: 1,
+        filter: 'blur(0px)',
+        rotateX: '0deg',
+        ease: 'power4.out',
+        duration: 2.5,
+        delay: delayCard,
+        stagger: 0.12,
+      }
+    );
+  }, hostElement.value);
 });
 </script>
 
 <template>
-  <div>
+  <div ref="hostElement">
     <nx-meta-tags :title="page.title"></nx-meta-tags>
     <h1 class="sr-only">{{ page.title }}</h1>
 
@@ -113,7 +120,7 @@ onMounted(() => {
                 <p
                   class="mt-1 lg:mt-2 text-xs md:text-sm text-fg-secondary/70 leading-normal"
                 >
-                  {{ entry.meta.descriptionShort }}
+                  {{ entry.descriptionShort }}
                 </p>
               </div>
 
@@ -124,7 +131,7 @@ onMounted(() => {
 
                 <nx-image
                   class="grow xl:min-w-56 xl:w-[13vw]"
-                  :src="entry.meta.image"
+                  :src="entry.image"
                   alt=""
                   image-class="w-full aspect-video object-cover rounded-lg outline outline-fg-primary/10"
                   sizes="(min-width: 81,25rem) 13vw, (min-width: 30rem) 15rem, 40vw"

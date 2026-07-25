@@ -17,6 +17,12 @@ const nuxtApp = useNuxtApp();
 const hostElement = ref<HTMLElement | null>(null);
 const isCta = ref(true);
 const isTouchDevice = ref(false);
+const eyebrow = computed(() =>
+  'period' in props.data ? props.data.period : props.data.name
+);
+const descriptionShort = computed(() =>
+  'descriptionShort' in props.data ? props.data.descriptionShort : undefined
+);
 
 const createScrollAnimation = () => {
   if (!hostElement.value || props.pdp) return;
@@ -100,10 +106,10 @@ onBeforeUnmount(() => {
 
 <template>
   <div ref="hostElement" @click="goto()" class="pb-4 lg:pb-8">
-    <div v-if="data.meta.name || data.meta.period" data-hero-scroll>
+    <div v-if="eyebrow" data-hero-scroll>
       <div>
         <p class="font-serif text-xl md:text-[28px] text-fg-secondary">
-          {{ data.meta.name || data.meta.period }}
+          {{ eyebrow }}
         </p>
       </div>
     </div>
@@ -119,10 +125,10 @@ onBeforeUnmount(() => {
       </div>
     </div>
 
-    <div v-if="data.meta.descriptionShort" data-hero-scroll class="mt-2">
+    <div v-if="descriptionShort" data-hero-scroll class="mt-2">
       <div>
         <p class="text-fg-secondary text-lg max-w-[40ch] leading-[1.4]">
-          {{ data.meta.descriptionShort }}
+          {{ descriptionShort }}
         </p>
       </div>
     </div>

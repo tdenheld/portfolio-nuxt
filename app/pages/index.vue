@@ -2,7 +2,7 @@
 const fromHome = useState('fromHome');
 const projectIndex = useState<number>('projectIndex');
 
-const page = await queryCollection('content').path('/').first();
+const page = await queryCollection('pages').path('/').first();
 const projects = await queryCollection('projects').all();
 
 const newPage = page ? { ...page, path: undefined } : null;

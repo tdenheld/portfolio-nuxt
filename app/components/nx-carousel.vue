@@ -75,24 +75,24 @@ const getActiveEntry = () => {
 const setColor = () => {
   const entry = getActiveEntry();
   if (!entry) return;
-  nuxtApp.$setColor(entry.meta?.color);
+  nuxtApp.$setColor(entry.color);
 };
 
 const getAllImages = () => {
   // Return an array of all images from the data array
   return props.data
-    .map((entry) => entry.meta?.image)
+    .map((entry) => entry.image)
     .filter((img): img is string => !!img);
 };
 
 // Check if the first item of the active project is a video
 const getVideo = computed(() => {
   const entry = getActiveEntry();
-  if (!entry || !entry.meta?.items || entry.meta.items.length === 0) return null;
+  if (!entry || !('items' in entry) || entry.items.length === 0) return null;
 
-  const firstItem = entry.meta.items[0];
-  if (firstItem && firstItem.src?.endsWith('.mp4')) {
-    return firstItem.src?.replace('.mp4', ''); // Remove extension for nx-video component
+  const firstItem = entry.items[0];
+  if (firstItem?.type === 'video') {
+    return firstItem.src.replace('.mp4', ''); // Remove extension for nx-video component
   }
 
   return null;

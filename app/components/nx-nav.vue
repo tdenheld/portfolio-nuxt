@@ -1,5 +1,5 @@
 <script setup>
-const data = await queryCollection('content').path('/global').first();
+const data = await queryCollection('pages').path('/global').first();
 </script>
 
 <template>
@@ -17,7 +17,7 @@ const data = await queryCollection('content').path('/global').first();
     <ul
       class="absolute top-contain lg:top-[calc(var(--spacing-contain)+16px)] right-contain text-[10px] md:text-xs text-fg-secondary transition-clr uppercase tracking-[0.16em] justify-end flex items-center gap-6 md:gap-12"
     >
-      <li v-for="entry in data.meta.nav" :key="entry.url">
+      <li v-for="entry in data?.nav" :key="entry.url">
         <nuxt-link class="link" :to="entry.url"
           ><span>{{ entry.name }}</span></nuxt-link
         >
