@@ -1,75 +1,26 @@
-# Nuxt Minimal Starter
+# tibor.work
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Personal portfolio built with Nuxt 4, Nuxt Content, Tailwind CSS, and GSAP.
 
 ## Setup
 
-Make sure to install dependencies:
-
 ```bash
-# npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
 npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
+The development server runs at `http://localhost:3000`.
 
-Build the application for production:
+## Commands
 
 ```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+npm run build          # Production build
+npm run lint           # ESLint
+npm run format:check   # Prettier verification
+npm run typecheck      # Nuxt TypeScript check
+npm run validate       # Run all quality checks
 ```
 
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Page and project data lives in `content/` and is validated by `content.config.ts`.
+Browser behavior is implemented in `app/composables/`; `app/plugins/` is reserved
+for application initialization such as GSAP registration.

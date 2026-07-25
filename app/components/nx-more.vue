@@ -1,5 +1,5 @@
 <script setup>
-const props = defineProps({
+defineProps({
   projects: {
     type: Array,
     required: true,
@@ -20,7 +20,7 @@ const props = defineProps({
         >
           <div class="bg-fg-primary rounded-lg md:rounded-2xl overflow-hidden">
             <nx-image
-              :src="entry.meta.image"
+              :src="entry.image"
               class="grayscale-100 mix-blend-screen"
             ></nx-image>
           </div>

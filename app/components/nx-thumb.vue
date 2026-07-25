@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const props = defineProps<{
+defineProps<{
   index: number;
   images?: string[];
   pdp?: boolean;
@@ -22,23 +22,24 @@ const fromHome = useState('fromHome');
         <nx-oscilloscope></nx-oscilloscope>
       </div>
 
-      <div
-        v-if="fromHome"
-        v-for="(image, imgIndex) in images"
-        :key="imgIndex"
-        class="absolute inset-0 transition-opacity opacity-0 duration-1500"
-        :class="{
-          'opacity-100': imgIndex === index - 1 && !pdp,
-        }"
-      >
-        <nx-image
-          :src="image"
-          :srcset="[240, 400, 640]"
-          :lazy="false"
-          sizes="(min-width: 81.25rem) 14rem, (min-width: 46.25rem) 12rem, 6rem"
-          class="size-full"
-        ></nx-image>
-      </div>
+      <template v-if="fromHome">
+        <div
+          v-for="(image, imgIndex) in images"
+          :key="imgIndex"
+          class="absolute inset-0 transition-opacity opacity-0 duration-1500"
+          :class="{
+            'opacity-100': imgIndex === index - 1 && !pdp,
+          }"
+        >
+          <nx-image
+            :src="image"
+            :srcset="[240, 400, 640]"
+            :lazy="false"
+            sizes="(min-width: 81.25rem) 14rem, (min-width: 46.25rem) 12rem, 6rem"
+            class="size-full"
+          ></nx-image>
+        </div>
+      </template>
     </div>
   </div>
 </template>

@@ -1,43 +1,46 @@
 <script setup lang="ts">
-import type { Page } from '~/interfaces';
+import type { Highlight } from '~/interfaces';
 
 const fromHome = useState('fromHome');
-const counterData = useState<any>('counterData');
+const counterData = useState<{
+  highlights?: Highlight[];
+  visit?: string;
+  pdp?: boolean;
+}>('counterData');
 const projectIndex = useState<number>('projectIndex');
 
 const route = useRoute();
-const nuxtApp: any = useNuxtApp();
-const page: Page | null = await queryCollection('content').path(route.path).first();
+const page = await queryCollection('projects').path(route.path).first();
+
+if (!page) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: 'Project not found',
+  });
+}
+
 const projects = await queryCollection('projects').all();
 const scrollContainer = ref<HTMLElement | null>(null);
 
-// Cleanup function for reveal animations
-let revealCleanup: (() => void) | null = null;
+useReveal(scrollContainer);
+usePageColor(() => page.color);
 
 const nextProject = computed(() => {
   const nextIndex = projectIndex.value % projects.length;
-  return projects[nextIndex];
+  return projects[nextIndex] ?? page;
 });
 
 onBeforeMount(() => {
-  projectIndex.value = projects.findIndex((p) => p.path === page?.path) + 1;
+  projectIndex.value = projects.findIndex((p) => p.path === page.path) + 1;
 });
 
 onMounted(() => {
-  nuxtApp.$setColor(page?.meta?.color);
-  const revealInstance = nuxtApp.$reveal(scrollContainer.value);
-  revealCleanup = revealInstance.cleanup;
-
   // Update counter data for the layout component
   counterData.value = {
-    highlights: page?.meta?.highlights || [],
-    visit: page?.meta?.visit || '',
+    highlights: page.highlights,
+    visit: page.visit,
     pdp: true,
   };
-});
-
-onBeforeUnmount(() => {
-  if (revealCleanup) revealCleanup();
 });
 </script>
 
@@ -47,7 +50,7 @@ onBeforeUnmount(() => {
       <nx-meta-tags
         :title="page.title"
         :description="page.description"
-        :image="page.meta.image"
+        :image="page.image"
       ></nx-meta-tags>
 
       <div
@@ -66,12 +69,12 @@ onBeforeUnmount(() => {
             <div class="pdp-img-fade-up lg:pb-contain">
               <div class="space-y-contain">
                 <div
-                  v-for="(entry, index) in page.meta.items"
+                  v-for="(entry, index) in page.items"
                   :key="index"
                   class="perspective-[32vw]"
                 >
                   <nx-image
-                    v-if="entry.src && !entry.src.includes('.mp4')"
+                    v-if="entry.type === 'image'"
                     :src="entry.src"
                     :alt="entry.alt"
                     :image-class="`w-full h-auto ${entry.rounded === false ? '' : 'rounded-2xl'}`"
@@ -84,8 +87,8 @@ onBeforeUnmount(() => {
                   ></nx-image>
 
                   <nx-video
-                    v-if="entry.src?.includes('.mp4')"
-                    :src="entry.src?.replace(/\.(mp4)$/, '')"
+                    v-if="entry.type === 'video'"
+                    :src="entry.src.replace(/\.(mp4)$/, '')"
                     :poster="entry.poster"
                     class="blur-sm transform-[rotate3d(1,0,0,6deg)]"
                     data-reveal-trigger
@@ -93,7 +96,7 @@ onBeforeUnmount(() => {
                   ></nx-video>
 
                   <nx-content
-                    v-if="entry.copy"
+                    v-if="entry.type === 'copy'"
                     :content="entry.copy"
                     class="blur-sm transform-[rotate3d(1,0,0,9deg)]"
                     data-reveal-trigger
@@ -104,8 +107,8 @@ onBeforeUnmount(() => {
 
               <div class="pt-12 lg:hidden">
                 <nx-highlights
-                  :highlights="page.meta.highlights || []"
-                  :visit="page.meta.visit"
+                  :highlights="page.highlights"
+                  :visit="page.visit"
                 ></nx-highlights>
               </div>
             </div>

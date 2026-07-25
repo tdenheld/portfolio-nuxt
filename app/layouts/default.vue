@@ -1,10 +1,12 @@
 <script setup lang="ts">
-const fromHome = useState('fromHome', () => null);
+import type { Highlight } from '~/interfaces';
+
+useState<boolean | null>('fromHome', () => null);
 const refresh = useState('refresh', () => true);
 const projectIndex = useState('projectIndex', () => 0);
 
 const counterData = useState<{
-  highlights?: any[];
+  highlights?: Highlight[];
   visit?: string;
   pdp?: boolean;
 } | null>('counterData', () => null);
@@ -15,9 +17,7 @@ const isProjectDetail = computed(() => /^\/projects\/.+/.test(route.path));
 
 const getImages = () => {
   // Return an array of all images from the data array
-  return projects
-    .map((entry) => entry.meta?.image)
-    .filter((img): img is string => !!img);
+  return projects.map((entry) => entry.image).filter((img): img is string => !!img);
 };
 
 onMounted(() => {
@@ -33,9 +33,10 @@ watch(() => route.path, () => {
 <template>
   <div>
     <nx-nav></nx-nav>
-    <div class="fixed inset-0 bg-bg-primary transition-colors duration-1500 [will-change:background-color]"></div>
+    <div
+      class="fixed inset-0 bg-bg-primary transition-colors duration-1500 [will-change:background-color]"
+    ></div>
     <nx-blobs></nx-blobs>
-    <!-- <nx-gradient></nx-gradient> -->
 
     <main class="relative">
       <slot></slot>

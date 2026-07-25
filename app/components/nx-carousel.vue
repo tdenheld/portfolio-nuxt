@@ -1,18 +1,17 @@
 <script setup lang="ts">
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
 import type { Page } from '~/interfaces';
 
 const props = defineProps<{
   data: Page[];
 }>();
 
-const nuxtApp: any = useNuxtApp();
 const counterData = useState('counterData');
+const activeSlideIndex = ref(0);
 
 const index = useState<number>('projectIndex');
 watch(index, () => {
-  // Set colors based on current active item
-  setColor();
-
   // Update counter data for the layout component
   setCounterData();
 });
@@ -24,12 +23,42 @@ const setCounterData = () => {
   };
 };
 
-// Create a new array with multiple copies of the data to allow infinite scrolling
-const carouselData = ref<Page[]>([...Array(2).fill(props.data).flat()]);
+/* Render one original cycle and one clone. The clone provides room to continue
+  scrolling; handleScrollEnd maps it back without growing or replacing the DOM. */
+const carouselData = [...Array(2).fill(props.data).flat()];
 
 // Calculate the actual height of one item in the carousel
 const getActualItemHeight = (target: HTMLElement) => {
-  return target ? target.scrollHeight / carouselData.value.length : 0;
+  return target ? target.scrollHeight / carouselData.length : 0;
+};
+
+/* A wrap looks like a large backwards jump to ScrollTrigger. Complete only this
+   scroller's scrub tweens so they do not replay while catching up to the jump. */
+const syncScrollAnimations = (target: HTMLElement) => {
+  ScrollTrigger.update();
+  ScrollTrigger.getAll().forEach((trigger) => {
+    if (trigger.scroller === target) trigger.getTween()?.progress(1);
+  });
+};
+
+const handleScrollEnd = (event: Event) => {
+  const target = event.target as HTMLElement;
+  const firstSlide = target.children[0] as HTMLElement | undefined;
+  const firstClone = target.children[props.data.length] as HTMLElement | undefined;
+  if (!firstSlide || !firstClone) return;
+
+  // Measure the rendered cycle so padding and responsive slide heights are included.
+  const cycleHeight = firstClone.offsetTop - firstSlide.offsetTop;
+  if (target.scrollTop < cycleHeight) return;
+
+  /* Once snapping settles in the cloned cycle, move to the identical position in
+     the original cycle. The content and logical project index stay unchanged. */
+  target.scrollTop -= cycleHeight;
+  activeSlideIndex.value = Math.round(target.scrollTop / getActualItemHeight(target));
+  syncScrollAnimations(target);
+
+  // The scrollTop assignment emits another scroll update; flush it before paint too.
+  requestAnimationFrame(() => syncScrollAnimations(target));
 };
 
 // Get the currently active entry based on the index
@@ -37,29 +66,21 @@ const getActiveEntry = () => {
   if (!props.data) return;
   return props.data[index.value];
 };
-
-// Set CSS variables for colors based on the active entry
-const setColor = () => {
-  const entry = getActiveEntry();
-  if (!entry) return;
-  nuxtApp.$setColor(entry.meta?.color);
-};
+usePageColor(() => getActiveEntry()?.color);
 
 const getAllImages = () => {
   // Return an array of all images from the data array
-  return props.data
-    .map((entry) => entry.meta?.image)
-    .filter((img): img is string => !!img);
+  return props.data.map((entry) => entry.image).filter((img): img is string => !!img);
 };
 
 // Check if the first item of the active project is a video
 const getVideo = computed(() => {
   const entry = getActiveEntry();
-  if (!entry || !entry.meta?.items || entry.meta.items.length === 0) return null;
+  if (!entry || !('items' in entry) || entry.items.length === 0) return null;
 
-  const firstItem = entry.meta.items[0];
-  if (firstItem && firstItem.src?.endsWith('.mp4')) {
-    return firstItem.src?.replace('.mp4', ''); // Remove extension for nx-video component
+  const firstItem = entry.items[0];
+  if (firstItem?.type === 'video') {
+    return firstItem.src.replace('.mp4', ''); // Remove extension for nx-video component
   }
 
   return null;
@@ -77,38 +98,41 @@ const handleScroll = (event: Event) => {
     const currentIndex = Math.round(scrollTop / itemHeight);
 
     //  Update index
-    if (currentIndex >= 0 && currentIndex < carouselData.value.length) {
+    if (currentIndex >= 0 && currentIndex < carouselData.length) {
       const dataIndex = currentIndex % props.data.length;
+      activeSlideIndex.value = currentIndex;
       index.value = dataIndex;
-    }
-
-    // When reaching cloned items add another array to the carousel
-    if (currentIndex >= carouselData.value.length - props.data.length) {
-      carouselData.value = [...carouselData.value, ...props.data];
     }
   });
 };
 
 onMounted(() => {
-  setColor();
   setCounterData();
 });
 </script>
 
 <template>
   <div>
+    <h1 class="sr-only">{{ data[0]?.title }}</h1>
+
     <div
       @scroll="handleScroll($event)"
+      @scrollend="handleScrollEnd($event)"
       data-scroller-carousel
+      role="region"
+      aria-label="Featured projects"
       class="s-carousel no-scrollbar"
     >
+      <!-- Keep cloned, off-screen actions out of the keyboard and accessibility trees. -->
       <div
         v-for="(entry, i) in carouselData"
         :key="i"
+        :aria-hidden="i >= data.length ? true : undefined"
+        :inert="i >= data.length ? true : undefined"
         class="lg:main-grid h-full snap-center"
       >
         <div class="col-start-2 h-full grid items-center">
-          <nx-hero :data="entry" :heading-level="index === 0 ? 'h1' : 'h2'"></nx-hero>
+          <nx-hero :data="entry" heading-level="h2"></nx-hero>
         </div>
       </div>
     </div>

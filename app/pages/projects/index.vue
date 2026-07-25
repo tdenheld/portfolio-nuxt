@@ -1,84 +1,59 @@
 <script setup>
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ScrollSmoother } from 'gsap/ScrollSmoother';
-gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
-const page = await queryCollection('content').path('/work').first();
+const page = await queryCollection('pages').path('/work').first();
 const projects = await queryCollection('projects').all();
-const nuxtApp = useNuxtApp();
 const refresh = useState('refresh');
 const fromHome = useState('fromHome');
+const hostElement = ref(null);
 const scrollContainer = ref(null);
 const smoothContent = ref(null);
-let smoother;
 
-onBeforeUnmount(() => {
-  smoother?.kill();
-});
+useSmoothParallax({
+  host: hostElement,
+  scroller: scrollContainer,
+  content: smoothContent,
+  minimumScrollDistance: 200,
+  setup: () => {
+    // Animate border and cards
+    // ------------------------------------------------------------
 
-onMounted(() => {
-  nuxtApp.$setColor(page.meta.color);
+    // Add (more) delay on initial page load
+    const delayBorder = refresh.value ? 0.4 : 0;
+    const delayCard = refresh.value ? 0.6 : 0.2;
 
-  if (!nuxtApp.$isTouchDevice()) {
-    smoother = ScrollSmoother.create({
-      wrapper: scrollContainer.value,
-      content: smoothContent.value,
-      smooth: 0.8,
-    });
-  }
-
-  document.querySelectorAll('[data-parallax]').forEach((el) => {
-    const maxScroll = ScrollTrigger.maxScroll(scrollContainer.value);
-    const scroll = maxScroll > 200 ? maxScroll : 200;
-
-    gsap.to(el, {
-      scrollTrigger: {
-        scrub: 1,
-        ...(smoother ? {} : { scroller: scrollContainer.value }),
-      },
-      y: (index, target) => -scroll * target.dataset.parallax,
-      ease: 'none',
-    });
-  });
-
-  // Animate border and cards
-  // ------------------------------------------------------------
-
-  // Add (more) delay on initial page load
-  const delayBorder = refresh.value ? 0.4 : 0;
-  const delayCard = refresh.value ? 0.6 : 0.2;
-
-  gsap.to('[data-border]', {
-    y: 0,
-    ease: 'power4.inOut',
-    duration: 1,
-    delay: delayBorder,
-  });
-
-  gsap.fromTo(
-    '[data-card]',
-    {
-      y: -16,
-      opacity: 0,
-      filter: 'blur(8px)',
-    },
-    {
+    gsap.to('[data-border]', {
       y: 0,
-      opacity: 1,
-      filter: 'blur(0px)',
-      rotateX: '0deg',
-      ease: 'power4.out',
-      duration: 2.5,
-      delay: delayCard,
-      stagger: 0.12,
-    }
-  );
+      ease: 'power4.inOut',
+      duration: 1,
+      delay: delayBorder,
+    });
+
+    gsap.fromTo(
+      '[data-card]',
+      {
+        y: -16,
+        opacity: 0,
+        filter: 'blur(8px)',
+      },
+      {
+        y: 0,
+        opacity: 1,
+        filter: 'blur(0px)',
+        rotateX: '0deg',
+        ease: 'power4.out',
+        duration: 2.5,
+        delay: delayCard,
+        stagger: 0.12,
+      }
+    );
+  },
 });
+usePageColor(() => page.color);
 </script>
 
 <template>
-  <div>
+  <div ref="hostElement">
     <nx-meta-tags :title="page.title"></nx-meta-tags>
     <h1 class="sr-only">{{ page.title }}</h1>
 
@@ -98,7 +73,7 @@ onMounted(() => {
             <nuxt-link
               data-card
               :to="entry.path"
-              @click.native="fromHome = false"
+              @click="fromHome = false"
               class="transform-[rotateX(5deg)] lg:transform-[rotateX(9deg)] opacity-0 group-odd:col-start-2 flex flex-col-reverse gap-3 lg:gap-6 xl:flex-row group-odd:xl:flex-row-reverse group-odd:justify-self-end group-even:justify-self-start before:absolute before:-inset-y-4 before:left-[calc(6vw-1rem)] before:-right-4 group-even:before:-left-4 group-even:before:right-[calc(6vw-1rem)] before:rounded-2xl before:bg-fg-secondary/8 before:opacity-0 before:scale-[103%] before:blur-md before:transition before:duration-1000 hover:before:opacity-100 hover:before:scale-100 hover:before:blur-none hover:before:duration-500"
             >
               <div
@@ -113,7 +88,7 @@ onMounted(() => {
                 <p
                   class="mt-1 lg:mt-2 text-xs md:text-sm text-fg-secondary/70 leading-normal"
                 >
-                  {{ entry.meta.descriptionShort }}
+                  {{ entry.descriptionShort }}
                 </p>
               </div>
 
@@ -124,7 +99,7 @@ onMounted(() => {
 
                 <nx-image
                   class="grow xl:min-w-56 xl:w-[13vw]"
-                  :src="entry.meta.image"
+                  :src="entry.image"
                   alt=""
                   image-class="w-full aspect-video object-cover rounded-lg outline outline-fg-primary/10"
                   sizes="(min-width: 81,25rem) 13vw, (min-width: 30rem) 15rem, 40vw"

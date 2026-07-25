@@ -13,10 +13,12 @@ const getCentralEuropeanTime = (): string => {
   // Determine if it's CEST or CET by checking the timezone offset
   const getOffset = (date: Date) => {
     const utcDate = new Date(date.toLocaleString('en-US', { timeZone: 'UTC' }));
-    const cetDate = new Date(date.toLocaleString('en-US', { timeZone: 'Europe/Amsterdam' }));
+    const cetDate = new Date(
+      date.toLocaleString('en-US', { timeZone: 'Europe/Amsterdam' })
+    );
     return (cetDate.getTime() - utcDate.getTime()) / (1000 * 60 * 60);
   };
-  
+
   const offset = getOffset(now);
   const isDST = offset === 2; // CEST = UTC+2, CET = UTC+1
 

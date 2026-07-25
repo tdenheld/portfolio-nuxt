@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Highlight } from '~/interfaces';
 
-const props = defineProps<{
+defineProps<{
   index: number;
   length: number;
   images?: string[];

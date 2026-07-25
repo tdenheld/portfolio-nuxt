@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const page = await queryCollection('content').path('/').first();
+const page = await queryCollection('pages').path('/').first();
 
-const props = defineProps<{
+defineProps<{
   isActive?: boolean;
 }>();
 </script>
