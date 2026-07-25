@@ -8,6 +8,14 @@ const projectIndex = useState<number>('projectIndex');
 const route = useRoute();
 const nuxtApp: any = useNuxtApp();
 const page: Page | null = await queryCollection('content').path(route.path).first();
+
+if (!page) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: 'Project not found',
+  });
+}
+
 const projects = await queryCollection('projects').all();
 const scrollContainer = ref<HTMLElement | null>(null);
 
@@ -20,18 +28,18 @@ const nextProject = computed(() => {
 });
 
 onBeforeMount(() => {
-  projectIndex.value = projects.findIndex((p) => p.path === page?.path) + 1;
+  projectIndex.value = projects.findIndex((p) => p.path === page.path) + 1;
 });
 
 onMounted(() => {
-  nuxtApp.$setColor(page?.meta?.color);
+  nuxtApp.$setColor(page.meta?.color);
   const revealInstance = nuxtApp.$reveal(scrollContainer.value);
-  revealCleanup = revealInstance.cleanup;
+  revealCleanup = revealInstance?.cleanup ?? null;
 
   // Update counter data for the layout component
   counterData.value = {
-    highlights: page?.meta?.highlights || [],
-    visit: page?.meta?.visit || '',
+    highlights: page.meta?.highlights || [],
+    visit: page.meta?.visit || '',
     pdp: true,
   };
 });

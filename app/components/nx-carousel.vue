@@ -7,6 +7,7 @@ const props = defineProps<{
 
 const nuxtApp: any = useNuxtApp();
 const counterData = useState('counterData');
+const activeSlideIndex = ref(0);
 
 const index = useState<number>('projectIndex');
 watch(index, () => {
@@ -79,6 +80,7 @@ const handleScroll = (event: Event) => {
     //  Update index
     if (currentIndex >= 0 && currentIndex < carouselData.value.length) {
       const dataIndex = currentIndex % props.data.length;
+      activeSlideIndex.value = currentIndex;
       index.value = dataIndex;
     }
 
@@ -97,6 +99,8 @@ onMounted(() => {
 
 <template>
   <div>
+    <h1 class="sr-only">{{ data[0]?.title }}</h1>
+
     <div
       @scroll="handleScroll($event)"
       data-scroller-carousel
@@ -105,10 +109,12 @@ onMounted(() => {
       <div
         v-for="(entry, i) in carouselData"
         :key="i"
+        :aria-hidden="i !== activeSlideIndex"
+        :inert="i !== activeSlideIndex"
         class="lg:main-grid h-full snap-center"
       >
         <div class="col-start-2 h-full grid items-center">
-          <nx-hero :data="entry" :heading-level="index === 0 ? 'h1' : 'h2'"></nx-hero>
+          <nx-hero :data="entry" heading-level="h2"></nx-hero>
         </div>
       </div>
     </div>
