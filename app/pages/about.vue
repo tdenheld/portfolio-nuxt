@@ -1,10 +1,8 @@
 <script setup>
 const page = await queryCollection('pages').path('/about').first();
-const nuxtApp = useNuxtApp();
 const hostElement = ref(null);
 const scrollContainer = ref(null);
 const smoothContent = ref(null);
-let revealCleanup;
 
 useSmoothParallax({
   host: hostElement,
@@ -14,16 +12,8 @@ useSmoothParallax({
   useWindowWithSmoother: true,
 });
 
-onMounted(() => {
-  nuxtApp.$setColor(page?.color);
-
-  const revealInstance = nuxtApp.$reveal(scrollContainer.value);
-  revealCleanup = revealInstance.cleanup;
-});
-
-onBeforeUnmount(() => {
-  if (revealCleanup) revealCleanup();
-});
+useReveal(scrollContainer);
+usePageColor(() => page?.color);
 </script>
 
 <template>

@@ -2,8 +2,6 @@ import gsap from 'gsap';
 import { ScrollSmoother } from 'gsap/ScrollSmoother';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
-
 interface SmoothParallaxOptions {
   host: Ref<HTMLElement | null>;
   scroller: Ref<HTMLElement | null>;
@@ -23,8 +21,7 @@ export const useSmoothParallax = ({
   useWindowWithSmoother = false,
   setup,
 }: SmoothParallaxOptions) => {
-  const nuxtApp = useNuxtApp();
-  const isTouchDevice = nuxtApp.$isTouchDevice as () => boolean;
+  const { isTouchDevice } = useTouchDevice();
   let smoother: ScrollSmoother | undefined;
   let animationContext: gsap.Context | undefined;
 
@@ -35,7 +32,7 @@ export const useSmoothParallax = ({
     if (!hostElement || !scrollElement || !contentElement) return;
 
     animationContext = gsap.context(() => {
-      if (!isTouchDevice()) {
+      if (!isTouchDevice.value) {
         smoother = ScrollSmoother.create({
           wrapper: scrollElement,
           content: contentElement,

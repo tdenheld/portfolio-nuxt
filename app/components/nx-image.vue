@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import {
+  getCloudinaryImageUrl,
+  getCloudinarySrcset,
+} from '~/utils/cloudinary';
+
 const props = defineProps({
   src: {
     type: String,
@@ -36,29 +41,11 @@ const defaultSize = {
   height: (props.srcset[0] as number) * 0.75,
 };
 
-const getFileExtension = () => {
-  const extension = props.src.split('.').pop();
-
-  if (extension === 'png' || extension === 'jpg') {
-    return extension;
-  } else {
-    return null;
-  }
-};
-
 const getSrc = ({ width, blur }: { width: number; blur?: boolean }) => {
-  const transform = blur ? `q_10,w_32,e_blur:300` : `q_50,w_${width}`;
-
-  return props.src
-    .replace('upload/', `upload/c_scale,${transform}/`)
-    .replace(`.${getFileExtension()}`, '.webp');
+  return getCloudinaryImageUrl(props.src, { width, blur });
 };
 
-const getSrcset = () => {
-  return props.srcset
-    .map((width) => `${getSrc({ width: width as number })} ${width}w`)
-    .join(',\n    ');
-};
+const getSrcset = () => getCloudinarySrcset(props.src, props.srcset);
 
 const getClass = () => {
   return props.imageClass || 'size-full object-cover';

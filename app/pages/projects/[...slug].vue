@@ -4,7 +4,6 @@ const counterData = useState<any>('counterData');
 const projectIndex = useState<number>('projectIndex');
 
 const route = useRoute();
-const nuxtApp: any = useNuxtApp();
 const page = await queryCollection('projects').path(route.path).first();
 
 if (!page) {
@@ -16,9 +15,9 @@ if (!page) {
 
 const projects = await queryCollection('projects').all();
 const scrollContainer = ref<HTMLElement | null>(null);
-
-// Cleanup function for reveal animations
-let revealCleanup: (() => void) | null = null;
+  
+useReveal(scrollContainer);
+usePageColor(() => page.color);
 
 const nextProject = computed(() => {
   const nextIndex = projectIndex.value % projects.length;
@@ -30,20 +29,12 @@ onBeforeMount(() => {
 });
 
 onMounted(() => {
-  nuxtApp.$setColor(page.color);
-  const revealInstance = nuxtApp.$reveal(scrollContainer.value);
-  revealCleanup = revealInstance?.cleanup ?? null;
-
   // Update counter data for the layout component
   counterData.value = {
     highlights: page.highlights,
     visit: page.visit,
     pdp: true,
   };
-});
-
-onBeforeUnmount(() => {
-  if (revealCleanup) revealCleanup();
 });
 </script>
 

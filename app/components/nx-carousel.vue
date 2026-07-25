@@ -7,15 +7,11 @@ const props = defineProps<{
   data: Page[];
 }>();
 
-const nuxtApp: any = useNuxtApp();
 const counterData = useState('counterData');
 const activeSlideIndex = ref(0);
 
 const index = useState<number>('projectIndex');
 watch(index, () => {
-  // Set colors based on current active item
-  setColor();
-
   // Update counter data for the layout component
   setCounterData();
 });
@@ -70,13 +66,7 @@ const getActiveEntry = () => {
   if (!props.data) return;
   return props.data[index.value];
 };
-
-// Set CSS variables for colors based on the active entry
-const setColor = () => {
-  const entry = getActiveEntry();
-  if (!entry) return;
-  nuxtApp.$setColor(entry.color);
-};
+usePageColor(() => getActiveEntry()?.color);
 
 const getAllImages = () => {
   // Return an array of all images from the data array
@@ -119,7 +109,6 @@ const handleScroll = (event: Event) => {
 };
 
 onMounted(() => {
-  setColor();
   setCounterData();
 });
 </script>

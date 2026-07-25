@@ -9,8 +9,6 @@ const props = defineProps<{
 }>();
 
 const hostElement = ref<HTMLElement | null>(null);
-const nuxtApp: any = useNuxtApp();
-let observer: any;
 
 const initAnimation = () => {
   const host = hostElement.value;
@@ -34,22 +32,16 @@ const initAnimation = () => {
   );
 };
 
-onMounted(() => {
-  if (props.animated) {
+const { cleanup: stopObserving } = useIntersectionObserver({
+  element: () => (props.animated ? null : hostElement.value),
+  onScreen: () => {
     initAnimation();
-  } else {
-    observer = nuxtApp.$intersectionObserver({
-      element: hostElement.value,
-      onScreen: () => {
-        initAnimation();
-        observer?.cleanup();
-      },
-    });
-  }
+    stopObserving();
+  },
 });
 
-onBeforeUnmount(() => {
-  if (observer) observer.cleanup();
+onMounted(() => {
+  if (props.animated) initAnimation();
 });
 </script>
 

@@ -3,7 +3,6 @@ import gsap from 'gsap';
 
 const page = await queryCollection('pages').path('/work').first();
 const projects = await queryCollection('projects').all();
-const nuxtApp = useNuxtApp();
 const refresh = useState('refresh');
 const fromHome = useState('fromHome');
 const hostElement = ref(null);
@@ -50,10 +49,7 @@ useSmoothParallax({
     );
   },
 });
-
-onMounted(() => {
-  nuxtApp.$setColor(page.color);
-});
+usePageColor(() => page.color);
 </script>
 
 <template>

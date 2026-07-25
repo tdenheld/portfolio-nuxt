@@ -7,28 +7,16 @@ const props = defineProps({
 const fromHome = useState('fromHome');
 const element = ref(null);
 const isActive = ref(false);
-const nuxtApp = useNuxtApp();
-let observer;
 
-onMounted(() => {
-  observer = nuxtApp.$intersectionObserver({
-    root: props.root,
-    element: element.value,
-    onScreen: () => {
-      if (!isActive.value) {
-        isActive.value = true;
-      }
-    },
-    offScreen: () => {
-      if (isActive.value) {
-        isActive.value = false;
-      }
-    },
-  });
-});
-
-onBeforeUnmount(() => {
-  observer?.cleanup();
+useIntersectionObserver({
+  root: () => props.root,
+  element,
+  onScreen: () => {
+    isActive.value = true;
+  },
+  offScreen: () => {
+    isActive.value = false;
+  },
 });
 </script>
 

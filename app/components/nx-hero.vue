@@ -2,7 +2,6 @@
 import type { Page } from '~/interfaces';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-gsap.registerPlugin(ScrollTrigger);
 
 const props = defineProps<{
   data: Page;
@@ -13,10 +12,9 @@ const props = defineProps<{
 const fromHome = useState('fromHome');
 const route = useRoute();
 const router = useRouter();
-const nuxtApp = useNuxtApp();
 const hostElement = ref<HTMLElement | null>(null);
 const isCta = ref(true);
-const isTouchDevice = ref(false);
+const { isTouchDevice } = useTouchDevice();
 const eyebrow = computed(() =>
   'period' in props.data ? props.data.period : props.data.name
 );
@@ -90,7 +88,6 @@ const goto = () => {
 
 onMounted(() => {
   createScrollAnimation();
-  isTouchDevice.value = (nuxtApp.$isTouchDevice as () => boolean)();
 
   if (props.pdp) {
     setTimeout(() => {

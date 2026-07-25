@@ -1,8 +1,7 @@
 <script setup>
-const nuxtApp = useNuxtApp();
 const x = ref(0);
 const y = ref(0);
-const isTouchDevice = ref(false);
+const { isTouchDevice } = useTouchDevice();
 
 const moveMagnet = (event) => {
   if (isTouchDevice.value) return;
@@ -25,10 +24,6 @@ const resetMagnet = () => {
     y.value = 0;
   });
 };
-
-onMounted(() => {
-  isTouchDevice.value = nuxtApp.$isTouchDevice();
-});
 </script>
 
 <template>
