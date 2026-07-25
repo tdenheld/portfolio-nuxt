@@ -1,57 +1,28 @@
 <script setup>
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ScrollSmoother } from 'gsap/ScrollSmoother';
-gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
-
 const page = await queryCollection('pages').path('/about').first();
 const nuxtApp = useNuxtApp();
 const hostElement = ref(null);
 const scrollContainer = ref(null);
 const smoothContent = ref(null);
 let revealCleanup;
-let smoother;
-let animationContext;
+
+useSmoothParallax({
+  host: hostElement,
+  scroller: scrollContainer,
+  content: smoothContent,
+  minimumViewportWidth: 740,
+  useWindowWithSmoother: true,
+});
 
 onMounted(() => {
   nuxtApp.$setColor(page?.color);
 
   const revealInstance = nuxtApp.$reveal(scrollContainer.value);
   revealCleanup = revealInstance.cleanup;
-
-  animationContext = gsap.context(() => {
-    if (!nuxtApp.$isTouchDevice()) {
-      smoother = ScrollSmoother.create({
-        wrapper: scrollContainer.value,
-        content: smoothContent.value,
-        smooth: 0.8,
-      });
-    }
-
-    gsap.utils
-      .toArray('[data-parallax]', hostElement.value)
-      .forEach((element) => {
-        // Disable on small devices
-        if (innerWidth < 740) return;
-
-        gsap.to(element, {
-          scrollTrigger: {
-            scrub: 1,
-            ...(smoother ? {} : { scroller: scrollContainer.value }),
-          },
-          y: () =>
-            -ScrollTrigger.maxScroll(smoother ? window : scrollContainer.value) *
-            Number(element.dataset.parallax),
-          ease: 'none',
-        });
-      });
-  }, hostElement.value);
 });
 
 onBeforeUnmount(() => {
   if (revealCleanup) revealCleanup();
-  smoother?.kill();
-  animationContext?.revert();
 });
 </script>
 

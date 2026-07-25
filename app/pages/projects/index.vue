@@ -1,8 +1,5 @@
 <script setup>
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ScrollSmoother } from 'gsap/ScrollSmoother';
-gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
 const page = await queryCollection('pages').path('/work').first();
 const projects = await queryCollection('projects').all();
@@ -12,42 +9,13 @@ const fromHome = useState('fromHome');
 const hostElement = ref(null);
 const scrollContainer = ref(null);
 const smoothContent = ref(null);
-let smoother;
-let animationContext;
 
-onBeforeUnmount(() => {
-  smoother?.kill();
-  animationContext?.revert();
-});
-
-onMounted(() => {
-  nuxtApp.$setColor(page.color);
-
-  animationContext = gsap.context(() => {
-    if (!nuxtApp.$isTouchDevice()) {
-      smoother = ScrollSmoother.create({
-        wrapper: scrollContainer.value,
-        content: smoothContent.value,
-        smooth: 0.8,
-      });
-    }
-
-    gsap.utils
-      .toArray('[data-parallax]', hostElement.value)
-      .forEach((element) => {
-        const maxScroll = ScrollTrigger.maxScroll(scrollContainer.value);
-        const scroll = maxScroll > 200 ? maxScroll : 200;
-
-        gsap.to(element, {
-          scrollTrigger: {
-            scrub: 1,
-            ...(smoother ? {} : { scroller: scrollContainer.value }),
-          },
-          y: () => -scroll * element.dataset.parallax,
-          ease: 'none',
-        });
-      });
-
+useSmoothParallax({
+  host: hostElement,
+  scroller: scrollContainer,
+  content: smoothContent,
+  minimumScrollDistance: 200,
+  setup: () => {
     // Animate border and cards
     // ------------------------------------------------------------
 
@@ -80,7 +48,11 @@ onMounted(() => {
         stagger: 0.12,
       }
     );
-  }, hostElement.value);
+  },
+});
+
+onMounted(() => {
+  nuxtApp.$setColor(page.color);
 });
 </script>
 
