@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
 import type { Page } from '~/interfaces';
 
 const props = defineProps<{
@@ -25,12 +27,42 @@ const setCounterData = () => {
   };
 };
 
-// Create a new array with multiple copies of the data to allow infinite scrolling
-const carouselData = ref<Page[]>([...Array(2).fill(props.data).flat()]);
+/* Render one original cycle and one clone. The clone provides room to continue
+  scrolling; handleScrollEnd maps it back without growing or replacing the DOM. */
+const carouselData = [...Array(2).fill(props.data).flat()];
 
 // Calculate the actual height of one item in the carousel
 const getActualItemHeight = (target: HTMLElement) => {
-  return target ? target.scrollHeight / carouselData.value.length : 0;
+  return target ? target.scrollHeight / carouselData.length : 0;
+};
+
+/* A wrap looks like a large backwards jump to ScrollTrigger. Complete only this
+   scroller's scrub tweens so they do not replay while catching up to the jump. */
+const syncScrollAnimations = (target: HTMLElement) => {
+  ScrollTrigger.update();
+  ScrollTrigger.getAll().forEach((trigger) => {
+    if (trigger.scroller === target) trigger.getTween()?.progress(1);
+  });
+};
+
+const handleScrollEnd = (event: Event) => {
+  const target = event.target as HTMLElement;
+  const firstSlide = target.children[0] as HTMLElement | undefined;
+  const firstClone = target.children[props.data.length] as HTMLElement | undefined;
+  if (!firstSlide || !firstClone) return;
+
+  // Measure the rendered cycle so padding and responsive slide heights are included.
+  const cycleHeight = firstClone.offsetTop - firstSlide.offsetTop;
+  if (target.scrollTop < cycleHeight) return;
+
+  /* Once snapping settles in the cloned cycle, move to the identical position in
+     the original cycle. The content and logical project index stay unchanged. */
+  target.scrollTop -= cycleHeight;
+  activeSlideIndex.value = Math.round(target.scrollTop / getActualItemHeight(target));
+  syncScrollAnimations(target);
+
+  // The scrollTop assignment emits another scroll update; flush it before paint too.
+  requestAnimationFrame(() => syncScrollAnimations(target));
 };
 
 // Get the currently active entry based on the index
@@ -78,15 +110,10 @@ const handleScroll = (event: Event) => {
     const currentIndex = Math.round(scrollTop / itemHeight);
 
     //  Update index
-    if (currentIndex >= 0 && currentIndex < carouselData.value.length) {
+    if (currentIndex >= 0 && currentIndex < carouselData.length) {
       const dataIndex = currentIndex % props.data.length;
       activeSlideIndex.value = currentIndex;
       index.value = dataIndex;
-    }
-
-    // When reaching cloned items add another array to the carousel
-    if (currentIndex >= carouselData.value.length - props.data.length) {
-      carouselData.value = [...carouselData.value, ...props.data];
     }
   });
 };
@@ -103,9 +130,11 @@ onMounted(() => {
 
     <div
       @scroll="handleScroll($event)"
+      @scrollend="handleScrollEnd($event)"
       data-scroller-carousel
       class="s-carousel no-scrollbar"
     >
+      <!-- Keep cloned, off-screen actions out of the keyboard and accessibility trees. -->
       <div
         v-for="(entry, i) in carouselData"
         :key="i"
