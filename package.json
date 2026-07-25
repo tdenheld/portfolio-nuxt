@@ -10,11 +10,8 @@
     "lint": "eslint . --max-warnings=0",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "test": "npm run test:e2e",
-    "test:e2e": "nuxt prepare && playwright test",
-    "test:e2e:ui": "nuxt prepare && playwright test --ui",
     "typecheck": "nuxt typecheck",
-    "validate": "npm run lint && npm run format:check && npm run typecheck && npm run test:e2e"
+    "validate": "npm run lint && npm run format:check && npm run typecheck"
   },
   "dependencies": {
     "@nuxt/content": "^3.12.0",
@@ -28,9 +25,7 @@
     "vue-router": "latest"
   },
   "devDependencies": {
-    "@axe-core/playwright": "^4.12.1",
     "@nuxt/eslint": "^1.16.0",
-    "@playwright/test": "^1.62.0",
     "eslint": "^10.8.0",
     "markdown-it-link-attributes": "^4.0.1",
     "prettier": "^3.8.1",

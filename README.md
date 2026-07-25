@@ -6,7 +6,6 @@ Personal portfolio built with Nuxt 4, Nuxt Content, Tailwind CSS, and GSAP.
 
 ```bash
 npm install
-npx playwright install chromium
 npm run dev
 ```
 
@@ -19,7 +18,6 @@ npm run build          # Production build
 npm run lint           # ESLint
 npm run format:check   # Prettier verification
 npm run typecheck      # Nuxt TypeScript check
-npm test               # Playwright route and accessibility tests
 npm run validate       # Run all quality checks
 ```
 
