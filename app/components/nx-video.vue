@@ -11,21 +11,17 @@ const props = withDefaults(
 );
 
 const video = ref<HTMLVideoElement | null>(null);
-const preloadObserver = ref<IntersectionObserver | null>(null);
 const playbackObserver = ref<IntersectionObserver | null>(null);
-const sourcesEnabled = ref(props.preload !== 'none');
+const posterVisible = ref(true);
 
-const enableSources = async () => {
-  if (sourcesEnabled.value) return;
-
-  sourcesEnabled.value = true;
-  await nextTick();
-  video.value?.load();
-};
+useHead({
+  link:
+    props.preload === 'auto'
+      ? [{ rel: 'preload', as: 'image', href: props.poster }]
+      : undefined,
+});
 
 const playVideo = async (target: HTMLVideoElement) => {
-  await enableSources();
-
   try {
     await target.play();
   } catch {
@@ -35,20 +31,6 @@ const playVideo = async (target: HTMLVideoElement) => {
 
 onMounted(() => {
   if (!video.value) return;
-
-  if (props.preload === 'none') {
-    preloadObserver.value = new IntersectionObserver(
-      (entries) => {
-        if (!entries.some((entry) => entry.isIntersecting)) return;
-
-        void enableSources();
-        preloadObserver.value?.disconnect();
-      },
-      { rootMargin: '50% 0px' }
-    );
-
-    preloadObserver.value.observe(video.value);
-  }
 
   playbackObserver.value = new IntersectionObserver(
     (entries) => {
@@ -65,42 +47,41 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  preloadObserver.value?.disconnect();
   playbackObserver.value?.disconnect();
 });
 </script>
 
 <template>
-  <div>
+  <div class="grid">
     <video
       ref="video"
       :preload="props.preload"
       muted
       loop
       playsinline
-      class="w-full overflow-hidden rounded-2xl"
-      :poster="poster"
+      class="col-start-1 row-start-1 w-full overflow-hidden rounded-2xl"
+      @playing="posterVisible = false"
     >
       <source
-        v-if="sourcesEnabled"
         :src="src + '.webm#t=0.001'"
         type="video/webm"
         media="(width >= 980px)"
       />
-      
-      <source
-        v-if="sourcesEnabled"
-        :src="src + '-sm.webm#t=0.001'"
-        type="video/webm"
-      />
 
-      <source
-        v-if="sourcesEnabled"
-        :src="src + '.mp4#t=0.001'"
-        type="video/mp4"
-        media="(width >= 980px)"
-      />
-      <source v-if="sourcesEnabled" :src="src + '-sm.mp4#t=0.001'" type="video/mp4" />
+      <source :src="src + '-sm.webm#t=0.001'" type="video/webm" />
+
+      <source :src="src + '.mp4#t=0.001'" type="video/mp4" media="(width >= 980px)" />
+      <source :src="src + '-sm.mp4#t=0.001'" type="video/mp4" />
     </video>
+
+    <img
+      v-if="posterVisible"
+      :src="poster"
+      alt=""
+      aria-hidden="true"
+      :loading="preload === 'auto' ? 'eager' : 'lazy'"
+      :fetchpriority="preload === 'auto' ? 'high' : 'auto'"
+      class="col-start-1 row-start-1 z-1 size-full object-cover rounded-2xl"
+    />
   </div>
 </template>
