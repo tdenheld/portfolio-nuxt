@@ -5,7 +5,7 @@ const props = withDefaults(
     poster: string;
     preload?: 'none' | 'metadata' | 'auto';
   }>(),
-  { preload: 'none' }
+  { preload: 'metadata' }
 );
 
 const video = ref<HTMLVideoElement | null>(null);
