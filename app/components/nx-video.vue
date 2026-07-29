@@ -1,11 +1,9 @@
 <script setup lang="ts">
-type VideoPreload = 'none' | 'metadata' | 'auto';
-
 const props = withDefaults(
   defineProps<{
     src: string;
     poster: string;
-    preload?: VideoPreload;
+    preload?: 'none' | 'metadata' | 'auto';
   }>(),
   { preload: 'none' }
 );
