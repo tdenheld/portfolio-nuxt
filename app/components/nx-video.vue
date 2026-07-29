@@ -69,7 +69,6 @@ onUnmounted(() => {
       />
 
       <source :src="src + '-sm.webm#t=0.001'" type="video/webm" />
-
       <source :src="src + '.mp4#t=0.001'" type="video/mp4" media="(width >= 980px)" />
       <source :src="src + '-sm.mp4#t=0.001'" type="video/mp4" />
     </video>
