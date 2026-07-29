@@ -13,6 +13,11 @@ node_modules
 logs
 *.log
 
+# Playwright local artifacts
+playwright-report
+test-results
+tests/e2e/routes.visual.spec.ts-snapshots
+
 # Misc
 .DS_Store
 .fleet

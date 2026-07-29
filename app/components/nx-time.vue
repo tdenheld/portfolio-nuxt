@@ -40,7 +40,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <span>
+  <span data-visual-test-time>
     {{ time }}
   </span>
 </template>
