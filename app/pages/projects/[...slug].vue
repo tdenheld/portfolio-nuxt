@@ -90,6 +90,7 @@ onMounted(() => {
                     v-if="entry.type === 'video'"
                     :src="entry.src.replace(/\.(mp4)$/, '')"
                     :poster="entry.poster"
+                    :preload="index === 0 ? 'auto' : 'none'"
                     class="blur-sm transform-[rotate3d(1,0,0,6deg)]"
                     data-reveal-trigger
                     data-reveal
