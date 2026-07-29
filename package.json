@@ -29,6 +29,7 @@
   "devDependencies": {
     "@nuxt/eslint": "^1.16.0",
     "@playwright/test": "^1.57.0",
+    "@types/node": "^26.1.2",
     "eslint": "^10.8.0",
     "markdown-it-link-attributes": "^4.0.1",
     "prettier": "^3.8.1",

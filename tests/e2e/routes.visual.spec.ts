@@ -6,7 +6,10 @@ const THEME_TRANSITION_DURATION = 1600;
 const PAGES_DIRECTORY = join(process.cwd(), 'app/pages');
 const PROJECTS_DIRECTORY = join(process.cwd(), 'content/projects');
 
-const getPageRoutes = (directory = PAGES_DIRECTORY, segments: string[] = []) =>
+const getPageRoutes = (
+  directory = PAGES_DIRECTORY,
+  segments: string[] = []
+): string[] =>
   readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
     if (entry.isDirectory()) {
       return getPageRoutes(join(directory, entry.name), [...segments, entry.name]);
