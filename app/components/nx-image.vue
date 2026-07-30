@@ -31,8 +31,6 @@ const props = defineProps({
   },
 });
 
-const loaded = ref(false);
-
 const defaultSize = {
   width: props.srcset[0] as number,
   height: (props.srcset[0] as number) * 0.75,
@@ -73,8 +71,9 @@ useHead({
 </script>
 
 <template>
-  <figure class="relative">
+  <figure class="grid">
     <img
+      v-if="placeholder"
       :width="defaultSize.width"
       :height="defaultSize.height"
       :src="getSrc({ width: defaultSize.width, blur: true })"
@@ -82,8 +81,7 @@ useHead({
       aria-hidden="true"
       :class="getClass()"
       :loading="getLoading()"
-      :style="{ visibility: loaded || !placeholder ? 'hidden' : 'visible' }"
-      class="absolute inset-0"
+      class="col-start-1 row-start-1"
     />
 
     <img
@@ -96,7 +94,7 @@ useHead({
       :aria-hidden="ariaHidden || undefined"
       :class="getClass()"
       :loading="getLoading()"
-      @load="loaded = true"
+      class="col-start-1 row-start-1"
     />
   </figure>
 </template>
