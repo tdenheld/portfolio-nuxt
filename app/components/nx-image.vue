@@ -31,6 +31,8 @@ const props = defineProps({
   },
 });
 
+const loaded = ref(false);
+
 const defaultSize = {
   width: props.srcset[0] as number,
   height: (props.srcset[0] as number) * 0.75,
@@ -73,7 +75,7 @@ useHead({
 <template>
   <figure class="grid">
     <img
-      v-if="placeholder"
+      v-if="placeholder && !loaded"
       :width="defaultSize.width"
       :height="defaultSize.height"
       :src="getSrc({ width: defaultSize.width, blur: true })"
@@ -95,6 +97,7 @@ useHead({
       :class="getClass()"
       :loading="getLoading()"
       class="col-start-1 row-start-1"
+      @load="loaded = true"
     />
   </figure>
 </template>
