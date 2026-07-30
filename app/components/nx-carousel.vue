@@ -73,19 +73,6 @@ const getAllImages = () => {
   return props.data.map((entry) => entry.image).filter((img): img is string => !!img);
 };
 
-// Check if the first item of the active project is a video
-const getVideo = computed(() => {
-  const entry = getActiveEntry();
-  if (!entry || !('items' in entry) || entry.items.length === 0) return null;
-
-  const firstItem = entry.items[0];
-  if (firstItem?.type === 'video') {
-    return firstItem.src.replace('.mp4', ''); // Remove extension for nx-video component
-  }
-
-  return null;
-});
-
 // Handle scroll events to update index and colors
 const handleScroll = (event: Event) => {
   requestAnimationFrame(() => {
@@ -139,7 +126,6 @@ onMounted(() => {
 
     <nx-description :is-active="true"></nx-description>
     <nx-scroll-indicator></nx-scroll-indicator>
-    <nx-video v-if="getVideo" :src="getVideo" :preload="true" class="hidden" />
   </div>
 </template>
 

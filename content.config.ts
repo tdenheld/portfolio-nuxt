@@ -28,7 +28,7 @@ const projectItemSchema = z.discriminatedUnion('type', [
   z.object({
     type: z.literal('video'),
     src: z.string(),
-    poster: z.string().optional(),
+    poster: z.string(),
   }),
   z.object({
     type: z.literal('copy'),
