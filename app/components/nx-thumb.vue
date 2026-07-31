@@ -19,7 +19,7 @@ const fromHome = useState('fromHome');
           'opacity-100': index === 0 || pdp,
         }"
       >
-        <nx-oscilloscope></nx-oscilloscope>
+        <nx-oscilloscope :pdp="pdp"></nx-oscilloscope>
       </div>
 
       <template v-if="fromHome">

@@ -55,10 +55,11 @@ onMounted(() => {
 
       <div
         ref="scrollContainer"
+        :data-project-scroller="page.path"
         class="fixed inset-0 lg:main-grid px-contain overflow-y-auto overflow-x-hidden no-scrollbar"
       >
         <div class="col-start-2">
-          <div class="pdp-fade-up">
+          <div class="pdp-fade-up" data-project-scroll-content>
             <div
               class="h-svh py-contain grid items-center"
               :class="{ 'a-fi blur-md': !fromHome }"
