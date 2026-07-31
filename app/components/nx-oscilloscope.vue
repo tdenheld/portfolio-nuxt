@@ -5,14 +5,17 @@ const props = defineProps<{
   pdp?: boolean;
 }>();
 
-const lineCount = ref(7);
-const wavePath = ref<SVGPathElement | null>(null);
 const WAVE_PATH = 'M 0 50 C 17.5 0 32.5 0 50 50 S 82.5 100 100 50';
 const STROKE_WIDTH = 1.5;
-let waveTween: gsap.core.Tween | undefined;
-let contentResizeObserver: ResizeObserver | undefined;
+
 const nuxtApp = useNuxtApp();
 const route = useRoute();
+
+const lineCount = ref(7);
+const wavePath = ref<SVGPathElement | null>(null);
+  
+let waveTween: gsap.core.Tween | undefined;
+let contentResizeObserver: ResizeObserver | undefined;
 
 const setLineCount = () => {
   requestAnimationFrame(() => {
