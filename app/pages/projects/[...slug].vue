@@ -22,6 +22,7 @@ if (!page) {
 const projects = await queryCollection('projects').all();
 const scrollContainer = ref<HTMLElement | null>(null);
 
+useKeyboardScroll(scrollContainer);
 useReveal(scrollContainer);
 usePageColor(() => page.color);
 
@@ -55,6 +56,7 @@ onMounted(() => {
 
       <div
         ref="scrollContainer"
+        tabindex="0"
         :data-project-scroller="page.path"
         class="fixed inset-0 lg:main-grid px-contain overflow-y-auto overflow-x-hidden no-scrollbar"
       >

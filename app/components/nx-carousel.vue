@@ -9,6 +9,9 @@ const props = defineProps<{
 
 const counterData = useState('counterData');
 const activeSlideIndex = ref(0);
+const scrollContainer = ref<HTMLElement | null>(null);
+
+useKeyboardScroll(scrollContainer);
 
 const index = useState<number>('projectIndex');
 watch(index, () => {
@@ -103,9 +106,11 @@ onMounted(() => {
     <h1 class="sr-only">{{ data[0]?.title }}</h1>
 
     <div
+      ref="scrollContainer"
       @scroll="handleScroll($event)"
       @scrollend="handleScrollEnd($event)"
       data-scroller-carousel
+      tabindex="0"
       role="region"
       aria-label="Featured projects"
       class="s-carousel no-scrollbar"

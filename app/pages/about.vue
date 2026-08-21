@@ -12,6 +12,7 @@ useSmoothParallax({
   useWindowWithSmoother: true,
 });
 
+useKeyboardScroll(scrollContainer);
 useReveal(scrollContainer);
 usePageColor(() => page?.color);
 </script>
@@ -22,6 +23,7 @@ usePageColor(() => page?.color);
 
     <div
       ref="scrollContainer"
+      tabindex="0"
       class="fixed inset-0 overflow-y-auto overflow-x-hidden no-scrollbar"
     >
       <div
