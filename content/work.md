@@ -2,7 +2,7 @@
 title: Selected Work
 color:
   fg:
-    primary: "#715110"
+    primary: "#31302e"
     secondary: "#31302e"
     tertiary: "#31302e"
   bg:
