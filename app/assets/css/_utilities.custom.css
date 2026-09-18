@@ -86,7 +86,8 @@
 
 @utility no-scrollbar {
   @apply [scrollbar-width:none]
-  [&::-webkit-scrollbar]:hidden;
+  [&::-webkit-scrollbar]:hidden
+  focus:outline-none;
 }
 
 @utility transition-clr {
