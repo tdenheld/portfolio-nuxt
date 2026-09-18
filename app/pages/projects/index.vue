@@ -83,7 +83,7 @@ usePageColor(() => page.color);
                 class="max-w-3xs max-xl:group-odd:ml-[6vw] max-xl:group-even:mr-[6vw] group-even:xl:text-right relative xl:-top-px"
               >
                 <h2
-                  class="font-display text-2xl lg:text-3xl leading-[1.15] font-[850]"
+                  class="font-display text-2xl lg:text-3xl leading-[1.15] font-[350]"
                 >
                   {{ entry.title }}
                 </h2>
