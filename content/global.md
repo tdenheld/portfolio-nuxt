@@ -3,7 +3,7 @@ email: contact@tibor.work
 
 nav:
   - name: Work
-    url: /projects
+    url: /
   - name: About
     url: /about
 ---
