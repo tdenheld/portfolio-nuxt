@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import gsap from 'gsap';
+import { ScrollSmoother } from 'gsap/ScrollSmoother';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const props = defineProps<{
   pdp?: boolean;
@@ -38,6 +40,10 @@ const createWaveAnimation = () => {
 
   if (!props.pdp || !wavePath.value || !scrollContainer || !scrollContent) return;
 
+  // ScrollSmoother moves the scrolling to the window, so the wave must follow it there.
+  const smoother = ScrollSmoother.get();
+  const scrollTarget = smoother ? window : scrollContainer;
+
   scrollContainer.scrollTop = 0;
 
   waveTween = gsap.fromTo(
@@ -47,9 +53,9 @@ const createWaveAnimation = () => {
       drawSVG: '100%',
       ease: 'none',
       scrollTrigger: {
-        scroller: scrollContainer,
+        ...(smoother ? {} : { scroller: scrollContainer }),
         start: 0,
-        end: () => scrollContainer.scrollHeight - scrollContainer.clientHeight,
+        end: () => ScrollTrigger.maxScroll(scrollTarget),
         scrub: true,
         invalidateOnRefresh: true,
       },
@@ -67,7 +73,8 @@ const removePageFinishHook = nuxtApp.hook('page:finish', createWaveAnimation);
 onMounted(() => {
   setLineCount();
   window.addEventListener('resize', setLineCount);
-  createWaveAnimation();
+  // Wait for the parent page to create its ScrollSmoother.
+  nextTick(createWaveAnimation);
 });
 
 onUnmounted(() => {

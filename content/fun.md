@@ -12,4 +12,14 @@ links:
     url: https://treinen.netlify.app
   - label: Daniël Roozendaal
     url: https://www.danielroozendaal.com
+  - label: D3-js Atlas
+    url: https://d3-atlas.netlify.app
+  - label: Jonne Balster
+    url: https://www.jonnebalster.nl
+  - label: Tibor Type
+    url: https://tibortype.netlify.app
+  - label: Stoptober intro
+    url: https://stoptober.netlify.app
+  - label: Ambient Sound Mixer
+    url: https://ambient.netlify.app
 ---
