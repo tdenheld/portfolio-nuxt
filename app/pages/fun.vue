@@ -45,7 +45,7 @@ usePageColor(() => page.color);
                     :href="item.url"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="text-[calc(3.3vw+1.5rem)] font-bold inline-block py-6 lg:py-8 leading-none transition hover:text-fg-secondary"
+                    class="text-[calc(3.3vw+1.5rem)] font-bold inline-block py-6 lg:py-8 leading-none transition duration-700 hover:text-fg-secondary"
                     >{{ item.label }}</a
                   >
                 </div>

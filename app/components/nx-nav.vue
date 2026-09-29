@@ -18,8 +18,11 @@ const data = await queryCollection('pages').path('/global').first();
       class="absolute top-contain lg:top-[calc(var(--spacing-contain)+16px)] right-contain text-[10px] md:text-xs text-fg-secondary transition-clr uppercase tracking-[0.16em] justify-end flex items-center gap-6 md:gap-12"
     >
       <li v-for="entry in data?.nav" :key="entry.url">
-        <nuxt-link class="link" :to="entry.url"
-          ><span>{{ entry.name }}</span></nuxt-link
+        <nuxt-link class="link group" :to="entry.url"
+          ><span
+            class="before:absolute before:-bottom-1.5 before:w-4 before:border-b before:border-current/70 before:transition before:duration-600 before:opacity-0 before:scale-x-0 before:origin-left group-[[aria-current=page]:not(:hover)]:before:opacity-100 group-[[aria-current=page]:not(:hover)]:before:scale-none"
+            >{{ entry.name }}</span
+          ></nuxt-link
         >
       </li>
     </ul>
