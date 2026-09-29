@@ -12,7 +12,7 @@ withDefaults(
     label?: string;
     hideIndex?: boolean;
   }>(),
-  { label: 'Work item' },
+  { label: 'Work item' }
 );
 </script>
 
@@ -28,7 +28,12 @@ withDefaults(
 
     <div class="w-min ml-auto">
       <div class="flex justify-between key">
-        <p class="hidden md:block uppercase tracking-[0.16em]">{{ label }}</p>
+        <p
+          class="hidden md:block uppercase tracking-[0.16em]"
+          :class="{ 'text-fg-secondary': hideIndex }"
+        >
+          {{ label }}
+        </p>
         <p v-if="!hideIndex" class="grow text-right tracking-normal">
           {{ index }} / {{ length - 1 }}
         </p>

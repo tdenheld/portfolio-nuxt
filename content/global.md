@@ -2,10 +2,10 @@
 email: contact@tibor.work
 
 nav:
-  - name: Work
-    url: /
   - name: About
     url: /about
+  - name: Work
+    url: /
   - name: Fun
     url: /fun
 ---
