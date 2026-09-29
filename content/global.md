@@ -6,4 +6,6 @@ nav:
     url: /
   - name: About
     url: /about
+  - name: Fun
+    url: /fun
 ---
