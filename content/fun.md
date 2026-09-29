@@ -16,10 +16,16 @@ links:
     url: https://d3-atlas.netlify.app
   - label: Jonne Balster
     url: https://www.jonnebalster.nl
+  - label: Nessie Demo App
+    url: https://nessie.netlify.app
   - label: Tibor Type
     url: https://tibortype.netlify.app
-  - label: Stoptober intro
+  - label: Stoptober Intro
     url: https://stoptober.netlify.app
   - label: Ambient Sound Mixer
     url: https://ambient.netlify.app
+  - label: Lost Controller
+    url: https://lost-controller.netlify.app
+  - label: 90s Portfolio
+    url: https://tibor-portfolio-90s.netlify.app
 ---
