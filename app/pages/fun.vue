@@ -38,7 +38,7 @@ usePageColor(() => page.color);
                 "
               >
                 <div
-                  class="a-ti translate-x-8 blur-md"
+                  class="a-ti [transform:translateX(32px)] blur-md"
                   :style="{ animationDelay: `${100 + index * 100}ms` }"
                 >
                   <a
