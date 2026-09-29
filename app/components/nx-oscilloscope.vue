@@ -15,6 +15,8 @@ const route = useRoute();
 
 const lineCount = ref(7);
 const wavePath = ref<SVGPathElement | null>(null);
+// Provided by looping pages (fun) instead of a scroll-bound tween.
+const loopProgress = inject<Ref<number> | null>('scrollLoopProgress', null);
   
 let waveTween: gsap.core.Tween | undefined;
 let contentResizeObserver: ResizeObserver | undefined;
@@ -30,6 +32,8 @@ const createWaveAnimation = () => {
   waveTween?.kill();
   waveTween = undefined;
   contentResizeObserver?.disconnect();
+
+  if (loopProgress) return;
 
   const scrollContainer = Array.from(
     document.querySelectorAll<HTMLElement>('[data-project-scroller]')
@@ -69,6 +73,16 @@ const createWaveAnimation = () => {
 };
 
 const removePageFinishHook = nuxtApp.hook('page:finish', createWaveAnimation);
+
+watchPostEffect(() => {
+  const progress = loopProgress?.value;
+  if (!props.pdp || !wavePath.value || progress === undefined) return;
+
+  gsap.set(wavePath.value, {
+    drawSVG:
+      progress < 1 ? `0% ${progress * 100}%` : `${(progress - 1) * 100}% 100%`,
+  });
+});
 
 onMounted(() => {
   setLineCount();
