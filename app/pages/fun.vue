@@ -195,7 +195,9 @@ usePageColor(() => page.color);
             <li v-for="(item, index) in page.links" :key="item.url">
               <div
                 class="a-ti [transform:translateX(32px)] blur-md"
-                :style="{ animationDelay: `${100 + index * 100}ms` }"
+                :style="{
+                  animationDelay: `${100 + ((copy - 1) * page.links.length + index) * 100}ms`,
+                }"
               >
                 <a
                   :href="item.url"

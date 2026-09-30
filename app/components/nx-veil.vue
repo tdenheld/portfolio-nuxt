@@ -9,7 +9,8 @@
   display: none;
 }
 
-@supports (-webkit-touch-callout: none) {
+/* -webkit-touch-callout matches iOS only; -apple-system-body also matches macOS Safari */
+@supports (-webkit-touch-callout: none) or (font: -apple-system-body) {
   .veil {
     position: sticky;
     top: 0;
