@@ -1,12 +1,16 @@
 <script setup>
 const data = await queryCollection('pages').path('/global').first();
+const isNavTimeHidden = useState('isNavTimeHidden', () => false);
 </script>
 
 <template>
   <header class="fixed inset-x-0 z-navigation pt-contain px-contain lg:main-grid">
     <nx-logo></nx-logo>
 
-    <div class="hidden lg:block col-start-2 relative top-1">
+    <div
+      class="hidden lg:block col-start-2 relative top-1 transition duration-500"
+      :class="{ 'opacity-0 blur-sm': isNavTimeHidden }"
+    >
       <p
         class="font-mono text-[10px] text-fg-secondary tracking-wider transition-clr"
       >

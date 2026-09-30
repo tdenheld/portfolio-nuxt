@@ -6,15 +6,24 @@ const LOOP_COPIES = 3;
 const MAIN_COPY = 1;
 const LAST_ANIMATED_COPY = MAIN_COPY + 1;
 
+// Stay below the sentinel's resting top (--spacing-contain, 48px at lg) or it hides on entry.
+const NAV_TIME_FADE_OFFSET = 40;
+
 const page = await queryCollection('pages').path('/fun').first();
 const hostElement = ref(null);
 const scrollContainer = ref(null);
 const smoothContent = ref(null);
 const lists = ref([]);
+const topSentinel = ref(null);
+const isNavTimeHidden = useState('isNavTimeHidden', () => false);
 let loopHeight = 0;
+// Scroll at which the first item reaches the viewport top; looping up is only armed past it.
+let firstItemScroll = 0;
+let canLoopUp = false;
 let lastScroll = 0;
 let smoother;
 let resizeObserver;
+let topObserver;
 
 // Touch devices scroll natively through a single copy, without looping.
 const { isTouchDevice } = useTouchDevice();
@@ -55,7 +64,7 @@ const shiftSmoothScroll = (shift) => {
 };
 
 const loopUpwards = () => {
-  if (!loopHeight || getScroll() >= loopHeight / 2) return;
+  if (!loopHeight || !canLoopUp || getScroll() >= loopHeight / 2) return;
 
   shiftSmoothScroll(-loopHeight);
   lastScroll = getScroll();
@@ -68,6 +77,7 @@ const wrapScroll = () => {
   const scroll = getScroll();
   const isScrollingUp = scroll < lastScroll;
   lastScroll = scroll;
+  if (scroll >= firstItemScroll) canLoopUp = true;
 
   if (scroll >= loopHeight * 1.5) {
     shiftSmoothScroll(loopHeight);
@@ -96,6 +106,14 @@ const updateLoopProgress = () => {
 };
 
 onMounted(() => {
+  topObserver = new IntersectionObserver(
+    ([entry]) => {
+      isNavTimeHidden.value = !entry.isIntersecting;
+    },
+    { rootMargin: `-${NAV_TIME_FADE_OFFSET}px 0px 0px 0px` }
+  );
+  topObserver.observe(topSentinel.value);
+
   const [firstList] = lists.value;
   smoother = ScrollSmoother.get();
   if (!firstList || !smoother) return;
@@ -104,6 +122,7 @@ onMounted(() => {
 
   resizeObserver = new ResizeObserver(() => {
     loopHeight = firstList.offsetHeight;
+    firstItemScroll = smoother.offset(firstList, 'top top');
   });
   resizeObserver.observe(firstList);
   gsap.ticker.add(updateLoopProgress);
@@ -113,6 +132,8 @@ onBeforeUnmount(() => {
   gsap.ticker.remove(updateLoopProgress);
   window.removeEventListener('scroll', wrapScroll);
   resizeObserver?.disconnect();
+  topObserver?.disconnect();
+  isNavTimeHidden.value = false;
   smoother = undefined;
 });
 
@@ -128,7 +149,8 @@ usePageColor(() => page.color);
       @wheel.passive="onWheel"
     >
       <div ref="smoothContent" class="lg:main-grid">
-        <div class="pt-[calc(3vw+6rem)] pb-16 col-start-2" data-project-scroll-content>
+        <div class="relative pt-[calc(3vw+6rem)] pb-16 col-start-2" data-project-scroll-content>
+          <div ref="topSentinel" class="absolute inset-x-0 top-0 h-1" aria-hidden="true"></div>
           <h1 class="sr-only">{{ page.title }}</h1>
 
           <ul
@@ -161,7 +183,7 @@ usePageColor(() => page.color);
                     {{ item.label }}
                   </div>
                   <div
-                    class="mt-2 text-[10px] font-mono tracking-wider text-fg-secondary text-pretty max-w-prose"
+                    class="mt-2 md:mt-3 text-xs font-mono text-fg-secondary text-pretty max-w-prose"
                   >
                     {{ item.description }}
                   </div></a
