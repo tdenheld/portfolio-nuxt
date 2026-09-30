@@ -27,7 +27,8 @@ let lastScroll = 0;
 let smoother;
 let resizeObserver;
 
-// iOS can't reliably jump scrollTop during native scrolling, so touch devices move the content themselves.
+/* iOS can't reliably jump scrollTop during native scrolling, so touch
+   devices move the content themselves. */
 const touchScroll = { value: 0 };
 let renderedTouchScroll = 0;
 let hasLooped = false;
@@ -52,7 +53,8 @@ useSmoothParallax({
 
 const getScroll = () => smoother.scrollTrigger.scroll();
 
-// Shift the native target and move the smoothed position to its closest identical spot, so smoothing carries on seamlessly.
+/* Shift the native target and move the smoothed position to its
+   closest identical spot, so smoothing carries on seamlessly. */
 const shiftSmoothScroll = (shift) => {
   const { scrollTrigger } = smoother;
   const scrub = scrollTrigger.getTween();
@@ -215,7 +217,8 @@ usePageColor(() => page.color);
             <li v-for="(item, index) in page.links" :key="item.url">
               <div
                 :class="{
-                  'a-ti [transform:translateX(32px)] blur-sm': copy <= LAST_ANIMATED_COPY,
+                  'a-ti [transform:translateX(32px)] blur-sm':
+                    copy <= LAST_ANIMATED_COPY,
                 }"
                 :style="
                   copy <= LAST_ANIMATED_COPY && {
@@ -228,8 +231,17 @@ usePageColor(() => page.color);
                   :tabindex="copy === MAIN_COPY ? undefined : -1"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="text-[calc(3vw+1.5rem)] font-bold inline-block py-6 lg:py-10 leading-none transition duration-700 hover:text-fg-secondary"
-                  >{{ item.label }}</a
+                  class="group inline-block py-6 lg:py-10"
+                  ><div
+                    class="text-[calc(3vw+1.5rem)] font-bold leading-none transition duration-700 group-hover:text-fg-secondary"
+                  >
+                    {{ item.label }}
+                  </div>
+                  <div
+                    class="mt-2 text-[10px] font-mono tracking-wider text-fg-secondary text-pretty max-w-prose"
+                  >
+                    {{ item.description }}
+                  </div></a
                 >
               </div>
             </li>
