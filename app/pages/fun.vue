@@ -3,7 +3,10 @@ import { gsap } from 'gsap';
 import { ScrollSmoother } from 'gsap/ScrollSmoother';
 
 const LOOP_COPIES = 3;
+// Extra buffer so momentum scrolling can't reach the ends before the loop recentres.
+const TOUCH_LOOP_COPIES = 9;
 const MAIN_COPY = 1;
+const SETTLE_DELAY = 150;
 
 const page = await queryCollection('pages').path('/fun').first();
 const hostElement = ref(null);
@@ -13,8 +16,16 @@ const lists = ref([]);
 let loopHeight = 0;
 let lastScroll = 0;
 let touchY = 0;
+let isTouching = false;
+let wasScrollingUp = false;
+let settleTimer;
 let smoother;
 let resizeObserver;
+
+const { isTouchDevice } = useTouchDevice();
+const loopCopies = computed(() =>
+  isTouchDevice.value ? TOUCH_LOOP_COPIES : LOOP_COPIES
+);
 
 // 0–1 draws the oscilloscope wave in, 1–2 draws it out.
 const loopProgress = ref(0);
@@ -62,6 +73,21 @@ const loopUpwards = () => {
   lastScroll = getScroll();
 };
 
+// Jumping during native momentum scrolling flickers, so wait until scrolling settles.
+const recentre = () => {
+  const scroll = getScroll();
+  if (!loopHeight || isTouching || (scroll < loopHeight && !wasScrollingUp)) return;
+
+  const middle = Math.floor(lists.value.length / 2) * loopHeight;
+  scrollContainer.value.scrollTop = middle + (scroll % loopHeight);
+  lastScroll = getScroll();
+};
+
+const scheduleRecentre = () => {
+  clearTimeout(settleTimer);
+  settleTimer = setTimeout(recentre, SETTLE_DELAY);
+};
+
 // Only loop upwards on actual upward movement, so the page can rest at the top on entry.
 const wrapScroll = () => {
   if (!loopHeight) return;
@@ -69,6 +95,11 @@ const wrapScroll = () => {
   const scroll = getScroll();
   const isScrollingUp = scroll < lastScroll;
   lastScroll = scroll;
+
+  if (!smoother) {
+    wasScrollingUp = isScrollingUp;
+    return scheduleRecentre();
+  }
 
   if (scroll >= loopHeight * 1.5) {
     shiftScroll(loopHeight);
@@ -85,6 +116,13 @@ const onWheel = (event) => {
 
 const onTouchStart = (event) => {
   touchY = event.touches[0].clientY;
+  isTouching = true;
+  clearTimeout(settleTimer);
+};
+
+const onTouchEnd = () => {
+  isTouching = false;
+  scheduleRecentre();
 };
 
 const onTouchMove = (event) => {
@@ -100,7 +138,7 @@ const updateLoopProgress = () => {
   const scroll = smoother ? smoother.scrollTop() : scrollContainer.value.scrollTop;
   let delta = scroll - previousRenderedScroll;
   previousRenderedScroll = scroll;
-  if (Math.abs(delta) > loopHeight / 2) delta -= Math.sign(delta) * loopHeight;
+  delta -= Math.round(delta / loopHeight) * loopHeight;
 
   unwrappedScroll += delta;
   loopProgress.value = gsap.utils.wrap(0, 2, unwrappedScroll / loopHeight);
@@ -122,6 +160,7 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   gsap.ticker.remove(updateLoopProgress);
+  clearTimeout(settleTimer);
   window.removeEventListener('scroll', wrapScroll);
   resizeObserver?.disconnect();
   smoother = undefined;
@@ -140,13 +179,15 @@ usePageColor(() => page.color);
       @wheel.passive="onWheel"
       @touchstart.passive="onTouchStart"
       @touchmove.passive="onTouchMove"
+      @touchend.passive="onTouchEnd"
+      @touchcancel.passive="onTouchEnd"
     >
       <div ref="smoothContent" class="lg:main-grid">
         <div class="pt-[calc(3vw+6rem)] col-start-2" data-project-scroll-content>
           <h1 class="sr-only">{{ page.title }}</h1>
 
           <ul
-            v-for="copy in LOOP_COPIES"
+            v-for="copy in loopCopies"
             :key="copy"
             ref="lists"
             :aria-hidden="copy !== MAIN_COPY || undefined"
