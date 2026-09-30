@@ -77,6 +77,13 @@ export default defineNuxtConfig({
           type: 'font/woff2',
           as: 'font',
           crossorigin: '',
+          href: '/fonts/sans-700.woff2',
+        },
+        {
+          rel: 'preload',
+          type: 'font/woff2',
+          as: 'font',
+          crossorigin: '',
           href: '/fonts/mono-400.woff2',
         },
       ],
