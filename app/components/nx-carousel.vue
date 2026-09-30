@@ -123,7 +123,7 @@ onMounted(() => {
         :inert="i >= data.length ? true : undefined"
         class="lg:main-grid h-full snap-center"
       >
-        <div class="col-start-2 h-full grid items-center">
+        <div class="col-start-2 h-full grid items-center a-fi blur-sm [animation-delay:100ms]">
           <nx-hero :data="entry" heading-level="h2"></nx-hero>
         </div>
       </div>
