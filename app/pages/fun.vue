@@ -11,6 +11,10 @@ const LAST_ANIMATED_COPY = MAIN_COPY + 1;
 const GLIDE_TIME_CONSTANT = 0.5;
 // Over this duration expo.out starts at exactly the release velocity.
 const GLIDE_DURATION = GLIDE_TIME_CONSTANT * 10 * Math.LN2;
+// Px of glide left below which it's too slow to see, so taps go through to links.
+const MIN_GLIDE_DISTANCE = 20;
+// Px of finger movement iOS still treats as a tap (Observer's own threshold is only 3px).
+const TAP_SLOP = 12;
 
 const page = await queryCollection('pages').path('/fun').first();
 const hostElement = ref(null);
@@ -30,6 +34,7 @@ let hasLooped = false;
 let wasGliding = false;
 let touchObserver;
 let glide;
+let glideTarget = 0;
 
 const { isTouchDevice } = useTouchDevice();
 
@@ -113,7 +118,9 @@ const createTouchObserver = () =>
     type: 'touch,wheel',
     wheelSpeed: -1,
     onPress: () => {
-      wasGliding = Boolean(glide?.isActive());
+      wasGliding =
+        Boolean(glide?.isActive()) &&
+        Math.abs(glideTarget - touchScroll.value) > MIN_GLIDE_DISTANCE;
       glide?.kill();
     },
     onWheel: () => glide?.kill(),
@@ -121,9 +128,13 @@ const createTouchObserver = () =>
       touchScroll.value -= deltaY;
       renderTouchScroll();
     },
-    onDragEnd: ({ velocityY }) => {
+    // Taps still fire a click, so they mustn't start a glide that blocks the next tap.
+    onRelease: ({ velocityY, y, startY }) => {
+      if (Math.abs(y - startY) < TAP_SLOP) return;
+
+      glideTarget = touchScroll.value - velocityY * GLIDE_TIME_CONSTANT;
       glide = gsap.to(touchScroll, {
-        value: touchScroll.value - velocityY * GLIDE_TIME_CONSTANT,
+        value: glideTarget,
         duration: GLIDE_DURATION,
         ease: 'expo.out',
         onUpdate: renderTouchScroll,
