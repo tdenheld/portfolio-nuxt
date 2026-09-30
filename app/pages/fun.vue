@@ -1,12 +1,16 @@
 <script setup>
 import { gsap } from 'gsap';
+import { Observer } from 'gsap/Observer';
 import { ScrollSmoother } from 'gsap/ScrollSmoother';
 
 const LOOP_COPIES = 3;
-// Extra buffer so momentum scrolling can't reach the ends before the loop recentres.
-const TOUCH_LOOP_COPIES = 9;
 const MAIN_COPY = 1;
-const SETTLE_DELAY = 150;
+// Animating copies further down flashes on iOS when they're scrolled into view.
+const LAST_ANIMATED_COPY = MAIN_COPY + 1;
+// Seconds, matching the iOS scroll deceleration rate (0.998 per ms).
+const GLIDE_TIME_CONSTANT = 0.5;
+// Over this duration expo.out starts at exactly the release velocity.
+const GLIDE_DURATION = GLIDE_TIME_CONSTANT * 10 * Math.LN2;
 
 const page = await queryCollection('pages').path('/fun').first();
 const hostElement = ref(null);
@@ -14,18 +18,20 @@ const scrollContainer = ref(null);
 const smoothContent = ref(null);
 const lists = ref([]);
 let loopHeight = 0;
+let listOffset = 0;
 let lastScroll = 0;
-let touchY = 0;
-let isTouching = false;
-let wasScrollingUp = false;
-let settleTimer;
 let smoother;
 let resizeObserver;
 
+// iOS can't reliably jump scrollTop during native scrolling, so touch devices move the content themselves.
+const touchScroll = { value: 0 };
+let renderedTouchScroll = 0;
+let hasLooped = false;
+let wasGliding = false;
+let touchObserver;
+let glide;
+
 const { isTouchDevice } = useTouchDevice();
-const loopCopies = computed(() =>
-  isTouchDevice.value ? TOUCH_LOOP_COPIES : LOOP_COPIES
-);
 
 // 0–1 draws the oscilloscope wave in, 1–2 draws it out.
 const loopProgress = ref(0);
@@ -39,8 +45,7 @@ useSmoothParallax({
   content: smoothContent,
 });
 
-const getScroll = () =>
-  smoother ? smoother.scrollTrigger.scroll() : scrollContainer.value.scrollTop;
+const getScroll = () => smoother.scrollTrigger.scroll();
 
 // Shift the native target and move the smoothed position to its closest identical spot, so smoothing carries on seamlessly.
 const shiftSmoothScroll = (shift) => {
@@ -61,31 +66,11 @@ const shiftSmoothScroll = (shift) => {
   scrub.resetTo('totalProgress', targetProgress, currentProgress + loopOffset);
 };
 
-const shiftScroll = (shift) => {
-  if (smoother) shiftSmoothScroll(shift);
-  else scrollContainer.value.scrollTop -= shift;
-};
-
 const loopUpwards = () => {
   if (!loopHeight || getScroll() >= loopHeight / 2) return;
 
-  shiftScroll(-loopHeight);
+  shiftSmoothScroll(-loopHeight);
   lastScroll = getScroll();
-};
-
-// Jumping during native momentum scrolling flickers, so wait until scrolling settles.
-const recentre = () => {
-  const scroll = getScroll();
-  if (!loopHeight || isTouching || (scroll < loopHeight && !wasScrollingUp)) return;
-
-  const middle = Math.floor(lists.value.length / 2) * loopHeight;
-  scrollContainer.value.scrollTop = middle + (scroll % loopHeight);
-  lastScroll = getScroll();
-};
-
-const scheduleRecentre = () => {
-  clearTimeout(settleTimer);
-  settleTimer = setTimeout(recentre, SETTLE_DELAY);
 };
 
 // Only loop upwards on actual upward movement, so the page can rest at the top on entry.
@@ -96,13 +81,8 @@ const wrapScroll = () => {
   const isScrollingUp = scroll < lastScroll;
   lastScroll = scroll;
 
-  if (!smoother) {
-    wasScrollingUp = isScrollingUp;
-    return scheduleRecentre();
-  }
-
   if (scroll >= loopHeight * 1.5) {
-    shiftScroll(loopHeight);
+    shiftSmoothScroll(loopHeight);
     lastScroll = getScroll();
   } else if (isScrollingUp) {
     loopUpwards();
@@ -111,31 +91,56 @@ const wrapScroll = () => {
 
 // At the very top there is no scroll event, so detect the upward intent directly.
 const onWheel = (event) => {
-  if (event.deltaY < 0) loopUpwards();
+  if (smoother && event.deltaY < 0) loopUpwards();
 };
 
-const onTouchStart = (event) => {
-  touchY = event.touches[0].clientY;
-  isTouching = true;
-  clearTimeout(settleTimer);
+// Rests at the top on entry, and wraps through the copies once moved away from it.
+const renderTouchScroll = () => {
+  if (!loopHeight) return;
+
+  const scroll = touchScroll.value;
+  if (scroll < 0 || scroll > listOffset) hasLooped = true;
+
+  renderedTouchScroll = hasLooped
+    ? listOffset + gsap.utils.wrap(0, loopHeight, scroll - listOffset)
+    : scroll;
+  gsap.set(smoothContent.value, { y: -renderedTouchScroll });
 };
 
-const onTouchEnd = () => {
-  isTouching = false;
-  scheduleRecentre();
-};
+const createTouchObserver = () =>
+  Observer.create({
+    target: scrollContainer.value,
+    type: 'touch,wheel',
+    wheelSpeed: -1,
+    onPress: () => {
+      wasGliding = Boolean(glide?.isActive());
+      glide?.kill();
+    },
+    onWheel: () => glide?.kill(),
+    onChangeY: ({ deltaY }) => {
+      touchScroll.value -= deltaY;
+      renderTouchScroll();
+    },
+    onDragEnd: ({ velocityY }) => {
+      glide = gsap.to(touchScroll, {
+        value: touchScroll.value - velocityY * GLIDE_TIME_CONSTANT,
+        duration: GLIDE_DURATION,
+        ease: 'expo.out',
+        onUpdate: renderTouchScroll,
+      });
+    },
+  });
 
-const onTouchMove = (event) => {
-  const { clientY } = event.touches[0];
-  if (clientY > touchY) loopUpwards();
-  touchY = clientY;
+// A tap that stops a glide shouldn't open the link underneath.
+const onClickCapture = (event) => {
+  if (wasGliding) event.preventDefault();
 };
 
 // Undo the loop jumps so the progress keeps counting across loops.
 const updateLoopProgress = () => {
   if (!loopHeight) return;
 
-  const scroll = smoother ? smoother.scrollTop() : scrollContainer.value.scrollTop;
+  const scroll = smoother ? smoother.scrollTop() : renderedTouchScroll;
   let delta = scroll - previousRenderedScroll;
   previousRenderedScroll = scroll;
   delta -= Math.round(delta / loopHeight) * loopHeight;
@@ -150,9 +155,12 @@ onMounted(() => {
 
   smoother = ScrollSmoother.get();
   if (smoother) window.addEventListener('scroll', wrapScroll, { passive: true });
+  else touchObserver = createTouchObserver();
 
   resizeObserver = new ResizeObserver(() => {
     loopHeight = firstList.offsetHeight;
+    listOffset = firstList.offsetTop;
+    if (!smoother) renderTouchScroll();
   });
   resizeObserver.observe(firstList);
   gsap.ticker.add(updateLoopProgress);
@@ -160,9 +168,10 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   gsap.ticker.remove(updateLoopProgress);
-  clearTimeout(settleTimer);
   window.removeEventListener('scroll', wrapScroll);
   resizeObserver?.disconnect();
+  touchObserver?.kill();
+  glide?.kill();
   smoother = undefined;
 });
 
@@ -174,30 +183,34 @@ usePageColor(() => page.color);
     <div
       ref="scrollContainer"
       :data-project-scroller="page.path"
-      class="fixed inset-0 p-contain overflow-y-auto overflow-x-hidden no-scrollbar"
-      @scroll.passive="wrapScroll"
+      class="fixed inset-0 p-contain overflow-x-hidden no-scrollbar"
+      :class="{
+        'overflow-y-auto': !isTouchDevice,
+        'overflow-y-hidden touch-pinch-zoom': isTouchDevice,
+      }"
       @wheel.passive="onWheel"
-      @touchstart.passive="onTouchStart"
-      @touchmove.passive="onTouchMove"
-      @touchend.passive="onTouchEnd"
-      @touchcancel.passive="onTouchEnd"
+      @click.capture="onClickCapture"
     >
       <div ref="smoothContent" class="lg:main-grid">
         <div class="pt-[calc(3vw+6rem)] col-start-2" data-project-scroll-content>
           <h1 class="sr-only">{{ page.title }}</h1>
 
           <ul
-            v-for="copy in loopCopies"
+            v-for="copy in LOOP_COPIES"
             :key="copy"
             ref="lists"
             :aria-hidden="copy !== MAIN_COPY || undefined"
           >
             <li v-for="(item, index) in page.links" :key="item.url">
               <div
-                class="a-ti [transform:translateX(32px)] blur-md"
-                :style="{
-                  animationDelay: `${100 + ((copy - 1) * page.links.length + index) * 100}ms`,
+                :class="{
+                  'a-ti [transform:translateX(32px)] blur-sm': copy <= LAST_ANIMATED_COPY,
                 }"
+                :style="
+                  copy <= LAST_ANIMATED_COPY && {
+                    animationDelay: `${50 + ((copy - 1) * page.links.length + index) * 80}ms`,
+                  }
+                "
               >
                 <a
                   :href="item.url"
