@@ -1,20 +1,10 @@
 <script setup>
 import { gsap } from 'gsap';
-import { Observer } from 'gsap/Observer';
 import { ScrollSmoother } from 'gsap/ScrollSmoother';
 
 const LOOP_COPIES = 3;
 const MAIN_COPY = 1;
-// Animating copies further down flashes on iOS when they're scrolled into view.
 const LAST_ANIMATED_COPY = MAIN_COPY + 1;
-// Seconds, matching the iOS scroll deceleration rate (0.998 per ms).
-const GLIDE_TIME_CONSTANT = 0.5;
-// Over this duration expo.out starts at exactly the release velocity.
-const GLIDE_DURATION = GLIDE_TIME_CONSTANT * 10 * Math.LN2;
-// Px of glide left below which it's too slow to see, so taps go through to links.
-const MIN_GLIDE_DISTANCE = 20;
-// Px of finger movement iOS still treats as a tap (Observer's own threshold is only 3px).
-const TAP_SLOP = 12;
 
 const page = await queryCollection('pages').path('/fun').first();
 const hostElement = ref(null);
@@ -22,26 +12,17 @@ const scrollContainer = ref(null);
 const smoothContent = ref(null);
 const lists = ref([]);
 let loopHeight = 0;
-let listOffset = 0;
 let lastScroll = 0;
 let smoother;
 let resizeObserver;
 
-/* iOS can't reliably jump scrollTop during native scrolling, so touch
-   devices move the content themselves. */
-const touchScroll = { value: 0 };
-let renderedTouchScroll = 0;
-let hasLooped = false;
-let wasGliding = false;
-let touchObserver;
-let glide;
-let glideTarget = 0;
-
+// Touch devices scroll natively through a single copy, without looping.
 const { isTouchDevice } = useTouchDevice();
+const listCopies = isTouchDevice.value ? 1 : LOOP_COPIES;
 
 // 0–1 draws the oscilloscope wave in, 1–2 draws it out.
 const loopProgress = ref(0);
-provide('scrollLoopProgress', loopProgress);
+if (!isTouchDevice.value) provide('scrollLoopProgress', loopProgress);
 let previousRenderedScroll = 0;
 let unwrappedScroll = 0;
 
@@ -101,59 +82,11 @@ const onWheel = (event) => {
   if (smoother && event.deltaY < 0) loopUpwards();
 };
 
-// Rests at the top on entry, and wraps through the copies once moved away from it.
-const renderTouchScroll = () => {
-  if (!loopHeight) return;
-
-  const scroll = touchScroll.value;
-  if (scroll < 0 || scroll > listOffset) hasLooped = true;
-
-  renderedTouchScroll = hasLooped
-    ? listOffset + gsap.utils.wrap(0, loopHeight, scroll - listOffset)
-    : scroll;
-  gsap.set(smoothContent.value, { y: -renderedTouchScroll });
-};
-
-const createTouchObserver = () =>
-  Observer.create({
-    target: scrollContainer.value,
-    type: 'touch,wheel',
-    wheelSpeed: -1,
-    onPress: () => {
-      wasGliding =
-        Boolean(glide?.isActive()) &&
-        Math.abs(glideTarget - touchScroll.value) > MIN_GLIDE_DISTANCE;
-      glide?.kill();
-    },
-    onWheel: () => glide?.kill(),
-    onChangeY: ({ deltaY }) => {
-      touchScroll.value -= deltaY;
-      renderTouchScroll();
-    },
-    // Taps still fire a click, so they mustn't start a glide that blocks the next tap.
-    onRelease: ({ velocityY, y, startY }) => {
-      if (Math.abs(y - startY) < TAP_SLOP) return;
-
-      glideTarget = touchScroll.value - velocityY * GLIDE_TIME_CONSTANT;
-      glide = gsap.to(touchScroll, {
-        value: glideTarget,
-        duration: GLIDE_DURATION,
-        ease: 'expo.out',
-        onUpdate: renderTouchScroll,
-      });
-    },
-  });
-
-// A tap that stops a glide shouldn't open the link underneath.
-const onClickCapture = (event) => {
-  if (wasGliding) event.preventDefault();
-};
-
 // Undo the loop jumps so the progress keeps counting across loops.
 const updateLoopProgress = () => {
   if (!loopHeight) return;
 
-  const scroll = smoother ? smoother.scrollTop() : renderedTouchScroll;
+  const scroll = smoother.scrollTop();
   let delta = scroll - previousRenderedScroll;
   previousRenderedScroll = scroll;
   delta -= Math.round(delta / loopHeight) * loopHeight;
@@ -164,16 +97,13 @@ const updateLoopProgress = () => {
 
 onMounted(() => {
   const [firstList] = lists.value;
-  if (!firstList) return;
-
   smoother = ScrollSmoother.get();
-  if (smoother) window.addEventListener('scroll', wrapScroll, { passive: true });
-  else touchObserver = createTouchObserver();
+  if (!firstList || !smoother) return;
+
+  window.addEventListener('scroll', wrapScroll, { passive: true });
 
   resizeObserver = new ResizeObserver(() => {
     loopHeight = firstList.offsetHeight;
-    listOffset = firstList.offsetTop;
-    if (!smoother) renderTouchScroll();
   });
   resizeObserver.observe(firstList);
   gsap.ticker.add(updateLoopProgress);
@@ -183,8 +113,6 @@ onBeforeUnmount(() => {
   gsap.ticker.remove(updateLoopProgress);
   window.removeEventListener('scroll', wrapScroll);
   resizeObserver?.disconnect();
-  touchObserver?.kill();
-  glide?.kill();
   smoother = undefined;
 });
 
@@ -196,20 +124,15 @@ usePageColor(() => page.color);
     <div
       ref="scrollContainer"
       :data-project-scroller="page.path"
-      class="fixed inset-0 p-contain overflow-x-hidden no-scrollbar"
-      :class="{
-        'overflow-y-auto': !isTouchDevice,
-        'overflow-y-hidden touch-pinch-zoom': isTouchDevice,
-      }"
+      class="fixed inset-0 p-contain overflow-x-hidden overflow-y-auto no-scrollbar"
       @wheel.passive="onWheel"
-      @click.capture="onClickCapture"
     >
       <div ref="smoothContent" class="lg:main-grid">
-        <div class="pt-[calc(3vw+6rem)] col-start-2" data-project-scroll-content>
+        <div class="pt-[calc(3vw+6rem)] pb-16 col-start-2" data-project-scroll-content>
           <h1 class="sr-only">{{ page.title }}</h1>
 
           <ul
-            v-for="copy in LOOP_COPIES"
+            v-for="copy in listCopies"
             :key="copy"
             ref="lists"
             :aria-hidden="copy !== MAIN_COPY || undefined"
