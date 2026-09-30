@@ -178,7 +178,7 @@ usePageColor(() => page.color);
                   rel="noopener noreferrer"
                   class="group inline-block py-6 lg:py-10"
                   ><div
-                    class="text-[calc(3vw+1.5rem)] font-bold leading-none transition duration-700 group-hover:text-fg-secondary"
+                    class="text-[calc(2.8vw+1.5rem)] font-bold leading-none transition duration-700 group-hover:text-fg-secondary"
                   >
                     {{ item.label }}
                   </div>
