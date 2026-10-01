@@ -164,7 +164,7 @@ usePageColor(() => page.color);
 
           <div class="a-ti [transform:translateX(32px)] blur-sm">
             <p
-              class="pb-12 text-fg-secondary text-lg md:text-2xl text-pretty max-w-[48ch]"
+              class="pb-12 text-fg-secondary text-lg md:text-2xl text-pretty max-w-[52ch]"
             >
               {{ page.meta.descriptionLong }}
             </p>
