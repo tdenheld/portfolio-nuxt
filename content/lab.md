@@ -1,7 +1,7 @@
 ---
 title: Side Projects & Experiments
 description: A collection of Tibor's side projects and experimental work in design and technology.
-descriptionLong: I like to experiment by designing and coding websites. Things in life I come across where I feel there's room for a simpler solution, and that allow me to challenge myself. Below you'll find a list of side projects, both commissioned and personal.
+descriptionLong: I like to experiment by designing and coding websites and apps. Things in life I come across where I feel there's room for a simpler solution, that allow me to challenge myself. Below you'll find a list of side projects, both commissioned and personal.
 
 links:
   - label: Fluitje
