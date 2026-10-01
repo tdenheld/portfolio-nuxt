@@ -6,6 +6,6 @@ nav:
     url: /about
   - name: Work
     url: /
-  - name: Fun
-    url: /fun
+  - name: Lab
+    url: /lab
 ---

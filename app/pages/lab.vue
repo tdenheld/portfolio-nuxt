@@ -9,7 +9,7 @@ const LAST_ANIMATED_COPY = MAIN_COPY + 1;
 // Stay below the sentinel's resting top (--spacing-contain, 48px at lg) or it hides on entry.
 const NAV_TIME_FADE_OFFSET = 40;
 
-const page = await queryCollection('pages').path('/fun').first();
+const page = await queryCollection('pages').path('/lab').first();
 const hostElement = ref(null);
 const scrollContainer = ref(null);
 const smoothContent = ref(null);
@@ -142,6 +142,8 @@ usePageColor(() => page.color);
 
 <template>
   <div ref="hostElement">
+    <nx-meta-tags :title="page.title" :description="page.description"></nx-meta-tags>
+
     <div
       ref="scrollContainer"
       :data-project-scroller="page.path"
@@ -149,9 +151,24 @@ usePageColor(() => page.color);
       @wheel.passive="onWheel"
     >
       <div ref="smoothContent" class="lg:main-grid">
-        <div class="relative pt-[calc(3vw+6rem)] pb-16 col-start-2" data-project-scroll-content>
-          <div ref="topSentinel" class="absolute inset-x-0 top-0 h-1" aria-hidden="true"></div>
+        <div
+          class="relative pt-[calc(3vw+6rem)] pb-16 col-start-2"
+          data-project-scroll-content
+        >
+          <div
+            ref="topSentinel"
+            class="absolute inset-x-0 top-0 h-1"
+            aria-hidden="true"
+          ></div>
           <h1 class="sr-only">{{ page.title }}</h1>
+
+          <div class="a-ti [transform:translateX(32px)] blur-sm">
+            <p
+              class="pb-12 text-fg-secondary text-lg md:text-2xl text-pretty max-w-[48ch]"
+            >
+              {{ page.meta.descriptionLong }}
+            </p>
+          </div>
 
           <ul
             v-for="copy in listCopies"
@@ -167,7 +184,7 @@ usePageColor(() => page.color);
                 }"
                 :style="
                   copy <= LAST_ANIMATED_COPY && {
-                    animationDelay: `${50 + ((copy - 1) * page.links.length + index) * 80}ms`,
+                    animationDelay: `${120 + ((copy - 1) * page.links.length + index) * 100}ms`,
                   }
                 "
               >
@@ -201,6 +218,7 @@ usePageColor(() => page.color);
       label="Side Projects & Experiments"
       hide-index
       pdp
+      aria-hidden="true"
     ></nx-counter>
   </div>
 </template>

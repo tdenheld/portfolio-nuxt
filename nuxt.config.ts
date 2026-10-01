@@ -30,7 +30,7 @@ export default defineNuxtConfig({
         {
           name: 'description',
           content:
-            'Tibor crafts scalable and accessible experiences. He specializes in design systems, product design and engineering.',
+            'Tibor crafts scalable and accessible experiences. He specializes in agentic design systems, product design and engineering.',
         },
       ],
 

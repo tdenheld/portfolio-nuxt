@@ -1,6 +1,6 @@
 ---
 title: About
-description: Tibor crafts scalable and accessible experiences, specializing in agentic design systems, product design, and engineering. He helps teams and organizations ship consistent products faster while maintaining brand integrity.
+description: Hi! I'm Tibor den Held and I craft scalable and accessible experiences, specializing in agentic design systems, product design, and engineering. I help teams and organizations ship consistent products faster while maintaining brand integrity.
 image: https://res.cloudinary.com/tibor/image/upload/v1760352927/Screenshot_2025-10-13_at_12.54.28_vjkuyy.png
 
 data:
