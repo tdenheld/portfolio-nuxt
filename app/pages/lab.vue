@@ -162,7 +162,7 @@ usePageColor(() => page.color);
           ></div>
           <h1 class="sr-only">{{ page.title }}</h1>
 
-          <div class="a-ti [transform:translateX(32px)] blur-sm">
+          <div class="a-fi blur-lg">
             <p
               class="pb-12 text-fg-secondary text-lg md:text-2xl text-pretty max-w-[52ch]"
             >
@@ -184,7 +184,7 @@ usePageColor(() => page.color);
                 }"
                 :style="
                   copy <= LAST_ANIMATED_COPY && {
-                    animationDelay: `${120 + ((copy - 1) * page.links.length + index) * 100}ms`,
+                    animationDelay: `${200 + ((copy - 1) * page.links.length + index) * 100}ms`,
                   }
                 "
               >
