@@ -40,7 +40,4 @@ links:
   - label: Lost Controller
     url: https://lost-controller.netlify.app
     description: Album cover generator for Freek Fabricius
-  - label: 90s Portfolio
-    url: https://tibor-portfolio-90s.netlify.app
-    description: Back to the beginnings of the web
 ---
