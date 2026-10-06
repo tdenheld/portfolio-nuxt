@@ -36,7 +36,7 @@ useIntersectionObserver({
           <span
             v-for="(char, index) in 'Next'.split('')"
             :key="index"
-            class="inline-block reveal reveal--stag blur-md last:ml-[0.04em]"
+            class="inline-block reveal reveal--stag blur-md p-[0.1em] -m-[0.1em] last:-ml-[0.06em]"
             :class="{ 'is-active': isActive }"
             >{{ char }}</span
           >
